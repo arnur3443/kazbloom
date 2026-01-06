@@ -3,132 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KazBloom — Digital Heritage Archive</title>
+    <title>KazBloom — Digital Heritage Project</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
         :root {
-            --kz-blue: #00afca;
-            --kz-gold: #fec100;
-            --en-blue: #00247d;
-            --bg: #fdfdfd;
+            --accent: #00d2ff;
+            --gold: #fec100;
+            --dark: #0a0e17;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
-        body { font-family: 'Georgia', serif; background: var(--bg); margin: 0; color: #222; scroll-behavior: smooth; }
-        header { background: var(--en-blue); color: white; padding: 60px 20px; text-align: center; border-bottom: 8px solid var(--kz-gold); }
-        .authors { font-size: 1.2rem; margin-top: 15px; }
-        .authors span { color: var(--kz-gold); font-weight: bold; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
-
-        /* AI Search Section */
-        .ai-engine { 
-            background: #111; color: white; padding: 40px; border-radius: 20px; 
-            margin-bottom: 60px; border: 2px solid var(--kz-gold); position: sticky; top: 20px; z-index: 100;
+        body { 
+            margin: 0; font-family: 'Montserrat', sans-serif; 
+            background-color: var(--dark); color: white; scroll-behavior: smooth;
         }
-        #ai-display { min-height: 100px; border-left: 4px solid var(--kz-gold); padding-left: 20px; margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; }
-        .ai-form { display: flex; gap: 10px; }
-        input { flex: 1; padding: 15px; border-radius: 8px; border: none; font-size: 1rem; }
-        button { padding: 15px 30px; background: var(--kz-gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: var(--en-blue); }
 
-        /* FAQ Section */
-        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .faq-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--kz-blue); }
-        .faq-card h3 { color: var(--en-blue); font-size: 1.1rem; margin-top: 0; }
-        .faq-card p { font-size: 0.95rem; color: #444; }
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(10,14,23,0.3), var(--dark)),
+                        url('https://images.unsplash.com/photo-1516594798947-e65505dbb29d?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
 
-        h2.section-title { text-align: center; color: var(--en-blue); margin: 50px 0 30px; text-transform: uppercase; letter-spacing: 2px; }
+        .hero h1 { 
+            font-size: 6rem; margin: 0; font-family: 'Playfair Display', serif; 
+            background: linear-gradient(to right, var(--accent), var(--gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
 
-        footer { text-align: center; padding: 40px; background: #eee; margin-top: 60px; font-size: 0.9rem; }
+        .est-box { 
+            border: 2px solid var(--gold); padding: 5px 20px; 
+            border-radius: 50px; font-size: 0.9rem; margin-bottom: 20px; color: var(--gold);
+        }
+
+        /* Figures Section */
+        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 3rem; color: var(--accent); }
+
+        .figures-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; 
+        }
+
+        .figure-card {
+            background: var(--glass); backdrop-filter: blur(10px);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden; transition: 0.4s;
+        }
+
+        .figure-card:hover { transform: translateY(-15px); border-color: var(--accent); box-shadow: 0 10px 40px rgba(0, 210, 255, 0.2); }
+
+        .figure-img {
+            height: 250px; width: 100%; background-color: #222;
+            background-size: cover; background-position: center;
+            /* Placeholder gradient for icons/images */
+            background-image: linear-gradient(45deg, #1a1a1a, #333);
+        }
+
+        .figure-info { padding: 30px; }
+        .figure-info h3 { margin: 0; color: var(--gold); font-size: 1.5rem; }
+        .figure-years { font-size: 0.8rem; color: var(--accent); letter-spacing: 2px; }
+
+        .lang-split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .lang-split div { line-height: 1.5; opacity: 0.9; }
+        .lang-tag { color: var(--gold); font-weight: bold; display: block; margin-bottom: 5px; }
+
+        /* FAQ Styling */
+        .faq-box { 
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin-bottom: 15px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .faq-box:hover { background: rgba(255,255,255,0.08); }
+        .faq-question { font-weight: bold; color: var(--accent); font-size: 1.1rem; }
+        .faq-answer { display: none; margin-top: 15px; color: #ccc; padding-top: 10px; border-top: 1px dashed #444; }
+
+        footer { text-align: center; padding: 60px; border-top: 1px solid var(--glass); margin-top: 100px; }
     </style>
 </head>
 <body>
 
-<header>
-    <div style="font-size: 0.8rem; letter-spacing: 2px;">ESTABLISHED 2025</div>
-    <h1>KAZBLOOM DIGITAL ARCHIVE</h1>
-    <div class="authors">Created by: <span>Khasenov Arnur</span> & <span>Adibay Aruzhan</span></div>
-</header>
+<div class="hero">
+    <div class="est-box">ESTABLISHED 2025</div>
+    <h1>KazBloom</h1>
+    <p style="font-size: 1.5rem; letter-spacing: 5px;">DIGITAL PROJECT</p>
+    <div style="margin-top: 30px;">
+        <span style="color: var(--gold);">By</span> Khasenov Arnur & Adibay Aruzhan
+    </div>
+</div>
 
 <div class="container">
-    <section class="ai-engine">
-        <h2 style="color: var(--kz-gold); margin-top: 0;">KazBloom Encyclopedia AI</h2>
-        <div id="ai-display">Search for any figure (Abai, Ablai Khan, Alikhan, Makhambet, etc.)...</div>
-        <div class="ai-form">
-            <input type="text" id="ai-input" placeholder="Enter name (e.g. Abai, Shakarim, Mustafa)...">
-            <button onclick="askAI()">Search / Іздеу</button>
-        </div>
-    </section>
+    <div class="section-header">
+        <h2>Great Figures</h2>
+        <p>The architects of Kazakh literature and statehood</p>
+    </div>
 
-    <h2 class="section-title">Cultural FAQ / Жиі қойылатын сұрақтар</h2>
-    <div class="faq-grid" id="faq-container">
+    <div class="figures-grid" id="figures-grid">
+        </div>
+
+    <div class="section-header" style="margin-top: 120px;">
+        <h2>Common Questions</h2>
+        <p>Exploring the roots of Kazakh Culture</p>
+    </div>
+
+    <div id="faq-list">
         </div>
 </div>
 
 <footer>
-    © 2025 KazBloom Archive | Arnur & Aruzhan
+    <h2 style="font-family: 'Playfair Display', serif;">KazBloom</h2>
+    <p>© 2025 Digital Project | Khasenov Arnur & Adibay Aruzhan</p>
 </footer>
 
 <script>
-    const archive = {
-        "abai": {
-            kz: "Абай Құнанбайұлы (1845–1904) — қазақтың ұлы ақыны, ойшылы, ағартушысы. «Қара сөздері» — философиялық терең еңбек. Қазақ жазба әдебиетінің негізін салушы.",
-            en: "Abai Qunanbaiuly (1845–1904) — The greatest Kazakh poet, philosopher, and educator. Founder of modern Kazakh literature. Known for 'Words of Edification'."
+    const data = [
+        {
+            name: "ABAI QUNANBAIULY", years: "1845–1904",
+            kz: "Қазақтың ұлы ақыны, ойшылы. Қазақ жазба әдебиетінің негізін қалаушы. «Қара сөздері» — философиялық терең еңбек.",
+            en: "Greatest Kazakh poet and philosopher. Founder of modern written literature. His 'Words of Edification' are profound ethical works."
         },
-        "shakarim": {
-            kz: "Шәкәрім Құдайбердіұлы (1858–1931) — ақын, философ, тарихшы. Абайдың шәкірті. «Үш анық» еңбегінде адам өмірінің мәнін түсіндірді.",
-            en: "Shakarim Qudayberdiuly (1858–1931) — Poet, philosopher, and historian. Disciple of Abai. Explored the meaning of life in his work 'Three Truths'."
+        {
+            name: "ABLAI KHAN", years: "1711–1781",
+            kz: "Ұлы мемлекет қайраткері, қолбасшы. Жоңғар шапқыншылығы кезінде елді біріктіріп, қазақ жерін сақтап қалды.",
+            en: "A great statesman and military leader who united the Kazakh people and preserved the land during the Jungar invasions."
         },
-        "akhmet": {
-            kz: "Ахмет Байтұрсынұлы (1872–1937) — ұлт ұстазы, лингвист, Алаш көсемі. Қазақ әліпбиін реформалап, тіл білімінің негізін қалады.",
-            en: "Akhmet Baitursynuly (1872–1937) — National teacher, linguist, and leader of Alash. Reformed the Kazakh alphabet and established Kazakh linguistics."
+        {
+            name: "AKHMET BAITURSYNULY", years: "1872–1937",
+            kz: "Ұлт ұстазы, лингвист, Алаш жетекшісі. Қазақ тіл білімінің негізін салып, әліпбиді реформалады.",
+            en: "The nation's teacher, linguist, and Alash leader. He reformed the alphabet and laid the foundation of Kazakh linguistics."
         },
-        "alikhan": {
-            kz: "Әлихан Бөкейханов (1866–1937) — Алаш партиясының көсемі, Алаш Орда үкіметінің төрағасы. Қазақ автономиясы үшін күрескен мемлекет қайраткері.",
-            en: "Alikhan Bokeikhanov (1866–1937) — Leader of the Alash movement and first Prime Minister of Alash Autonomy. Statesman and scholar."
-        },
-        "ablai": {
-            kz: "Абылай хан (1711–1781) — ұлы қолбасшы, қазақ жерін біріктіруші. Ресей мен Қытай арасында көреген дипломатия жүргізді.",
-            en: "Ablai Khan (1711–1781) — Great military leader who united Kazakh lands. A visionary diplomat between Russia and China."
-        },
-        "kenesary": {
-            kz: "Кенесары Қасымұлы (1802–1847) — қазақтың соңғы ханы, ұлт-азаттық қозғалыстың жетекшісі. Мемлекеттілікті қалпына келтіруге ұмтылды.",
-            en: "Kenesary Kasymuly (1802–1847) — The last Khan of the Kazakhs. Leader of the national liberation movement against colonial rule."
+        {
+            name: "MAGZHAN ZHUMABAEV", years: "1893–1938",
+            kz: "Романтик ақын, қазақ поэзиясын жаңа деңгейге көтерген тұлға. Түркі әлемінің бірлігін жырлады.",
+            en: "Romantic poet who elevated Kazakh poetry to a new level. He sang of the unity of the Turkic world."
         }
-        // ... Басқа тұлғаларды осы форматта қосуға болады
-    };
-
-    const faqs = [
-        { q: "Қазақ мәдениеті дегеніміз не?", a: "Қазақ халқының ғасырлар бойы қалыптасқан тұрмыс-тіршілігі, салт-дәстүрі, тілі мен өнерінің жиынтығы." },
-        { q: "Домбыраның маңызы қандай?", a: "Домбыра — ұлттық аспап, рухани символ. Күй — сөзсіз айтылған тарих деп есептеледі." },
-        { q: "Неге қазақтар қонақжай?", a: "Көшпелі өмірде қонақ — Құдайдың қонағы саналған. Бұл өзара көмек пен сыйластықтың белгісі." }
+        // Мұнда қалған барлық 20+ тұлғаны дәл осылай қосуға болады
     ];
 
-    // FAQ-ты жүктеу
-    const faqContainer = document.getElementById('faq-container');
-    faqs.forEach(item => {
-        faqContainer.innerHTML += `
-            <div class="faq-card">
-                <h3>${item.q}</h3>
-                <p>${item.a}</p>
+    const faqs = [
+        { q: "Қазақ мәдениеті дегеніміз не?", a: "Қазақ халқының ғасырлар бойы қалыптасқан тұрмыс-тіршілігі, салт-дәстүрі, тілі, діні мен өнерінің жиынтығы." },
+        { q: "Неге қазақтар қонақжай?", a: "Көшпелі қоғамда қонақ — «Құдайдың қонағы» саналған. Бұл өміршеңдік пен адамгершілік белгісі." },
+        { q: "Домбыраның маңызы қандай?", a: "Домбыра — ұлттық аспап, рухани символ. Күй — сөзсіз айтылған тарих деп есептеледі." }
+    ];
+
+    // Карточкаларды шығару
+    const grid = document.getElementById('figures-grid');
+    data.forEach(f => {
+        grid.innerHTML += `
+            <div class="figure-card">
+                <div class="figure-img"></div>
+                <div class="figure-info">
+                    <div class="figure-years">${f.years}</div>
+                    <h3>${f.name}</h3>
+                    <div class="lang-split">
+                        <div><span class="lang-tag">KZ</span>${f.kz}</div>
+                        <div><span class="lang-tag">EN</span>${f.en}</div>
+                    </div>
+                </div>
             </div>
         `;
     });
 
-    function askAI() {
-        const query = document.getElementById('ai-input').value.toLowerCase();
-        const display = document.getElementById('ai-display');
-        let found = false;
+    // FAQ шығару
+    const faqList = document.getElementById('faq-list');
+    faqs.forEach((faq, i) => {
+        faqList.innerHTML += `
+            <div class="faq-box" onclick="toggleFaq(${i})">
+                <div class="faq-question">${faq.q}</div>
+                <div class="faq-answer" id="ans-${i}">${faq.a}</div>
+            </div>
+        `;
+    });
 
-        for (let key in archive) {
-            if (query.includes(key)) {
-                display.innerHTML = `<strong>Қазақша:</strong> ${archive[key].kz}<br><br><strong>English:</strong> ${archive[key].en}`;
-                found = true; break;
-            }
-        }
-        if (!found) display.innerHTML = "Data not found. Try names like: Abai, Ablai, Alikhan, Akhmet...";
+    function toggleFaq(i) {
+        const el = document.getElementById('ans-'+i);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 </script>
 
 </body>
 </html>
-
-
