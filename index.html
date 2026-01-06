@@ -11,140 +11,132 @@
             --en-blue: #00247d;
             --bg: #f9fbfd;
         }
-
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #333; }
-        
-        nav { background: var(--en-blue); color: white; padding: 20px; text-align: center; font-weight: bold; border-bottom: 4px solid var(--kz-gold); sticky: top; }
-
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #333; scroll-behavior: smooth; }
+        nav { background: var(--en-blue); color: white; padding: 20px; text-align: center; font-weight: bold; border-bottom: 4px solid var(--kz-gold); position: sticky; top: 0; z-index: 100; }
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-        .hero { text-align: center; padding: 50px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 50px; }
-        .hero h1 { color: var(--en-blue); margin: 0; font-size: 2.5rem; }
-        .hero p { color: var(--kz-blue); font-size: 1.2rem; margin-top: 10px; }
-
-        /* Сетка карточек */
+        /* Сетка карточек с фото */
         .stories-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 25px; 
         }
-
         .card { 
             background: white; 
-            padding: 25px; 
             border-radius: 12px; 
-            border-top: 5px solid var(--kz-blue);
+            overflow: hidden;
             transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top-color: var(--kz-gold); }
-        .card h3 { color: var(--en-blue); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .card p { font-size: 0.95rem; line-height: 1.5; }
-        .lang-label { font-weight: bold; color: var(--kz-blue); font-size: 0.8rem; text-transform: uppercase; }
+        .card:hover { transform: translateY(-10px); }
+        .card-img {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            object-fit: cover; /* Чтобы фото не растягивалось */
+        }
+        .card-content { padding: 20px; }
+        .card h3 { color: var(--en-blue); margin: 0 0 10px 0; font-size: 1.3rem; }
+        .lang-label { font-weight: bold; color: var(--kz-blue); font-size: 0.75rem; text-transform: uppercase; display: block; margin-top: 10px; }
 
         /* AI Section */
-        .ai-section { background: var(--en-blue); color: white; padding: 40px; border-radius: 20px; margin-top: 50px; text-align: center; }
-        #ai-display { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; min-height: 50px; }
-        input { padding: 12px; width: 60%; border-radius: 5px; border: none; outline: none; }
-        button { padding: 12px 25px; background: var(--kz-gold); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: var(--en-blue); }
+        .ai-section { background: var(--en-blue); color: white; padding: 40px; border-radius: 20px; margin-top: 50px; text-align: center; border: 3px solid var(--kz-gold); }
+        #ai-display { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; min-height: 80px; font-size: 1.1rem; border-left: 5px solid var(--kz-gold); }
+        .ai-controls input { padding: 15px; width: 60%; border-radius: 5px; border: none; font-size: 1rem; }
+        .ai-controls button { padding: 15px 30px; background: var(--kz-gold); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: var(--en-blue); margin-left: 10px; }
     </style>
 </head>
 <body>
 
-<nav>KAZBLOOM — EDUCATION PORTAL</nav>
+<nav>KAZBLOOM — DIGITAL GUIDE</nav>
 
 <div class="container">
-    <header class="hero">
-        <h1>Great Personalities of the Steppe</h1>
-        <p>Ұлы Даланың ұлы есімдері</p>
-    </header>
-
     <div class="stories-grid">
         <div class="card">
-            <h3>Ahmet Baitursynuly</h3>
-            <p><span class="lang-label">EN:</span> Teacher of the Nation, founder of Kazakh linguistics and alphabet.</p>
-            <p><span class="lang-label">KZ:</span> Ұлт ұстазы, қазақ тіл білімі мен әліпбиінің негізін салушы.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Ahmet_Baitursynov.jpg" alt="Ahmet" class="card-img">
+            <div class="card-content">
+                <h3>Ahmet Baitursynuly</h3>
+                <span class="lang-label">English</span>
+                <p>Reformer of the Kazakh script and educator of the nation.</p>
+                <span class="lang-label">Қазақша</span>
+                <p>Қазақ жазуының реформаторы, ұлт ұстазы.</p>
+            </div>
         </div>
 
         <div class="card">
-            <h3>Alikhan Bokeikhanov</h3>
-            <p><span class="lang-label">EN:</span> Leader of Alash Orda, first Prime Minister of the Alash Autonomy.</p>
-            <p><span class="lang-label">KZ:</span> Алаш Орда жетекшісі, Алаш автономиясының алғашқы төрағасы.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Alikhan_Bukeikhanov.jpg" alt="Alikhan" class="card-img">
+            <div class="card-content">
+                <h3>Alikhan Bokeikhanov</h3>
+                <span class="lang-label">English</span>
+                <p>Statesman and leader of the Alash movement.</p>
+                <span class="lang-label">Қазақша</span>
+                <p>Мемлекет қайраткері, Алаш қозғалысының жетекшісі.</p>
+            </div>
         </div>
 
         <div class="card">
-            <h3>Ybyrai Altynsarin</h3>
-            <p><span class="lang-label">EN:</span> Great educator, opened the first Kazakh schools for children.</p>
-            <p><span class="lang-label">KZ:</span> Ұлы ағартушы, қазақ балаларына арналған алғашқы мектептерді ашушы.</p>
-        </div>
-
-        <div class="card">
-            <h3>Magzhan Zhumabayev</h3>
-            <p><span class="lang-label">EN:</span> Master of poetic word, the "Kazakh Shakespeare" of the 20th century.</p>
-            <p><span class="lang-label">KZ:</span> Поэзия шебері, қазақ әдебиетінің жарық жұлдызы.</p>
-        </div>
-
-        <div class="card">
-            <h3>Mukhtar Auezov</h3>
-            <p><span class="lang-label">EN:</span> Author of the epic "The Path of Abai", world-renowned writer.</p>
-            <p><span class="lang-label">KZ:</span> «Абай жолы» эпопеясының авторы, әлемге әйгілі жазушы.</p>
-        </div>
-
-        <div class="card">
-            <h3>Muqagali Maqatayev</h3>
-            <p><span class="lang-label">EN:</span> A poet whose soul belonged to the mountains and the people.</p>
-            <p><span class="lang-label">KZ:</span> Жүрегі тау мен халыққа тиесілі ақиық ақын.</p>
-        </div>
-
-        <div class="card">
-            <h3>Shakarim Kudayberdiuly</h3>
-            <p><span class="lang-label">EN:</span> Philosopher, poet and student of Abai's traditions.</p>
-            <p><span class="lang-label">KZ:</span> Философ, ақын және Абай мектебінің лайықты жалғастырушысы.</p>
-        </div>
-
-        <div class="card">
-            <h3>Saken Seifullin</h3>
-            <p><span class="lang-label">EN:</span> Founder of modern Kazakh literature and public figure.</p>
-            <p><span class="lang-label">KZ:</span> Қазақ әдебиетінің негізін салушылардың бірі және мемлекет қайраткері.</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Magzhan_Zhumabayev.jpg" alt="Magzhan" class="card-img">
+            <div class="card-content">
+                <h3>Magzhan Zhumabayev</h3>
+                <span class="lang-label">English</span>
+                <p>Outstanding poet and pioneer of modern Kazakh psychology.</p>
+                <span class="lang-label">Қазақша</span>
+                <p>Аса көрнекті ақын, қазақ педагогикасының негізін салушы.</p>
+            </div>
         </div>
     </div>
 
     <section class="ai-section">
-        <h2>Ask Kazbloom AI / Сұрақ қою</h2>
-        <div id="ai-display">Ask me about any person from the list above...</div>
-        <input type="text" id="ai-input" placeholder="Type name (e.g. Saken, Alikhan, Mukhtar)...">
-        <button onclick="askAI()">Ask AI</button>
+        <h2>Kazbloom AI Assistant</h2>
+        <div id="ai-display">I am ready to tell you about Kazakh culture and history. Ask me anything!</div>
+        <div class="ai-controls">
+            <input type="text" id="ai-input" placeholder="Enter name (e.g. Ahmet, Magzhan, Alikhan)...">
+            <button onclick="askAI()">Search / Іздеу</button>
+        </div>
     </section>
 </div>
 
 <script>
+    const database = {
+        "ahmet": {
+            en: "Ahmet Baitursynuly (1872–1937) was a politician, poet, and teacher. He created the first Kazakh alphabet based on Arabic script.",
+            kz: "Ахмет Байтұрсынұлы (1872–1937) — мемлекет қайраткері, ақын, ұлт ұстазы. Ол қазақ тілінің алғашқы әліпбиін жасады."
+        },
+        "alikhan": {
+            en: "Alikhan Bokeikhanov (1866–1937) was the leader of the Alash party. He fought for the autonomy and independence of Kazakhstan.",
+            kz: "Әлихан Бөкейханов (1866–1937) — Алаш партиясының төрағасы. Ол Қазақстанның автономиясы мен тәуелсіздігі үшін күресті."
+        },
+        "magzhan": {
+            en: "Magzhan Zhumabayev is the star of Kazakh poetry. His works are filled with Turkic spirit and deep lyricism.",
+            kz: "Мағжан Жұмабаев — қазақ поэзиясының жарық жұлдызы. Оның шығармалары түркі рухына толы."
+        },
+        "culture": {
+            en: "Kazakh culture is built on nomadism, hospitality (Qonaqjaylylyq), and deep respect for elders.",
+            kz: "Қазақ мәдениеті көшпенділікке, қонақжайлылыққа және үлкенге құрмет көрсетуге негізделген."
+        }
+    };
+
     function askAI() {
         const input = document.getElementById('ai-input').value.toLowerCase();
         const display = document.getElementById('ai-display');
         
-        const database = {
-            "alikhan": "Alikhan Bokeikhanov dedicated his life to national independence. / Әлихан Бөкейханов бүкіл өмірін ұлттық тәуелсіздікке арнады.",
-            "ahmet": "Ahmet Baitursynuly: 'To preserve independence, we must preserve our language.' / Ахмет Байтұрсынұлы: 'Тәуелсіздікті сақтау үшін тілімізді сақтауымыз керек.'",
-            "mukhtar": "Mukhtar Auezov made Abai famous all over the world. / Мұхтар Әуезов Абайды бүкіл әлемге танытты.",
-            "saken": "Saken Seifullin was a great poet and a brave son of the Kazakh people. / Сәкен Сейфуллин — ұлы ақын, қазақ халқының қайсар ұлы.",
-            "ybyrai": "Ybyrai Altynsarin: 'Let's study, children!' / Ыбырай Алтынсарин: 'Кел, балалар, оқылық!'"
-        };
-
-        display.innerHTML = "Searching records...";
+        display.innerHTML = "Accessing records... / Мәліметтерді іздеудемін...";
 
         setTimeout(() => {
             let found = false;
             for (let key in database) {
                 if (input.includes(key)) {
-                    display.innerHTML = "<strong>Result:</strong> " + database[key];
+                    display.innerHTML = `<strong>EN:</strong> ${database[key].en}<br><br><strong>KZ:</strong> ${database[key].kz}`;
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                display.innerHTML = "I am updating my database about this person. Try 'Alikhan' or 'Ahmet'.";
+                display.innerHTML = "I don't have detailed info on this person yet, but I'm learning! / Бұл кісі туралы әлі мәлімет жоқ, бірақ мен ізденіп жатырмын.";
             }
-        }, 600);
+        }, 800);
     }
 </script>
 
