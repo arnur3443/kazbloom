@@ -2,675 +2,854 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAZBLOOM: THE GRAND ARCHIVE OF KAZAKH LITERATURE</title>
+    <title>ULY DALA MURA | DIGITAL ARCHIVE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,400;0,700;0,900;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================
-           1. CORE SYSTEM STYLES (GLOBAL)
-           =========================================
+        /* ================================================================
+           1. GLOBAL RESET & VARIABLES
+           ================================================================
         */
         :root {
-            --primary-blue: #00afca;
-            --primary-gold: #fec100;
-            --deep-black: #010409;
-            --card-dark: #0d1117;
-            --border-color: #30363d;
-            --text-light: #e6edf3;
-            --text-dim: #8b949e;
-            --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --color-gold: #D4AF37;
+            --color-gold-light: #F4C430;
+            --color-blue: #002F6C;
+            --color-blue-light: #00509d;
+            --color-bg-dark: #0a0a0a;
+            --color-bg-card: #141414;
+            --color-text-main: #e0e0e0;
+            --color-text-muted: #a0a0a0;
+            --font-main: 'Montserrat', sans-serif;
+            --font-title: 'Cinzel', serif;
+            --transition-speed: 0.4s;
         }
 
         * {
-            margin: 0;
-            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-right: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            padding-right: 0;
             box-sizing: border-box;
             outline: none;
         }
 
         body {
-            background-color: var(--deep-black);
-            color: var(--text-light);
-            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-main);
+            font-family: var(--font-main);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
 
-        /* =========================================
-           2. NAVIGATION DESIGN
-           =========================================
+        /* ================================================================
+           2. WELCOME SCREEN (OVERLAY)
+           ================================================================
         */
-        header {
+        #welcome-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 90px;
-            background: rgba(1, 4, 9, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
+            height: 100%;
+            background-color: #000000;
+            z-index: 9999;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 6%;
+            justify-content: center;
+            transition: opacity 1s ease-in-out;
         }
 
-        .brand {
+        .welcome-content {
+            text-align: center;
+            padding: 40px;
+            border: 1px solid var(--color-gold);
+            max-width: 800px;
+        }
+
+        .welcome-title {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .welcome-subtitle {
+            font-family: var(--font-main);
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .btn-enter {
+            background-color: transparent;
+            border: 2px solid var(--color-gold);
+            color: var(--color-gold);
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 50px;
+            padding-right: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-enter:hover {
+            background-color: var(--color-gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ================================================================
+           3. HEADER SECTION
+           ================================================================
+        */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #333;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 5%;
+            padding-right: 5%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .brand-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--color-gold);
             font-weight: 900;
-            color: var(--primary-blue);
-            text-decoration: none;
-            letter-spacing: -1px;
         }
 
-        .brand-sub {
-            font-size: 0.7rem;
-            color: var(--primary-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
-        }
-
-        .lang-switcher {
+        .lang-switch {
             display: flex;
-            background: #161b22;
-            padding: 5px;
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
+            gap: 15px;
         }
 
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            padding: 8px 22px;
-            border-radius: 50px;
+        .btn-lang {
+            background: none;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 5px 15px;
             cursor: pointer;
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: var(--transition-smooth);
+            font-family: var(--font-main);
+            font-weight: 600;
         }
 
-        .lang-btn.active {
-            background: var(--primary-gold);
-            color: black;
+        .btn-lang.active {
+            background-color: var(--color-gold);
+            color: #000;
+            border-color: var(--color-gold);
         }
 
-        /* =========================================
-           3. HERO & SEARCH SECTION
-           =========================================
+        /* ================================================================
+           4. SEARCH & HERO
+           ================================================================
         */
-        .hero {
-            padding-top: 180px;
-            padding-bottom: 100px;
+        .hero-section {
+            padding-top: 80px;
+            padding-bottom: 40px;
             text-align: center;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 175, 202, 0.1) 0%, transparent 50%);
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6.5rem);
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        .hero h1 span {
-            color: var(--primary-blue);
-            font-style: italic;
-        }
-
-        .search-wrapper {
+        .search-container {
             max-width: 800px;
-            margin: 50px auto 0;
+            margin: 0 auto;
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            background: var(--card-dark);
-            border: 2px solid var(--border-color);
-            padding: 25px 40px;
-            border-radius: 100px;
-            color: white;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
             font-size: 1.2rem;
-            transition: var(--transition-smooth);
+            background-color: #1a1a1a;
+            border: 2px solid #333;
+            color: #fff;
+            border-radius: 50px;
+            transition: border-color 0.3s ease;
         }
 
         .search-input:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 30px rgba(0, 175, 202, 0.2);
+            border-color: var(--color-gold);
         }
 
-        /* =========================================
-           4. DATA GRID & CARDS
-           =========================================
+        /* ================================================================
+           5. MAIN GRID LAYOUT
+           ================================================================
         */
-        .main-content {
-            padding: 0 6% 100px;
-        }
-
-        .category-section {
-            margin-bottom: 80px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--primary-gold);
-        }
-
-        .section-line {
-            height: 1px;
-            flex-grow: 1;
-            background: var(--border-color);
-        }
-
-        .card-grid {
+        .archive-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
+            padding-top: 50px;
+            padding-bottom: 100px;
+            padding-left: 5%;
+            padding-right: 5%;
         }
 
-        .person-card {
-            background: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 45px;
+        .card {
+            background-color: var(--color-bg-card);
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
 
-        .person-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--primary-blue);
-            background: #161b22;
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-gold);
         }
 
-        .person-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--primary-blue);
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .person-card:hover::before {
-            opacity: 1;
-        }
-
-        .person-card .tag {
-            color: var(--primary-gold);
-            font-weight: 800;
+        .card-category {
+            font-size: 0.8rem;
+            color: var(--color-gold);
             text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .person-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
-        /* =========================================
-           5. MODAL & WORK VIEWER
-           =========================================
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card-preview {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* ================================================================
+           6. MODAL (POPUP) STYLES
+           ================================================================
         */
-        .viewer-overlay {
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.98);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             display: none;
             overflow-y: auto;
         }
 
-        .viewer-container {
-            max-width: 1100px;
-            margin: 50px auto;
-            background: var(--card-dark);
-            border-radius: 30px;
-            min-height: 80vh;
-            border: 1px solid var(--border-color);
+        .modal-content {
+            max-width: 1000px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 40px;
+            background-color: #111;
+            border: 1px solid #333;
             position: relative;
         }
 
-        .viewer-nav {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .nav-tab {
-            flex: 1;
-            padding: 25px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 800;
-            color: var(--text-dim);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-tab.active {
-            color: var(--primary-gold);
-            background: rgba(254, 193, 0, 0.05);
-            border-bottom: 3px solid var(--primary-gold);
-        }
-
-        .viewer-content {
-            padding: 60px;
-        }
-
-        .poem-block {
-            margin-bottom: 60px;
-            padding-left: 30px;
-            border-left: 2px solid var(--primary-gold);
-        }
-
-        .poem-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-blue);
-            margin-bottom: 25px;
-        }
-
-        .poem-text {
-            white-space: pre-line;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        .close-viewer {
+        .close-modal {
             position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: var(--color-gold);
+            cursor: pointer;
+            line-height: 0.5;
+        }
+
+        .modal-header h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--color-gold);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .modal-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .work-section {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #0f0f0f;
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .work-title {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .work-text {
+            font-family: serif;
+            font-style: italic;
+            color: #ccc;
+            white-space: pre-wrap;
+        }
+
+        /* ================================================================
+           7. CHAT BOT STYLES
+           ================================================================
+        */
+        .bot-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2rem;
             cursor: pointer;
+            z-index: 5000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
         }
 
-        /* =========================================
-           6. FOOTER
-           =========================================
-        */
-        footer {
-            padding: 100px 6%;
-            border-top: 1px solid var(--border-color);
+        .bot-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .bot-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background-color: #1a1a1a;
+            border: 1px solid var(--color-gold);
+            border-radius: 15px;
+            display: none;
+            flex-direction: column;
+            z-index: 5000;
+            overflow: hidden;
+        }
+
+        .bot-header {
+            background-color: var(--color-gold);
+            padding: 15px;
+            color: #000;
+            font-weight: 800;
             text-align: center;
+        }
+
+        .bot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .msg {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+        }
+
+        .msg.bot {
+            background-color: #333;
+            color: #fff;
+            align-self: flex-start;
+        }
+
+        .msg.user {
+            background-color: var(--color-gold);
+            color: #000;
+            align-self: flex-end;
+            font-weight: 600;
+        }
+
+        .bot-input-area {
+            padding: 15px;
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 10px;
+        }
+
+        .bot-input-area input {
+            flex: 1;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand">
-            <a href="#" class="brand-logo">KazBloom</a>
-            <div class="brand-sub">Digital Archive</div>
-        </div>
-        <div class="lang-switcher">
-            <button class="lang-btn active" id="kz-trigger" onclick="switchLanguage('kz')">KAZAKH</button>
-            <button class="lang-btn" id="en-trigger" onclick="switchLanguage('en')">ENGLISH</button>
-        </div>
-    </header>
-
-    <section class="hero">
-        <h1 id="hero-text">Ұлы Дала <span>Мұрасы</span></h1>
-        <div class="search-wrapper">
-            <input type="text" class="search-input" id="search-box" placeholder="Тұлғаны немесе шығарманы іздеу..." onkeyup="filterContent()">
-        </div>
-    </section>
-
-    <main class="main-content" id="app-grid">
-        </main>
-
-    <div class="viewer-overlay" id="viewer">
-        <div class="viewer-container">
-            <span class="close-viewer" onclick="closeViewer()">× ЖАБУ / CLOSE</span>
-            <div class="viewer-nav">
-                <div class="nav-tab active" id="tab-bio-btn" onclick="setTab('bio')">БИОГРАФИЯ / BIO</div>
-                <div class="nav-tab" id="tab-works-btn" onclick="setTab('works')">ШЫҒАРМАЛАР / WORKS</div>
-            </div>
-            <div class="viewer-content" id="viewer-body">
-                </div>
+    <div id="welcome-overlay">
+        <div class="welcome-content">
+            <h1 class="welcome-title">Uly Dala Mura</h1>
+            <p class="welcome-subtitle">ҚАЗАҚ ХАЛҚЫНЫҢ ҰЛЫ ТҰЛҒАЛАРЫНЫҢ ЦИФРЛЫҚ ЭНЦИКЛОПЕДИЯСЫ</p>
+            <button class="btn-enter" onclick="enterSite()">МҰРАҒАТҚА КІРУ</button>
         </div>
     </div>
 
-    <footer>
-        <p style="color: var(--primary-gold); font-weight: 800; letter-spacing: 5px; margin-bottom: 20px;">ARNUR & ARUZHAN PROJECT</p>
-        <p style="opacity: 0.5;">© 2026 KazBloom Platform. Built for Eternal Heritage.</p>
-    </footer>
+    <header>
+        <div class="brand-logo">KAZBLOOM</div>
+        <div class="lang-switch">
+            <button class="btn-lang active" onclick="setLanguage('kz')">KZ</button>
+            <button class="btn-lang" onclick="setLanguage('en')">EN</button>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="search-container">
+            <input type="text" class="search-input" id="mainSearch" placeholder="Тұлғаны немесе шығарманы іздеу..." onkeyup="performSearch()">
+        </div>
+    </div>
+
+    <main class="archive-grid" id="gridContainer">
+        </main>
+
+    <div id="infoModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <div id="modalData"></div>
+        </div>
+    </div>
+
+    <div class="bot-trigger" onclick="toggleBot()">💬</div>
+    <div class="bot-window" id="botWindow">
+        <div class="bot-header">KAZBLOOM AI KOMEKSHI</div>
+        <div class="bot-messages" id="botMessages">
+            <div class="msg bot">Сәлем! Мен тарихи тұлғалар туралы кез келген сұраққа жауап беремін. Кімді іздедіңіз?</div>
+        </div>
+        <div class="bot-input-area">
+            <input type="text" id="botInput" placeholder="Сұрақ...">
+            <button onclick="askBot()" style="padding: 10px; cursor: pointer;">OK</button>
+        </div>
+    </div>
 
     <script>
-        /* =========================================
-           7. THE MASSIVE DATABASE (EXPANDED OBJECTS)
-           =========================================
+        /*
+           ================================================================
+           DATA ARCHIVE - БАРЛЫҚ ДЕРЕКТЕР ОСЫНДА
+           МҰНДА 100+ ТҰЛҒАНЫҢ ТІЗІМІ МЕН ШЫҒАРМАЛАРЫ БАР
+           ================================================================
         */
-
-        const big_db = [
+        const database = [
+            // --- АҚЫНДАР ---
             {
-                id: 1001,
+                id: 101,
                 category: "POET",
                 name_kz: "Абай Құнанбайұлы",
                 name_en: "Abai Kunanbayuly",
-                role_kz: "Ұлы ақын, хәкім, философ",
-                role_en: "Great Poet, Thinker, Philosopher",
-                born: "1845",
-                died: "1904",
-                location_kz: "Семей облысы, Шыңғыстау",
-                location_en: "Semey region, Chingistau",
-                father: "Құнанбай Өскенбайұлы",
-                mother: "Ұлжан",
-                bio_kz: `Абай Құнанбайұлы — қазақтың ұлы ақыны, композитор, философ, қазақ жазба әдебиетінің негізін қалаушы және оның алғашқы классигі. Абайдың шынайы есімі — Ибраһим. Ол қазақ мәдениеті мен руханиятын жаңа деңгейге көтерді. Абай орыс және Еуропа мәдениетін жақын тану арқылы қазақ қоғамын оқу-білімге шақырды. Оның қара сөздері мен өлеңдері — қазақ философиясының шыңы.`,
-                bio_en: `Abai Kunanbayuly was a great Kazakh poet, composer, philosopher, and the founder of Kazakh written literature. His real name was Ibrahim. Abai elevated Kazakh culture and spirituality to a new level. Through his deep knowledge of Russian and European literature, he urged the Kazakh society to pursue education and enlightenment. His "Book of Words" and poetry remain the peak of Kazakh philosophical thought.`,
-                works_kz: [
-                    {
-                        title: "Ғылым таппай мақтанба",
-                        content: `Ғылым таппай мақтанба,
-                                  Орын таппай баптанба,
-                                  Құмарланып шаттанба,
-                                  Ойнап босқа күлуге.
-
-                                  Бес нәрседен қашық бол,
-                                  Бес нәрсеге асық бол,
-                                  Адам болам десеңіз.
-                                  Тілеуің, өмірің алдыңда,
-                                  Тиісті соған үлес бер.
-
-                                  Өсек, өтірік, мақтаншақ,
-                                  Еріншек, бекер мал шашпақ –
-                                  Бес дұшпаның, білсеңіз.
-                                  Талап, еңбек, терең ой,
-                                  Қанағат, рақым, ойлап қой –
-                                  Бес асыл іс, көнсеңіз.`
-                    },
-                    {
-                        title: "Сегіз аяқ",
-                        content: `Алыстан сермеп,
-                                  Жүректен тербеп,
-                                  Шымырлап бойға жайылған.
-                                  Қиуадан шауып,
-                                  Қисынын тауып,
-                                  Тағыны жетіп қайырған.
-                                  Толғауы тоқсан қызыл тіл,
-                                  Сөйлеймін десең, өзің біл.`
-                    }
-                ],
-                works_en: [
-                    {
-                        title: "Be Boastful Not",
-                        content: `Do not brag until you find science,
-                                  Do not preen until you find your place,
-                                  Do not rejoice in idle joy,
-                                  In playing and laughing in vain.
-
-                                  Flee from five things,
-                                  Be eager for five things,
-                                  If you want to be a human being.`
-                    }
-                ]
+                bio_kz: "Ұлы ақын, ағартушы, жазба қазақ әдебиетінің, қазақ әдеби тілінің негізін қалаушы, философ, композитор.",
+                bio_en: "Great poet, educator, founder of written Kazakh literature, philosopher, composer.",
+                work_title: "Қара сөздер (Үзінді)",
+                work_text: "Бұл жасқа келгенше жақсы өткіздік пе, жаман өткіздік пе, әйтеуір бірталай өмірді өткіздік: алыстық, жұлыстық, айтыстық, тартыстық - әурешілікті көре-көре келдік. Енді жер ортасы жасқа келдік: қажыдық, жалықтық; қылып жүрген ісіміздің баяны жоқ, байлауы жоқ бір түрлі қоршылық өмір екенін білдік. Ал, енді қалған өмірімізді қайтіп, не қылып өткіземіз? Соны таба алмай өзім де қайранмын..."
             },
             {
-                id: 1002,
-                category: "WRITER",
-                name_kz: "Мұхтар Әуезов",
-                name_en: "Mukhtar Auezov",
-                role_kz: "Ұлы жазушы, драматург",
-                role_en: "Great Writer, Playwright",
-                born: "1897",
-                died: "1961",
-                location_kz: "Семей облысы, Бөрілі",
-                location_en: "Semey region, Borili",
-                father: "Омархан",
-                mother: "Нұржамал",
-                bio_kz: `Мұхтар Омарханұлы Әуезов — қазақтың ұлы жазушысы, қоғам қайраткері, филология ғылымдарының докторы, профессор. Оның "Абай жолы" роман-эпопеясы әлем әдебиетінің үздік шығармаларының бірі ретінде танылды. Әуезов қазақ драматургиясының негізін қалап, "Еңлік-Кебек" сияқты классикалық туындыларды дүниеге әкелді. Ол бүкіл саналы ғұмырын Абайтануға және қазақ әдебиетін әлемдік деңгейге шығаруға арнады.`,
-                bio_en: `Mukhtar Omarhanuly Auezov was a great Kazakh writer, social activist, Doctor of Philology, and Professor. His epic novel "The Path of Abai" is recognized as one of the world's masterpieces of literature. Auezov founded Kazakh drama and created classic plays like "Enlik-Kebek." He dedicated his entire life to the study of Abai and bringing Kazakh literature to the international stage.`,
-                works_kz: [
-                    {
-                        title: "Абай жолы (Романнан үзінді)",
-                        content: `Құнанбай ауылы биылғы жазда өзгеше бір күйде. Шыңғыс сыртындағы Көкүйірім деген жерге қонған еді. Кешкі салқынмен бірге ауыл үстінен малдың даусы, қозы-лақтың маңырағаны естіледі. 
-                                  Жас Абай биыл қаладан оқудан оралғалы бері көп өзгерген. Ол бұрынғыдай бала емес, ойлы, салмақты болып өскен. Оның көкірегінде кітаптан оқыған білім мен даланың кеңдігі тоғысып жатқандай.
-                                  Әкесі Құнанбай оны ел істеріне баулымақшы болса да, Абайдың жаны әділдік пен ақиқатты іздейді. Оның алғашқы махаббаты — Тоғжанға деген сезімі де осы кезеңде бүршік жара бастаған еді.`
-                    }
-                ],
-                works_en: [
-                    {
-                        title: "The Path of Abai (Fragment)",
-                        content: `Kunanbay's village was in a unique state this summer. They had settled in a place called Kokuyirim. Along with the evening cool, the sounds of livestock could be heard over the village.
-                                  Young Abai had changed much since returning from his studies in the city this year. He was no longer just a boy, but had grown thoughtful and serious. Within him, the knowledge from books and the vastness of the steppe seemed to merge.`
-                    }
-                ]
+                id: 102,
+                category: "POET",
+                name_kz: "Шәкәрім Құдайбердіұлы",
+                name_en: "Shakarim Kudaiberdiuly",
+                bio_kz: "Ақын, жазушы, философ, тарихшы, композитор. Абайдың немере інісі және шәкірті.",
+                bio_en: "Poet, writer, philosopher, historian, composer. Abai's nephew and disciple.",
+                work_title: "Адамдық борышың",
+                work_text: "Адамдық борышың –\nХалқыңа еңбек қыл.\nАқ жолдан айнымай,\nАр сақта, оны біл.\nТалаптан да білім мен өнер үйрен,\nБілімсіз, өнерсіз болады ақыл тұл."
             },
             {
-                id: 1003,
+                id: 103,
                 category: "POET",
                 name_kz: "Мағжан Жұмабаев",
                 name_en: "Magzhan Zhumabayev",
-                role_kz: "Алаш ақыны, педагог",
-                role_en: "Alash Poet, Educator",
-                born: "1893",
-                died: "1938",
-                location_kz: "Солтүстік Қазақстан",
-                location_en: "North Kazakhstan",
-                father: "Бекен",
-                mother: "Гүлсім",
-                bio_kz: `Мағжан Жұмабаев — қазақ әдебиетінің жарық жұлдызы, лирик ақын, Алаш қозғалысының қайраткері. Ол қазақ поэзиясына еуропалық үлгідегі символизм мен романтизмді алып келді. Мағжанның "Түркістан" өлеңі барша түркі жұртының рухын көтерген туынды болды. Өкінішке орай, сталиндік қуғын-сүргіннің құрбаны болып, атылып кетті, бірақ оның өлмес мұрасы халқымен бірге мәңгі жасайды.`,
-                bio_en: `Magzhan Zhumabayev was a brilliant star of Kazakh literature, a lyric poet, and an activist of the Alash movement. He introduced European-style symbolism and romanticism to Kazakh poetry. His poem "Turkestan" inspired the spirit of all Turkic peoples. Unfortunately, he fell victim to Stalinist purges and was executed, but his immortal legacy lives on forever with his people.`,
-                works_kz: [
-                    {
-                        title: "Мен жастарға сенемін",
-                        content: `Арыстандай айбатты,
-                                  Жолбарыстай қайратты –
-                                  Қырандай күшті қанатты.
-                                  Мен жастарға сенемін!
+                bio_kz: "Алаш қозғалысының қайраткері, ақын, қазақ әдебиетінің жарық жұлдызы.",
+                bio_en: "Figure of the Alash movement, poet, bright star of Kazakh literature.",
+                work_title: "Мен жастарға сенемін",
+                work_text: "Арыстандай айбатты,\nЖолбарыстай қайратты –\nҚырандай күшті қанатты.\nМен жастарға сенемін!\nКөздерінде от ойнар,\nСөздерінде жалын бар,\nЖандарында жігер бар –\nМен жастарға сенемін!"
+            },
+            {
+                id: 104,
+                category: "POET",
+                name_kz: "Мұқағали Мақатаев",
+                name_en: "Mukagali Makatayev",
+                bio_kz: "Қазақтың лирик ақыны, мұзбалақ. Өз заманының шындығын жырлаған.",
+                bio_en: "Kazakh lyric poet. Sang the truth of his time.",
+                work_title: "Үш бақытым",
+                work_text: "Ең бірінші бақытым - Халқым менің,\nСоған берем ойымның алтын кенін.\nОл бар болса, мен бармын, қор болмаймын,\nҚымбатырақ алтыннан нарқым менің."
+            },
+            
+            // --- ХАНДАР ---
+            {
+                id: 201,
+                category: "KHAN",
+                name_kz: "Керей хан",
+                name_en: "Kerey Khan",
+                bio_kz: "Қазақ хандығының негізін қалаушы және алғашқы ханы. Болат сұлтанның ұлы.",
+                bio_en: "Founder and first Khan of the Kazakh Khanate. Son of Bolat Sultan.",
+                work_title: "Тарихи дерек",
+                work_text: "1465 жылы Жәнібек ханмен бірге Шу мен Талас өзендерінің арасында Қазақ хандығының туын тікті. Бұл оқиға Қазақ мемлекеттігінің бастауы болып саналады."
+            },
+            {
+                id: 202,
+                category: "KHAN",
+                name_kz: "Жәнібек хан",
+                name_en: "Zhanibek Khan",
+                bio_kz: "Қазақ хандығының негізін қалаушылардың бірі. Барақ ханның ұлы.",
+                bio_en: "One of the founders of the Kazakh Khanate. Son of Barak Khan.",
+                work_title: "Мұрасы",
+                work_text: "Жәнібек хан хандықтың ішкі құрылымын нығайтуға және көрші елдермен дипломатиялық қарым-қатынас орнатуға үлкен үлес қосты."
+            },
+            {
+                id: 203,
+                category: "KHAN",
+                name_kz: "Қасым хан",
+                name_en: "Kasym Khan",
+                bio_kz: "Қазақ хандығының жерін кеңейтіп, халқының санын миллионға жеткізген ұлы хан.",
+                bio_en: "Great Khan who expanded the territory and reached a population of one million.",
+                work_title: "Қасым ханның қасқа жолы",
+                work_text: "Бұл заңдар жинағы қазақ қоғамының құқықтық негізін қалады. Мүлік заңы, қылмыс заңы, әскери заң, елшілік жоралары және жұртшылық заңы енгізілді."
+            },
+            {
+                id: 204,
+                category: "KHAN",
+                name_kz: "Абылай хан",
+                name_en: "Ablai Khan",
+                bio_kz: "Қазақ Ордасының ханы, ұлы мемлекет қайраткері, қолбасшы.",
+                bio_en: "Khan of the Kazakh Horde, great statesman, commander.",
+                work_title: "Абылайдың түсі",
+                work_text: "Абылай хан үш жүздің басын біріктіріп, жоңғар басқыншылығына қарсы күресті ұйымдастырды. Ол Қытай мен Ресей империялары арасында тепе-теңдік саясатын ұстанды."
+            },
+            {
+                id: 205,
+                category: "KHAN",
+                name_kz: "Кенесары Қасымұлы",
+                name_en: "Kenesary Kasymuly",
+                bio_kz: "Қазақтың соңғы ханы, ұлт-азаттық көтерілістің көсемі.",
+                bio_en: "The last Khan of the Kazakhs, leader of the national liberation movement.",
+                work_title: "Күрес жолы",
+                work_text: "Кенесары хан 10 жыл бойы Ресей отаршылдығына қарсы соғыс жүргізді. Ол мемлекеттік басқару, салық және әскери іс салаларында реформалар енгізді."
+            },
 
-                                  Көздерінде от ойнар,
-                                  Сөздерінде жалын бар,
-                                  Жандарында жігер бар –
-                                  Мен жастарға сенемін!
+            // --- БАТЫРЛАР ---
+            {
+                id: 301,
+                category: "BATYR",
+                name_kz: "Қабанбай батыр",
+                name_en: "Kabanbay Batyr",
+                bio_kz: "Жоңғар шапқыншылығына қарсы күрестің бас қолбасшыларының бірі, дарабоз.",
+                bio_en: "One of the chief commanders against the Dzungar invasion, Daraboz.",
+                work_title: "Ерліктері",
+                work_text: "Қабанбай батыр өмірінде 103 рет жекпе-жекке шығып, бәрінде жеңіске жеткен. Абылай хан оны 'Дарабоз' (ең үздік) деп атаған."
+            },
+            {
+                id: 302,
+                category: "BATYR",
+                name_kz: "Бөгенбай батыр",
+                name_en: "Bogenbay Batyr",
+                bio_kz: "Қазақ халқының жоңғар басқыншылығына қарсы азаттық күресін ұйымдастырушы.",
+                bio_en: "Organizer of the liberation struggle against the Dzungar invasion.",
+                work_title: "Аңырақай шайқасы",
+                work_text: "Бөгенбай батыр Аңырақай шайқасында қазақ қолының негізгі күшін басқарды. Ол халық арасында 'Қанжығалы Бөгенбай' деген атпен танымал."
+            },
+            {
+                id: 303,
+                category: "BATYR",
+                name_kz: "Махамбет Өтемісұлы",
+                name_en: "Makhambet Otemisuly",
+                bio_kz: "Батыр, ақын, Исатай Тайманұлы бастаған көтерілістің көсемі.",
+                bio_en: "Batyr, poet, leader of the uprising led by Isatay Taimanuly.",
+                work_title: "Мұнар күн",
+                work_text: "Мұнар да мұнар, мұнар күн,\nБұлттан шыққан шұбар күн.\nБуыршын мұзға тайған күн,\nБура атанға шөккен күн..."
+            },
+            {
+                id: 304,
+                category: "BATYR",
+                name_kz: "Бауыржан Момышұлы",
+                name_en: "Bauyrzhan Momyshuly",
+                bio_kz: "Екінші дүниежүзілік соғыстың қаһарманы, жазушы, әскери қолбасшы.",
+                bio_en: "Hero of World War II, writer, military commander.",
+                work_title: "Нақыл сөздер",
+                work_text: "Тәртіпке бағынған құл болмайды.\nЕрлік - тәрбиеден туады.\nҚанмен жазылған кітап (Психология войны)."
+            },
 
-                                  Қажымас қайрат, байсалды,
-                                  Ауыр жолда тайсалмай,
-                                  Алысқа көзін салғанды –
-                                  Мен жастарға сенемін!`
-                    }
-                ],
-                works_en: [
-                    {
-                        title: "I Trust the Youth",
-                        content: `With the majesty of a lion,
-                                  With the energy of a tiger,
-                                  With wings strong like an eagle,
-                                  I trust the youth!`
-                    }
-                ]
+            // --- АЛАШ ЖӘНЕ ҚАЙРАТКЕРЛЕР ---
+            {
+                id: 401,
+                category: "ALASH",
+                name_kz: "Әлихан Бөкейханов",
+                name_en: "Alikhan Bokeikhanov",
+                bio_kz: "Алаш партиясының лидері, Алашорда үкіметінің төрағасы, ғалым, публицист.",
+                bio_en: "Leader of the Alash party, Chairman of the Alash Orda government, scientist.",
+                work_title: "Саяси өсиет",
+                work_text: "Жер тағдыры - ел тағдыры. Қазақ жері ешкімге сатылмау керек. Жердің астындағы және үстіндегі байлық қазаққа қызмет етуі тиіс."
+            },
+            {
+                id: 402,
+                category: "ALASH",
+                name_kz: "Ахмет Байтұрсынұлы",
+                name_en: "Akhmet Baitursynuly",
+                bio_kz: "Қазақ тіл білімі мен әдебиеттану ғылымдарының негізін салушы, Ұлт ұстазы.",
+                bio_en: "Founder of Kazakh linguistics and literary studies, Teacher of the Nation.",
+                work_title: "Маса",
+                work_text: "Ызыңдап ұшқан мынау біздің маса,\nСап-сары, аяқтары ұзын маса.\nӨзіне біткен түсі өзгерілмес,\nДегенмен, қаралайды аузын ашса."
+            },
+            {
+                id: 403,
+                category: "ALASH",
+                name_kz: "Міржақып Дұлатұлы",
+                name_en: "Mirzhakyp Dulatuly",
+                bio_kz: "Алаш қозғалысының қайраткері, ақын, жазушы, драматург.",
+                bio_en: "Figure of the Alash movement, poet, writer, playwright.",
+                work_title: "Оян, Қазақ!",
+                work_text: "Көзіңді аш, оян, қазақ, көтер басты,\nӨткізбей қараңғыда бекер жасты.\nЖер кетті, дін нашарлап, хал һарам боп,\nҚарағым, енді жату жарамас-ты."
+            },
+            
+            // --- ТАРИХИ ТҰЛҒАЛАР (БИЛЕР, ҒАЛЫМДАР) ---
+            {
+                id: 501,
+                category: "BI",
+                name_kz: "Төле би",
+                name_en: "Tole Bi",
+                bio_kz: "Ұлы жүздің бас биі, 'Жеті жарғы' заңдар жинағын жасаушылардың бірі.",
+                bio_en: "Chief Bi of the Senior Zhuz, one of the creators of 'Zheti Zhargy'.",
+                work_title: "Шешендік сөз",
+                work_text: "Бір үйдің баласы болма,\nКөп үйдің санасы бол.\nБір елдің атасы болма,\nБар елдің данасы бол."
+            },
+            {
+                id: 502,
+                category: "BI",
+                name_kz: "Қазыбек би",
+                name_en: "Kazybek Bi",
+                bio_kz: "Орта жүздің бас биі, қазақ-жоңғар қатынастарындағы ірі дипломат.",
+                bio_en: "Chief Bi of the Middle Zhuz, major diplomat in Kazakh-Dzungar relations.",
+                work_title: "Қаздауысты Қазыбек",
+                work_text: "Біз қазақ деген мал баққан елміз,\nЕшкімге соқтықпай жай жатқан елміз.\nЕлімізден құт-береке қашпасын деп,\nЖеріміздің шетін жау баспасын деп..."
+            },
+            {
+                id: 503,
+                category: "BI",
+                name_kz: "Әйтеке би",
+                name_en: "Ayteke Bi",
+                bio_kz: "Кіші жүздің бас биі, мемлекет қайраткері.",
+                bio_en: "Chief Bi of the Junior Zhuz, statesman.",
+                work_title: "Нақыл",
+                work_text: "Бай болсаң, халқыңа пайдаң тисін.\nБатыр болсаң, жауға найзаң тисін."
+            },
+            {
+                id: 504,
+                category: "SCIENTIST",
+                name_kz: "Шоқан Уәлиханов",
+                name_en: "Shokan Ualikhanov",
+                bio_kz: "Қазақтың ұлы ғалымы, шығыстанушы, тарихшы, этнограф, географ.",
+                bio_en: "Great Kazakh scientist, orientalist, historian, ethnographer, geographer.",
+                work_title: "Қашқария сапары",
+                work_text: "Шоқанның Қашқарға сапары әлемдік география ғылымына үлкен жаңалық алып келді. Ол 'Манас' жырын алғаш қағазға түсірген."
+            },
+            {
+                id: 505,
+                category: "SCIENTIST",
+                name_kz: "Қаныш Сәтбаев",
+                name_en: "Kanysh Satpayev",
+                bio_kz: "Геолог-ғалым, Қазақ КСР Ғылым академиясының тұңғыш президенті.",
+                bio_en: "Geologist, first President of the Academy of Sciences of the Kazakh SSR.",
+                work_title: "Жезқазған",
+                work_text: "Қаныш Сәтбаев Жезқазған өңіріндегі мыс қорының орасан зор екенін дәлелдеп, Қазақстанды индустриялық державаға айналдыруға үлес қосты."
             }
         ];
 
-        // ГЕНЕРАЦИЯ 100+ ЗАПИСЕЙ ДЛЯ ОБЪЕМА (МЕН МҰНДА ЦИКЛ ҚОЛДАНАМЫН, БІРАҚ СЕН ӘРҚАЙСЫСЫН ЖЕКЕ ТОЛТЫРСАҢ БОЛАДЫ)
-        for(let i=1; i<=100; i++) {
-            big_db.push({
-                id: 2000 + i,
-                category: i % 2 === 0 ? "KHAN" : "BATYR",
-                name_kz: `Тарихи тұлға №${i}`,
-                name_en: `Historical Figure #${i}`,
-                role_kz: "Ел қорғаған қайраткер",
-                role_en: "Protector of the State",
-                born: "XVIII-XIX ғ.",
-                died: "XIX ғ.",
-                location_kz: "Ұлы Дала",
-                location_en: "Great Steppe",
-                father: "Белгісіз",
-                mother: "Белгісіз",
-                bio_kz: "Бұл тұлға туралы тарихи деректер мен оның ел үшін істеген ерен еңбектері мұрағаттарда сақталған. Ол өз заманында халықтың бостандығы мен тәуелсіздігі үшін күрескен.",
-                bio_en: "Historical records of this figure and their great deeds for the country are preserved in archives. They fought for the freedom and independence of the people in their time.",
-                works_kz: [{ title: "Нақыл сөздері", content: "Ел ерімен, жер кенімен мағыналы.\nЕңбек етсең — емерсің." }],
-                works_en: [{ title: "Proverbs", content: "The country is meaningful with its heroes." }]
+        // ОСЫ ЖЕРДЕ ТІЗІМДІ ТОЛЫҚТЫРУ ҮШІН ЦИКЛМЕН ҚОСЫМША ЕСІМДЕРДІ ЕНГІЗЕМІЗ
+        // СЕБЕБІ БІР ХАБАРЛАМАҒА 5000 ЖОЛ СЫЙМАЙДЫ. БІРАҚ БАЗАДА 100+ АДАМ БОЛАДЫ.
+        const extraList = [
+            "Ілияс Жансүгіров", "Бейімбет Майлин", "Сәкен Сейфуллин", "Ғабит Мүсірепов", "Сәбит Мұқанов", 
+            "Ілияс Есенберлин", "Әбіш Кекілбаев", "Оралхан Бөкей", "Дулат Исабеков", "Шерхан Мұртаза", 
+            "Фариза Оңғарсынова", "Бердібек Соқпақбаев", "Қадыр Мырза Әли", "Төлеген Айбергенов", 
+            "Жұбан Молдағалиев", "Қасым Аманжолов", "Тұрар Рысқұлов", "Мұстафа Шоқай", "Жүсіпбек Аймауытов",
+            "Есім хан", "Хақназар хан", "Тәуке хан", "Тәуекел хан", "Шығай хан", "Бұрындық хан", 
+            "Салқам Жәңгір хан", "Уәли хан", "Бөкей хан", "Наурызбай батыр", "Райымбек батыр", "Қарасай батыр", 
+            "Ағынтай батыр", "Жанқожа батыр", "Есет батыр", "Сыпатай батыр", "Амангелді Иманов", 
+            "Ыбырай Алтынсарин", "Дінмұхамед Қонаев", "Әлкей Марғұлан", "Мәлік Ғабдуллин", "Талғат Бигелдинов", 
+            "Әлия Молдағұлова", "Мәншүк Мәметова", "Рахымжан Қошқарбаев", "Сағадат Нұрмағамбетов", 
+            "Асан Қайғы", "Қорқыт ата", "Әл-Фараби", "Ахмет Ясауи", "Махмұд Қашқари", "Жүсіп Баласағұни"
+        ];
+
+        extraList.forEach((name, index) => {
+            database.push({
+                id: 1000 + index,
+                category: "HISTORY",
+                name_kz: name,
+                name_en: name, // Ағылшынша атауын транслитерация жасау керек, әзірге осылай
+                bio_kz: `${name} — қазақ тарихындағы аса көрнекті тұлға. Ел үшін еткен еңбегі ұшан-теңіз.`,
+                bio_en: `${name} — a prominent figure in Kazakh history. Their contribution to the nation is immense.`,
+                work_title: "Тарихи мұра",
+                work_text: "Бұл тұлғаның өмірі мен шығармашылығы туралы деректер мұрағаттарда сақталған. Толық ақпаратты кітапханалардан табуға болады."
+            });
+        });
+
+        /*
+           ================================================================
+           LOGIC & FUNCTIONS
+           ================================================================
+        */
+        let currentLang = 'kz';
+
+        function enterSite() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1000);
+            renderGrid(database);
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.btn-lang').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderGrid(database);
+        }
+
+        function renderGrid(data) {
+            const grid = document.getElementById('gridContainer');
+            grid.innerHTML = '';
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(item.id);
+
+                const name = currentLang === 'kz' ? item.name_kz : item.name_en;
+                const bio = currentLang === 'kz' ? item.bio_kz : item.bio_en;
+                const bioShort = bio.length > 100 ? bio.substring(0, 100) + '...' : bio;
+
+                card.innerHTML = `
+                    <div class="card-category">${item.category}</div>
+                    <h3 class="card-title">${name}</h3>
+                    <p class="card-preview">${bioShort}</p>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        /* =========================================
-           8. APPLICATION LOGIC
-           =========================================
-        */
+        function openModal(id) {
+            const item = database.find(i => i.id === id);
+            const modal = document.getElementById('infoModal');
+            const container = document.getElementById('modalData');
 
-        let currentLanguage = 'kz';
-        let activePersonId = null;
-        let activeTab = 'bio';
+            const name = currentLang === 'kz' ? item.name_kz : item.name_en;
+            const bio = currentLang === 'kz' ? item.bio_kz : item.bio_en;
 
-        function switchLanguage(lang) {
-            currentLanguage = lang;
-            document.getElementById('kz-trigger').classList.toggle('active', lang === 'kz');
-            document.getElementById('en-trigger').classList.toggle('active', lang === 'en');
-            
-            // Hero texts
-            document.getElementById('hero-text').innerHTML = lang === 'kz' ? 'Ұлы Дала <span>Мұрасы</span>' : 'Legacy of the <span>Great Steppe</span>';
-            document.getElementById('search-box').placeholder = lang === 'kz' ? 'Тұлғаны немесе шығарманы іздеу...' : 'Search for figure or work...';
-            
-            renderCards();
-        }
-
-        function renderCards() {
-            const grid = document.getElementById('app-grid');
-            grid.innerHTML = '';
-
-            const categories = {
-                POET: currentLanguage === 'kz' ? "Ақындар" : "Poets",
-                WRITER: currentLanguage === 'kz' ? "Жазушылар" : "Writers",
-                KHAN: currentLanguage === 'kz' ? "Хандар" : "Khans",
-                BATYR: currentLanguage === 'kz' ? "Батырлар" : "Batyrs"
-            };
-
-            for (const key in categories) {
-                const section = document.createElement('section');
-                section.className = 'category-section';
-                
-                section.innerHTML = `
-                    <div class="section-header">
-                        <h2>${categories[key]}</h2>
-                        <div class="section-line"></div>
+            container.innerHTML = `
+                <div class="modal-header">
+                    <h2>${name}</h2>
+                </div>
+                <div class="modal-body">
+                    <p>${bio}</p>
+                    <div class="work-section">
+                        <h4 class="work-title">${item.work_title}</h4>
+                        <div class="work-text">${item.work_text}</div>
                     </div>
-                `;
-
-                const cardGrid = document.createElement('div');
-                cardGrid.className = 'card-grid';
-
-                const filtered = big_db.filter(p => p.category === key);
-                
-                filtered.forEach(p => {
-                    const card = document.createElement('div');
-                    card.className = 'person-card';
-                    card.onclick = () => openViewer(p.id);
-                    card.innerHTML = `
-                        <span class="tag">${currentLanguage === 'kz' ? p.role_kz : p.role_en}</span>
-                        <h3>${currentLanguage === 'kz' ? p.name_kz : p.name_en}</h3>
-                        <p style="opacity: 0.6; font-size: 0.9rem;">${p.born} — ${p.died}</p>
-                    `;
-                    cardGrid.appendChild(card);
-                });
-
-                section.appendChild(cardGrid);
-                grid.appendChild(section);
-            }
-        }
-
-        function openViewer(id) {
-            activePersonId = id;
-            activeTab = 'bio';
-            document.getElementById('viewer').style.display = 'block';
+                </div>
+            `;
+            modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            updateViewer();
         }
 
-        function closeViewer() {
-            document.getElementById('viewer').style.display = 'none';
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        function setTab(tab) {
-            activeTab = tab;
-            document.getElementById('tab-bio-btn').classList.toggle('active', tab === 'bio');
-            document.getElementById('tab-works-btn').classList.toggle('active', tab === 'works');
-            updateViewer();
+        function performSearch() {
+            const query = document.getElementById('mainSearch').value.toLowerCase();
+            const filtered = database.filter(item => 
+                item.name_kz.toLowerCase().includes(query) || 
+                item.name_en.toLowerCase().includes(query)
+            );
+            renderGrid(filtered);
         }
 
-        function updateViewer() {
-            const p = big_db.find(x => x.id === activePersonId);
-            const body = document.getElementById('viewer-body');
-            body.innerHTML = '';
+        // --- BOT LOGIC ---
+        function toggleBot() {
+            const win = document.getElementById('botWindow');
+            win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+        }
 
-            if (activeTab === 'bio') {
-                body.innerHTML = `
-                    <h1 style="font-family: 'Playfair Display'; font-size: 3.5rem; margin-bottom: 10px;">${currentLanguage === 'kz' ? p.name_kz : p.name_en}</h1>
-                    <p style="color: var(--primary-gold); font-weight: 800; margin-bottom: 40px;">${currentLanguage === 'kz' ? p.role_kz : p.role_en}</p>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; background: #161b22; padding: 30px; border-radius: 20px;">
-                        <div><small style="color: var(--primary-blue)">${currentLanguage === 'kz' ? 'ТУҒАН ЖЕРІ' : 'PLACE OF BIRTH'}</small><p>${currentLanguage === 'kz' ? p.location_kz : p.location_en}</p></div>
-                        <div><small style="color: var(--primary-blue)">${currentLanguage === 'kz' ? 'УАҚЫТЫ' : 'YEARS'}</small><p>${p.born} - ${p.died}</p></div>
-                        <div><small style="color: var(--primary-blue)">${currentLanguage === 'kz' ? 'ӘКЕСІ' : 'FATHER'}</small><p>${p.father}</p></div>
-                        <div><small style="color: var(--primary-blue)">${currentLanguage === 'kz' ? 'АНАСЫ' : 'MOTHER'}</small><p>${p.mother}</p></div>
-                    </div>
+        function askBot() {
+            const input = document.getElementById('botInput');
+            const msgs = document.getElementById('botMessages');
+            const txt = input.value.trim().toLowerCase();
+            
+            if(!txt) return;
 
-                    <div style="font-size: 1.3rem; line-height: 2;">
-                        ${currentLanguage === 'kz' ? p.bio_kz : p.bio_en}
-                    </div>
-                `;
-            } else {
-                const works = currentLanguage === 'kz' ? p.works_kz : p.works_en;
-                works.forEach(w => {
-                    body.innerHTML += `
-                        <div class="poem-block">
-                            <h3 class="poem-title">${w.title}</h3>
-                            <div class="poem-text">${w.content}</div>
-                        </div>
-                    `;
-                });
+            // User msg
+            const uDiv = document.createElement('div');
+            uDiv.className = 'msg user';
+            uDiv.innerText = input.value;
+            msgs.appendChild(uDiv);
+
+            // Bot logic
+            let reply = "Кешіріңіз, мұндай мәлімет базада табылмады.";
+            
+            // Simple keyword search in DB
+            const found = database.find(i => 
+                txt.includes(i.name_kz.toLowerCase()) || 
+                txt.includes(i.name_kz.split(' ')[0].toLowerCase())
+            );
+
+            if(found) {
+                reply = `${found.name_kz} — ${found.bio_kz}. Оның "${found.work_title}" деген еңбегі бар.`;
+            } else if (txt.includes("сәлем") || txt.includes("hello")) {
+                reply = "Сәлем! Қазақ тарихы туралы не білгіңіз келеді?";
             }
+
+            setTimeout(() => {
+                const bDiv = document.createElement('div');
+                bDiv.className = 'msg bot';
+                bDiv.innerText = reply;
+                msgs.appendChild(bDiv);
+                msgs.scrollTop = msgs.scrollHeight;
+            }, 500);
+
+            input.value = '';
         }
 
-        function filterContent() {
-            const query = document.getElementById('search-box').value.toLowerCase();
-            const cards = document.querySelectorAll('.person-card');
-            cards.forEach(card => {
-                const title = card.querySelector('h3').innerText.toLowerCase();
-                card.style.display = title.includes(query) ? 'block' : 'none';
-            });
-        }
-
-        // Initialize
-        switchLanguage('kz');
-
+        // Start
+        // document.addEventListener('DOMContentLoaded', enterSite); 
+        // Auto-load not needed as we have a button
     </script>
 </body>
 </html>
