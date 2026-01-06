@@ -3,105 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KazBloom — Digital AI</title>
+    <title>KazBloom AI — Final Fix</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
         :root { --kz-blue: #00afca; --kz-gold: #fec100; --dark: #050a12; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: white; overflow-x: hidden; }
-        
-        .hero { height: 40vh; background: linear-gradient(rgba(5,10,18,0.8), rgba(5,10,18,0.8)), url('https://images.unsplash.com/photo-1620216447477-70967399f92e?q=80&w=2070&auto=format&fit=crop'); background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .hero h1 { font-size: 4rem; color: var(--kz-blue); margin: 0; }
-        
-        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        
-        /* AI Chat UI */
-        #chat-window { background: #0a0e17; border: 2px solid var(--kz-blue); border-radius: 20px; height: 500px; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        #chat-header { background: var(--kz-blue); color: black; padding: 15px; font-weight: bold; border-radius: 15px 15px 0 0; text-align: center; }
-        #chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        
-        .msg { max-width: 80%; padding: 12px 18px; border-radius: 15px; line-height: 1.5; font-size: 0.95rem; }
-        .bot { background: #1a1a1a; color: #eee; align-self: flex-start; border-left: 4px solid var(--kz-blue); }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #chat-container { width: 400px; height: 600px; background: #0a0e17; border: 2px solid var(--kz-blue); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; }
+        #messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 10px 15px; border-radius: 12px; max-width: 80%; font-size: 0.9rem; line-height: 1.4; }
+        .bot { background: #1a1a1a; align-self: flex-start; border-left: 3px solid var(--kz-blue); }
         .user { background: var(--kz-gold); color: black; align-self: flex-end; font-weight: bold; }
-        
-        #input-area { padding: 15px; background: #000; display: flex; gap: 10px; border-radius: 0 0 20px 20px; }
-        #user-input { flex: 1; background: #1a1a1a; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; outline: none; }
-        #send-btn { background: var(--kz-gold); border: none; padding: 0 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        
-        .loading { font-style: italic; color: var(--kz-gold); font-size: 0.8rem; margin-left: 20px; }
+        #input-area { padding: 15px; background: #000; display: flex; gap: 10px; }
+        input { flex: 1; background: #1a1a1a; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; outline: none; }
+        button { background: var(--kz-blue); border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1>KazBloom AI</h1>
-    <p style="color:var(--kz-gold)">Arnur & Aruzhan Digital Project</p>
-</div>
-
-<div class="container">
-    <div id="chat-window">
-        <div id="chat-header">KazBloom Smart Assistant (Gemini Pro)</div>
-        <div id="chat-content">
-            <div class="msg bot">Сәлем! Мен KazBloom AI көмекшісімін. Маған кез келген сұрағыңды қой.</div>
-        </div>
-        <div id="loader" class="loading" style="display:none">AI ойлануда...</div>
-        <div id="input-area">
-            <input type="text" id="user-input" placeholder="Сұрақ жазыңыз...">
-            <button id="send-btn" onclick="askAI()">OK</button>
-        </div>
+<div id="chat-container">
+    <div style="background:var(--kz-blue); color:black; padding:15px; font-weight:bold; text-align:center;">KazBloom AI Assistant</div>
+    <div id="messages">
+        <div class="msg bot">Сәлем! Сұрағыңызды жазыңыз, мен бірнеше AI моделін кезекпен тексеріп, жауап тауып беремін.</div>
+    </div>
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="Сұрақ жазыңыз...">
+        <button onclick="askAI()">OK</button>
     </div>
 </div>
 
 <script>
-    // ЖАҢА API КІЛТІҢ
     const API_KEY = "AIzaSyDqEKFRiWMiYKrmqvAUCItHUEkhpCkmvls";
+    
+    // Біз тексеріп көретін модельдер тізімі
+    const models = [
+        "gemini-1.5-flash-latest",
+        "gemini-1.5-flash",
+        "gemini-pro",
+        "gemini-1.0-pro"
+    ];
 
     async function askAI() {
         const input = document.getElementById('user-input');
-        const content = document.getElementById('chat-content');
-        const loader = document.getElementById('loader');
+        const content = document.getElementById('messages');
         const text = input.value.trim();
-
         if (!text) return;
 
-        // Пайдаланушы хабарламасы
         content.innerHTML += `<div class="msg user">${text}</div>`;
         input.value = "";
-        loader.style.display = "block";
         content.scrollTop = content.scrollHeight;
 
-        try {
-            // Ең тұрақты "gemini-pro" моделін қолданамыз
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
-            
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: `Сен KazBloom жобасының көмекшісісің. Қазақша жауап бер: ${text}` }] }]
-                })
-            });
+        let success = false;
 
-            const data = await response.json();
-            loader.style.display = "none";
+        // Әр модельді кезекпен тексеру
+        for (let modelName of models) {
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${API_KEY}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Жауапты қазақша бер: ${text}` }] }]
+                    })
+                });
 
-            if (data.candidates && data.candidates[0].content) {
-                const aiText = data.candidates[0].content.parts[0].text;
-                content.innerHTML += `<div class="msg bot">${aiText}</div>`;
-            } else if (data.error) {
-                // Қате шықса, басқа модельді (gemini-1.5-flash) байқап көру
-                content.innerHTML += `<div class="msg bot" style="border-left-color:red">Қате: ${data.error.message}. Басқа модельді тексеріңіз.</div>`;
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content) {
+                    const aiText = data.candidates[0].content.parts[0].text;
+                    content.innerHTML += `<div class="msg bot"><b>AI (${modelName}):</b> ${aiText}</div>`;
+                    success = true;
+                    break; // Жауап алынса, циклды тоқтату
+                } else {
+                    console.log(`${modelName} табылмады, келесіні тексеруде...`);
+                }
+            } catch (e) {
+                console.error(`Error with ${modelName}:`, e);
             }
-        } catch (e) {
-            loader.style.display = "none";
-            content.innerHTML += `<div class="msg bot" style="border-left-color:red">Байланыс қатесі. Интернетті тексеріңіз.</div>`;
+        }
+
+        if (!success) {
+            content.innerHTML += `<div class="msg bot" style="border-color:red">Кешіріңіз, ешбір модель жауап бермеді. API кілтін Google AI Studio-дан қайта тексеріңіз.</div>`;
         }
         content.scrollTop = content.scrollHeight;
     }
 
-    // Enter басуды қабылдау
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') askAI();
-    });
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') askAI(); });
 </script>
 
 </body>
