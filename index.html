@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KazBloom — AI Powered Project</title>
+    <title>KazBloom — AI Project</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
@@ -73,8 +73,9 @@
             box-shadow: 0 0 20px var(--kz-blue); font-size: 2rem;
         }
 
-        /* Loading Animation */
-        .typing { font-style: italic; color: var(--kz-gold); font-size: 0.8rem; }
+        .bot-msg { background: #222; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--kz-blue); line-height: 1.6; color: #eee; }
+        .user-msg { text-align: right; margin: 15px 0; color: var(--kz-gold); font-weight: bold; }
+        .typing { font-style: italic; color: var(--kz-gold); font-size: 0.8rem; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -89,45 +90,35 @@
 
 <div class="featured-container">
     <div class="featured-card">
-        <img src="https://static.tengrinews.kz/userdata/news/2020/news_410712/thumb_m/photo_331327.jpg" class="featured-img" alt="Abai">
-        <div style="padding: 20px;">
-            <h3>Абай Құнанбайұлы</h3>
-            <p style="color: var(--kz-blue);">Ойшыл, Хәкім</p>
-        </div>
+        <img src="https://static.tengrinews.kz/userdata/news/2020/news_410712/thumb_m/photo_331327.jpg" class="featured-img">
+        <div style="padding: 20px;"><h3>Абай Құнанбайұлы</h3><p style="color: var(--kz-blue);">Ойшыл, Хәкім</p></div>
     </div>
     <div class="featured-card">
-        <img src="https://e-history.kz/storage/upload/images/86/e1/86e1e813953526541f5a5e38d7a1112d.jpg" class="featured-img" alt="Alikhan">
-        <div style="padding: 20px;">
-            <h3>Әлихан Бөкейханов</h3>
-            <p style="color: var(--kz-blue);">Алаш Көсемі</p>
-        </div>
+        <img src="https://e-history.kz/storage/upload/images/86/e1/86e1e813953526541f5a5e38d7a1112d.jpg" class="featured-img">
+        <div style="padding: 20px;"><h3>Әлихан Бөкейханов</h3><p style="color: var(--kz-blue);">Алаш Көсемі</p></div>
     </div>
     <div class="featured-card">
-        <img src="https://informburo.kz/img/inner/1054/13/ahmet-baytursynov.jpg" class="featured-img" alt="Akhmet">
-        <div style="padding: 20px;">
-            <h3>Ахмет Байтұрсынұлы</h3>
-            <p style="color: var(--kz-blue);">Ұлт Ұстазы</p>
-        </div>
+        <img src="https://informburo.kz/img/inner/1054/13/ahmet-baytursynov.jpg" class="featured-img">
+        <div style="padding: 20px;"><h3>Ахмет Байтұрсынұлы</h3><p style="color: var(--kz-blue);">Ұлт Ұстазы</p></div>
     </div>
 </div>
 
 <div class="container">
     <h2 class="section-title">Мәдени-Тарихи Тұлғалар</h2>
-    
-    <div class="category-title">Хандар мен Билер</div>
-    <div class="figures-list" id="khans-list"></div>
-
-    <div class="category-title">Алаш Арыстары мен Жазушылар</div>
-    <div class="figures-list" id="alash-list"></div>
+    <div class="category-title">Тұлғалар тізімі</div>
+    <div class="figures-list" id="figures-list">
+        <div class="small-card"><h4>Тәуке хан</h4><p>«Жеті жарғыны» енгізген билеуші.</p></div>
+        <div class="small-card"><h4>Мағжан Жұмабаев</h4><p>Романтик ақын, Алаш арысы.</p></div>
+        <div class="small-card"><h4>Мұхтар Әуезов</h4><p>«Абай жолы» авторы.</p></div>
+        <div class="small-card"><h4>Кенесары хан</h4><p>Қазақтың соңғы ханы.</p></div>
+    </div>
 </div>
 
 <div id="bot-btn" onclick="document.getElementById('bot-widget').style.display='flex'">🤖</div>
 <div id="bot-widget">
-    <div id="bot-header">KazBloom AI (Powered by Gemini) <span style="cursor:pointer" onclick="document.getElementById('bot-widget').style.display='none'">✕</span></div>
+    <div id="bot-header">KazBloom AI 🤖 <span style="cursor:pointer" onclick="document.getElementById('bot-widget').style.display='none'">✕</span></div>
     <div id="bot-msgs">
-        <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 10px;">
-            Сәлем! Мен KazBloom AI көмекшісімін. Менен Қазақстан тарихы, мәдениеті немесе кез келген басқа тақырыпта сұрай аласыз.
-        </div>
+        <div class="bot-msg">Сәлем! Мен KazBloom AI-мын. Сұрағыңды қоя бер, мен жауап беруге дайынмын!</div>
     </div>
     <div id="bot-input-area">
         <input type="text" id="bot-input" placeholder="Сұрақ жазыңыз...">
@@ -136,36 +127,22 @@
 </div>
 
 <script>
-    // Data list (Simplified for rendering)
-    const figures = [
-        { n: "Тәуке хан", d: "«Жеті жарғыны» енгізген билеуші.", t: "khans-list" },
-        { n: "Абылай хан", d: "Қазақ жерін біріктіруші ұлы хан.", t: "khans-list" },
-        { n: "Төле би", d: "Ұлы жүздің биі, шешен.", t: "khans-list" },
-        { n: "Мағжан Жұмабаев", d: "Романтик ақын, Алаш арысы.", t: "alash-list" },
-        { n: "Мұхтар Әуезов", d: "«Абай жолы» эпопеясының авторы.", t: "alash-list" }
-    ];
-
-    figures.forEach(f => {
-        document.getElementById(f.t).innerHTML += `<div class="small-card"><h4>${f.n}</h4><p>${f.d}</p></div>`;
-    });
-
-    // --- INTEGRATED AI LOGIC ---
-    const API_KEY = "AIzaSyCxKYiP7zsc6-4YD_04x_1U6AV8iycrAks"; // Сенің кілтің қойылды
+    const API_KEY = "AIzaSyCxKYiP7zsc6-4YD_04x_1U6AV8iycrAks"; 
 
     async function askAI() {
         const input = document.getElementById('bot-input');
         const msgs = document.getElementById('bot-msgs');
-        const userText = input.value;
+        const userText = input.value.trim();
 
         if (!userText) return;
 
-        // User message
-        msgs.innerHTML += `<div style="text-align:right; margin: 15px 0; color:var(--kz-gold)"><b>Сіз:</b> ${userText}</div>`;
+        // Вывод сообщения пользователя
+        msgs.innerHTML += `<div class="user-msg">Сіз: ${userText}</div>`;
         input.value = "";
         
-        // Typing indicator
+        // Индикатор загрузки
         const loadingId = "loading-" + Date.now();
-        msgs.innerHTML += `<div id="${loadingId}" class="typing">KazBloom AI ойлануда...</div>`;
+        msgs.innerHTML += `<div id="${loadingId}" class="typing">KazBloom AI жауап жазып жатыр...</div>`;
         msgs.scrollTop = msgs.scrollHeight;
 
         try {
@@ -173,27 +150,36 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `Сен KazBloom атты қазақ мәдениеті жобасының AI көмекшісісің. Пайдаланушыға әрқашан сыпайы, қазақша және нақты жауап бер. Сұрақ: ${userText}` }] }]
+                    contents: [{
+                        parts: [{ text: `Сен KazBloom атты қазақ мәдениеті жобасының AI көмекшісісің. Сұраққа қазақ тілінде, қысқа әрі нақты жауап бер. Сұрақ: ${userText}` }]
+                    }]
                 })
             });
 
             const data = await response.json();
-            document.getElementById(loadingId).remove();
+            
+            // Удаляем индикатор загрузки
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
 
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
+            if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
                 const aiResponse = data.candidates[0].content.parts[0].text;
-                msgs.innerHTML += `<div style="background: #222; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--kz-blue); line-height:1.6"><b>AI:</b> ${aiResponse}</div>`;
+                msgs.innerHTML += `<div class="bot-msg"><b>AI:</b> ${aiResponse}</div>`;
             } else {
-                throw new Error();
+                console.error("Data error:", data);
+                msgs.innerHTML += `<div class="bot-msg" style="color:red">Қате: Жауап алынбады. API кілтін немесе интернетті тексеріңіз.</div>`;
             }
         } catch (error) {
-            document.getElementById(loadingId).innerHTML = "Қате кетті. API лимиті таусылған болуы мүмкін.";
+            console.error("Fetch error:", error);
+            const loadingEl = document.getElementById(loadingId);
+            if (loadingEl) loadingEl.remove();
+            msgs.innerHTML += `<div class="bot-msg" style="color:red">Байланыс қатесі: Сервер жауап бермейді.</div>`;
         }
         msgs.scrollTop = msgs.scrollHeight;
     }
 
-    // Allow "Enter" key
-    document.getElementById('bot-input').addEventListener('keypress', (e) => {
+    // Слушатель кнопки Enter
+    document.getElementById('bot-input').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') askAI();
     });
 </script>
