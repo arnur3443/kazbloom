@@ -3,140 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kazbloom — Digital Heritage</title>
+    <title>Kazbloom — Great Heritage</title>
     <style>
-        :root {
-            --kz-blue: #00afca; --kz-gold: #fec100; --en-blue: #00247d; --dark: #1a1a1a;
-        }
-        body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; color: var(--dark); line-height: 1.6; }
+        :root { --kz-blue: #00afca; --kz-gold: #fec100; --en-blue: #00247d; --dark: #1a1a1a; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; margin: 0; color: var(--dark); line-height: 1.8; }
         
-        /* Header & Authors */
+        /* Header Section */
         header { 
-            background: linear-gradient(135deg, var(--en-blue), var(--kz-blue)); 
-            color: white; padding: 80px 20px; text-align: center; border-bottom: 5px solid var(--kz-gold);
+            background: linear-gradient(rgba(0,36,125,0.9), rgba(0,175,202,0.9)), url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=2000') center/cover;
+            color: white; padding: 120px 20px; text-align: center; border-bottom: 6px solid var(--kz-gold);
         }
-        .authors { font-style: italic; opacity: 0.9; margin-top: 15px; font-size: 1.1rem; }
-        .authors span { color: var(--kz-gold); font-weight: bold; }
+        .authors { margin-top: 20px; font-size: 1.2rem; background: rgba(0,0,0,0.3); display: inline-block; padding: 10px 25px; border-radius: 50px; border: 1px solid var(--kz-gold); }
+        .authors b { color: var(--kz-gold); }
 
-        .welcome-msg { max-width: 800px; margin: -40px auto 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .card { 
-            background: white; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s; position: relative;
+        /* Full Info Sections */
+        .person-section { 
+            background: white; border-radius: 25px; padding: 40px; margin-bottom: 50px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-left: 8px solid var(--en-blue);
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-        .card img { width: 100%; height: 250px; object-fit: cover; filter: grayscale(30%); transition: 0.5s; }
-        .card:hover img { filter: grayscale(0%); }
-        .card-body { padding: 25px; }
-        .card h3 { margin: 0; color: var(--en-blue); font-size: 1.5rem; }
-        .badge { background: var(--kz-gold); color: var(--en-blue); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .person-header { display: flex; gap: 30px; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .person-header img { width: 180px; height: 180px; border-radius: 20px; object-fit: cover; border: 3px solid var(--kz-gold); }
+        .person-header h2 { font-size: 2.2rem; color: var(--en-blue); margin: 0; }
 
-        /* AI Chat Box */
-        .ai-section { 
-            margin-top: 60px; background: var(--dark); color: white; padding: 50px; 
-            border-radius: 30px; border: 2px solid var(--kz-gold); position: relative; overflow: hidden;
-        }
-        #ai-display { 
-            font-size: 1.2rem; min-height: 100px; padding: 20px; border-left: 4px solid var(--kz-gold); 
-            background: rgba(255,255,255,0.05); margin-bottom: 25px; 
-        }
-        .ai-controls { display: flex; gap: 10px; }
-        input { flex: 1; padding: 18px; border-radius: 12px; border: none; font-size: 1rem; }
-        button { padding: 18px 35px; background: var(--kz-gold); color: var(--en-blue); border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .lang-block h4 { color: var(--kz-blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .lang-block p { font-size: 1.05rem; text-align: justify; }
+
+        /* AI Assistant Advanced */
+        .ai-hub { background: var(--dark); color: white; padding: 60px; border-radius: 40px; border: 2px solid var(--kz-gold); text-align: center; margin-top: 80px; }
+        #ai-display { text-align: left; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; margin-bottom: 30px; min-height: 150px; border-left: 5px solid var(--kz-gold); }
+        .input-box { display: flex; gap: 15px; max-width: 800px; margin: 0 auto; }
+        input { flex: 1; padding: 20px; border-radius: 15px; border: none; font-size: 1.1rem; }
+        button { padding: 20px 40px; background: var(--kz-gold); color: var(--en-blue); border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.05); filter: brightness(1.1); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🌸 WELCOME TO KAZBLOOM</h1>
-    <p>Preserving the Great History of the Steppe</p>
-    <div class="authors">Created by: <span>Khasenov Arnur</span> & <span>Adibay Aruzhan</span></div>
+    <h1>KAZBLOOM: THE GREAT ARCHIVE</h1>
+    <div class="authors">Project by: <b>Khasenov Arnur</b> & <b>Adibay Aruzhan</b></div>
 </header>
 
 <div class="container">
-    <div class="welcome-msg">
-        <h2>Greetings, Explorer! / Қош келдіңіз!</h2>
-        <p>Kazbloom is your digital bridge to the minds that shaped Kazakhstan. Below you will find stories of courage, intellect, and art.</p>
-    </div>
-
-    <div class="grid">
-        <div class="card">
+    
+    <section class="person-section">
+        <div class="person-header">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Ahmet_Baitursynov.jpg">
-            <div class="card-body">
-                <span class="badge">NATIONAL TEACHER</span>
-                <h3>Ahmet Baitursynuly</h3>
-                <p>The man who gave the Kazakh language its modern heart.</p>
+            <div>
+                <h2>Ahmet Baitursynuly</h2>
+                <p><i>The Teacher of the Nation / Ұлт ұстазы</i></p>
             </div>
         </div>
+        <div class="info-grid">
+            <div class="lang-block">
+                <h4>English Full Bio</h4>
+                <p>Ahmet Baitursynuly was a brilliant polymath: a poet, linguist, and politician. He is the father of the Kazakh alphabet, having adapted the Arabic script to suit the phonetic laws of the Kazakh language. As a leader of the Alash Orda, he fought for national self-determination. He was tragically executed in 1937 during the Great Purge, but his legacy as the "Teacher of the Nation" remains eternal.</p>
+            </div>
+            <div class="lang-block">
+                <h4>Толық ақпарат (KZ)</h4>
+                <p>Ахмет Байтұрсынұлы — қазақтың ақын, ғалым-лингвист, аудармашы, қоғам қайраткері. Ол қазақ тілінің дыбыстық жүйесін зерттеп, алғашқы әліпби мен оқулықтарды жасады. «Қазақ» газетін шығарып, халықтың санасын оятуға зор үлес қосты. Алаш қозғалысының рухани көсемі ретінде ұлттық автономия жолында күресті. 1937 жылы саяси қуғын-сүргіннің құрбаны болды.</p>
+            </div>
+        </div>
+    </section>
 
-        <div class="card">
+    <section class="person-section">
+        <div class="person-header">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Alikhan_Bukeikhanov.jpg">
-            <div class="card-body">
-                <span class="badge">ALASH LEADER</span>
-                <h3>Alikhan Bokeikhanov</h3>
-                <p>The first Prime Minister who dreamed of a free nation.</p>
+            <div>
+                <h2>Alikhan Bokeikhanov</h2>
+                <p><i>Leader of the Alash Orda / Алаш көсемі</i></p>
             </div>
         </div>
-
-        <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Saken_Seifullin.jpg">
-            <div class="card-body">
-                <span class="badge">POET & REBEL</span>
-                <h3>Saken Seifullin</h3>
-                <p>A symbol of style and revolution in Kazakh literature.</p>
+        <div class="info-grid">
+            <div class="lang-block">
+                <h4>English Full Bio</h4>
+                <p>Alikhan Bokeikhanov was the visionary leader of the Alash movement and the first Prime Minister of the Alash Autonomy. A scientist and economist by training, he believed that Kazakhstan could only be free through modern education and democracy. He was a direct descendant of Genghis Khan (Tore) and dedicated his entire life to restoring Kazakh statehood before being executed in Moscow in 1937.</p>
+            </div>
+            <div class="lang-block">
+                <h4>Толық ақпарат (KZ)</h4>
+                <p>Әлихан Бөкейханов — Алаш қозғалысының негізін салушы және жетекшісі, Алаш автономиясы үкіметінің алғашқы төрағасы. Ол — Шыңғыс ханның тікелей ұрпағы, төре. Ғалым, ормантанушы және публицист ретінде қазақ жерінің тұтастығы үшін күресті. Ол «Тірі болсам, халыққа қызмет қылмай қоймаймын» деген ұстаныммен өмір сүрді. 1937 жылы Мәскеуде атылды.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section class="ai-section">
-        <h2>Kazbloom AI: Deep Knowledge</h2>
-        <div id="ai-display">Ask me about Esenberlin, Altynsarin, or even secrets of the Alash Orda...</div>
-        <div class="ai-controls">
-            <input type="text" id="ai-input" placeholder="Type a name (e.g. Olzhas, Shakarim, Mustafa)...">
-            <button onclick="askAI()">Discover</button>
+    <section class="ai-hub">
+        <h2>Kazbloom Knowledge Engine</h2>
+        <div id="ai-display">Enter any name from your list to get full encyclopedia entry...</div>
+        <div class="input-box">
+            <input type="text" id="ai-input" placeholder="Type name: Mukhtar, Mustafa, Fariza, Olzhas...">
+            <button onclick="askAI()">Search Database</button>
         </div>
     </section>
 </div>
 
 <script>
-    const database = {
-        "esenberlin": {
-            en: "Ilyas Esenberlin wrote 'The Nomads'. Fact: He was a war hero who survived a heavy leg injury to become the 'voice' of Kazakh history.",
-            kz: "Ілияс Есенберлин «Көшпенділер» трилогиясын жазды. Дерек: Ол соғыс ардагері, ауыр жарақат алса да, қазақ тарихының «дауысына» айналды."
+    const fullData = {
+        "mukhtar": {
+            en: "Mukhtar Auezov: A global literary giant. His epic 'The Path of Abai' introduced Kazakh culture to the world. He was a scientist, playwright, and academician who survived political pressure to preserve the history of the Great Steppe.",
+            kz: "Мұхтар Әуезов: Әлемдік деңгейдегі жазушы. «Абай жолы» эпопеясы арқылы қазақ болмысын әлемге танытты. Ол — заңғар жазушы, ғалым және драматург."
         },
-        "saken": {
-            en: "Saken Seifullin was the 'Dandy of the Steppe'. He was known for his impeccable fashion and was the first to drive a car in his region!",
-            kz: "Сәкен Сейфуллин — «Дала дендиі». Ол өзінің мінсіз стилімен танымал болды және өз өңірінде алғашқы болып көлік мінген."
+        "mustafa": {
+            en: "Mustafa Shoqay: An ideologue of Turkic unity. He was the head of the Turkestan Autonomy and spent his exile in Europe fighting for the liberation of Central Asia from Soviet rule.",
+            kz: "Мұстафа Шоқай: Түркі халықтарының бірлігін аңсаған қайраткер. Түркістан автономиясының жетекшісі болды, өмірінің соңына дейін Еуропада Орталық Азия азаттығы үшін күресті."
         },
-        "olzhas": {
-            en: "Olzhas Suleimenov's 'Az i Ya' was banned in 1975 because he dared to prove that Turkic and Slavic cultures have common roots.",
-            kz: "Олжас Сүлейменовтің «Аз и Я» кітабына 1975 жылы тыйым салынды, өйткені ол түркі және славян мәдениеттерінің ортақ тамырын дәлелдеді."
-        },
-        "altynsarin": {
-            en: "Ybyrai Altynsarin didn't just build schools; he personally designed the desks and bells for them!",
-            kz: "Ыбырай Алтынсарин тек мектеп салып қана қоймай, ондағы парталар мен қоңыраулардың дизайнын өзі жасаған."
+        "fariza": {
+            en: "Fariza Ongarsynova: The 'Queen of Poetry'. Her verses were powerful, sharp, and full of national pride. She was a People's Writer of Kazakhstan and a voice of truth for her generation.",
+            kz: "Фариза Оңғарсынова: Поэзия падишасы. Оның жырлары өршілдігімен және шыншылдығымен ерекшеленеді. Қазақстанның Халық жазушысы."
         }
+        // Здесь можно добавить всех остальных из списка по такой же схеме
     };
 
     function askAI() {
         const q = document.getElementById('ai-input').value.toLowerCase();
         const display = document.getElementById('ai-display');
-        display.innerHTML = "Opening the archives... / Мұрағатты ашудамын...";
+        display.innerHTML = "Processing data... / Мәліметтер өңделуде...";
         
         setTimeout(() => {
             let found = false;
-            for (let key in database) {
+            for (let key in fullData) {
                 if (q.includes(key)) {
-                    display.innerHTML = `<strong>EN:</strong> ${database[key].en}<br><br><strong>KZ:</strong> ${database[key].kz}`;
+                    display.innerHTML = `<strong>EN:</strong> ${fullData[key].en}<br><br><strong>KZ:</strong> ${fullData[key].kz}`;
                     found = true; break;
                 }
             }
-            if (!found) display.innerHTML = "I am still learning about this person. Try 'Saken' or 'Esenberlin'!";
-        }, 700);
+            if (!found) display.innerHTML = "I am processing the full bio for this person. Try 'Mukhtar' or 'Mustafa' for now!";
+        }, 800);
     }
 </script>
 
