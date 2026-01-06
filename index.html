@@ -3,125 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kazbloom — Personalities & Facts</title>
+    <title>Kazbloom — Digital Heritage</title>
     <style>
         :root {
-            --kz-blue: #00afca; --kz-gold: #fec100; --en-blue: #00247d; --bg: #f4f7f9;
+            --kz-blue: #00afca; --kz-gold: #fec100; --en-blue: #00247d; --dark: #1a1a1a;
         }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: #333; }
-        nav { background: var(--en-blue); color: white; padding: 20px; text-align: center; font-weight: bold; border-bottom: 4px solid var(--kz-gold); position: sticky; top: 0; z-index: 1000; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; color: var(--dark); line-height: 1.6; }
         
-        .hero { text-align: center; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 40px; }
-        
-        /* Grid for cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-top: 5px solid var(--kz-blue); }
-        .card-img { width: 100%; height: 220px; object-fit: cover; background: #eee; }
-        .card-body { padding: 20px; }
-        .card h3 { margin: 0 0 10px 0; color: var(--en-blue); }
-        .fact-box { font-size: 0.9rem; background: #f9f9f9; padding: 10px; border-radius: 5px; margin-top: 10px; border-left: 3px solid var(--kz-gold); }
+        /* Header & Authors */
+        header { 
+            background: linear-gradient(135deg, var(--en-blue), var(--kz-blue)); 
+            color: white; padding: 80px 20px; text-align: center; border-bottom: 5px solid var(--kz-gold);
+        }
+        .authors { font-style: italic; opacity: 0.9; margin-top: 15px; font-size: 1.1rem; }
+        .authors span { color: var(--kz-gold); font-weight: bold; }
 
-        /* AI Section */
-        .ai-section { background: var(--en-blue); color: white; padding: 40px; border-radius: 20px; margin-top: 50px; text-align: center; border: 4px solid var(--kz-gold); }
-        #ai-display { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; min-height: 100px; line-height: 1.6; }
-        .ai-input-group { display: flex; gap: 10px; justify-content: center; }
-        input { padding: 15px; width: 50%; border-radius: 5px; border: none; outline: none; font-size: 1rem; }
-        button { padding: 15px 30px; background: var(--kz-gold); border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: var(--en-blue); transition: 0.3s; }
-        button:hover { background: white; transform: scale(1.05); }
+        .welcome-msg { max-width: 800px; margin: -40px auto 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        /* Grid System */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .card { 
+            background: white; border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s; position: relative;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+        .card img { width: 100%; height: 250px; object-fit: cover; filter: grayscale(30%); transition: 0.5s; }
+        .card:hover img { filter: grayscale(0%); }
+        .card-body { padding: 25px; }
+        .card h3 { margin: 0; color: var(--en-blue); font-size: 1.5rem; }
+        .badge { background: var(--kz-gold); color: var(--en-blue); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+
+        /* AI Chat Box */
+        .ai-section { 
+            margin-top: 60px; background: var(--dark); color: white; padding: 50px; 
+            border-radius: 30px; border: 2px solid var(--kz-gold); position: relative; overflow: hidden;
+        }
+        #ai-display { 
+            font-size: 1.2rem; min-height: 100px; padding: 20px; border-left: 4px solid var(--kz-gold); 
+            background: rgba(255,255,255,0.05); margin-bottom: 25px; 
+        }
+        .ai-controls { display: flex; gap: 10px; }
+        input { flex: 1; padding: 18px; border-radius: 12px; border: none; font-size: 1rem; }
+        button { padding: 18px 35px; background: var(--kz-gold); color: var(--en-blue); border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<nav>KAZBLOOM — EXPLORE THE GREATS</nav>
+<header>
+    <h1>🌸 WELCOME TO KAZBLOOM</h1>
+    <p>Preserving the Great History of the Steppe</p>
+    <div class="authors">Created by: <span>Khasenov Arnur</span> & <span>Adibay Aruzhan</span></div>
+</header>
 
 <div class="container">
-    <header class="hero">
-        <h1>Discover Kazakh Intellectuals</h1>
-        <p>Қазақ зиялыларымен танысыңыз</p>
-    </header>
+    <div class="welcome-msg">
+        <h2>Greetings, Explorer! / Қош келдіңіз!</h2>
+        <p>Kazbloom is your digital bridge to the minds that shaped Kazakhstan. Below you will find stories of courage, intellect, and art.</p>
+    </div>
 
-    <div class="grid" id="main-grid">
+    <div class="grid">
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Ahmet_Baitursynov.jpg" class="card-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Ahmet_Baitursynov.jpg">
             <div class="card-body">
+                <span class="badge">NATIONAL TEACHER</span>
                 <h3>Ahmet Baitursynuly</h3>
-                <div class="fact-box">
-                    <strong>Fact:</strong> He was an avid photographer and captured rare moments of his era.
-                </div>
+                <p>The man who gave the Kazakh language its modern heart.</p>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Alikhan_Bukeikhanov.jpg" class="card-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Alikhan_Bukeikhanov.jpg">
             <div class="card-body">
+                <span class="badge">ALASH LEADER</span>
                 <h3>Alikhan Bokeikhanov</h3>
-                <div class="fact-box">
-                    <strong>Fact:</strong> A direct descendant of Genghis Khan and the first leader of Alash autonomy.
-                </div>
+                <p>The first Prime Minister who dreamed of a free nation.</p>
             </div>
         </div>
 
         <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Saken_Seifullin.jpg">
             <div class="card-body">
-                <h3>Mustafa Shoqay</h3>
-                <div class="fact-box">
-                    <strong>Fact:</strong> A symbol of united Turkestan who spoke more than 5 languages fluently.
-                </div>
+                <span class="badge">POET & REBEL</span>
+                <h3>Saken Seifullin</h3>
+                <p>A symbol of style and revolution in Kazakh literature.</p>
             </div>
         </div>
     </div>
 
     <section class="ai-section">
-        <h2>Kazbloom Intelligent Assistant</h2>
-        <div id="ai-display">Type a name to learn a unique fact! / Бірегей деректі білу үшін есімді жазыңыз...</div>
-        <div class="ai-input-group">
-            <input type="text" id="ai-input" placeholder="Ahmet, Alikhan, Mustafa, Mukhtar...">
-            <button onclick="askAI()">Search / Іздеу</button>
+        <h2>Kazbloom AI: Deep Knowledge</h2>
+        <div id="ai-display">Ask me about Esenberlin, Altynsarin, or even secrets of the Alash Orda...</div>
+        <div class="ai-controls">
+            <input type="text" id="ai-input" placeholder="Type a name (e.g. Olzhas, Shakarim, Mustafa)...">
+            <button onclick="askAI()">Discover</button>
         </div>
     </section>
 </div>
 
 <script>
-    const facts = {
-        "ahmet": {
-            en: "Ahmet Baitursynuly was named 'Azan' by his grandfather Shoshak. He was one of the first to use a camera to document history.",
-            kz: "Ахмет Байтұрсынұлына азан шақырып атын қойған — атасы Шошақ. Ол өз дәуірін фотокамерамен таспалаған алғашқылардың бірі."
+    const database = {
+        "esenberlin": {
+            en: "Ilyas Esenberlin wrote 'The Nomads'. Fact: He was a war hero who survived a heavy leg injury to become the 'voice' of Kazakh history.",
+            kz: "Ілияс Есенберлин «Көшпенділер» трилогиясын жазды. Дерек: Ол соғыс ардагері, ауыр жарақат алса да, қазақ тарихының «дауысына» айналды."
         },
-        "alikhan": {
-            en: "Alikhan Bokeikhanov was a scientist, forest engineer, and a brilliant journalist who wrote for many newspapers under pseudonyms.",
-            kz: "Әлихан Бөкейханов — ғалым, ормантанушы инженер және көптеген газеттерге бүркеншік атпен мақала жазған дарынды публицист."
+        "saken": {
+            en: "Saken Seifullin was the 'Dandy of the Steppe'. He was known for his impeccable fashion and was the first to drive a car in his region!",
+            kz: "Сәкен Сейфуллин — «Дала дендиі». Ол өзінің мінсіз стилімен танымал болды және өз өңірінде алғашқы болып көлік мінген."
         },
-        "mustafa": {
-            en: "Mustafa Shoqay was the head of the Turkestan Autonomy. He dedicated his life to the idea of a free, united Central Asia.",
-            kz: "Мұстафа Шоқай — Түркістан автономиясының басшысы. Ол бүкіл өмірін азат әрі біртұтас Орталық Азия идеясына арнады."
+        "olzhas": {
+            en: "Olzhas Suleimenov's 'Az i Ya' was banned in 1975 because he dared to prove that Turkic and Slavic cultures have common roots.",
+            kz: "Олжас Сүлейменовтің «Аз и Я» кітабына 1975 жылы тыйым салынды, өйткені ол түркі және славян мәдениеттерінің ортақ тамырын дәлелдеді."
         },
-        "mukhtar": {
-            en: "Mukhtar Auezov's 'The Path of Abai' was included in the 'Library of World Literature'. He was also a professional football player in his youth!",
-            kz: "Мұхтар Әуезовтің «Абай жолы» роман-эпопеясы «Әлем әдебиеті кітапханасына» енген. Жастық шағында ол кәсіби футболшы болған!"
-        },
-        "fariza": {
-            en: "Fariza Ongarsynova was called the 'Poetic Queen of the Steppe'. She was known for her uncompromising honesty and courage.",
-            kz: "Фариза Оңғарсынованы «Поэзияның падишасы» деп атаған. Ол өзінің өткірлігімен және қайсарлығымен танымал болды."
+        "altynsarin": {
+            en: "Ybyrai Altynsarin didn't just build schools; he personally designed the desks and bells for them!",
+            kz: "Ыбырай Алтынсарин тек мектеп салып қана қоймай, ондағы парталар мен қоңыраулардың дизайнын өзі жасаған."
         }
     };
 
     function askAI() {
-        const query = document.getElementById('ai-input').value.toLowerCase();
+        const q = document.getElementById('ai-input').value.toLowerCase();
         const display = document.getElementById('ai-display');
+        display.innerHTML = "Opening the archives... / Мұрағатты ашудамын...";
         
-        display.innerHTML = "Consulting history... / Тарих парақтарын ашудамын...";
-
         setTimeout(() => {
             let found = false;
-            for (let name in facts) {
-                if (query.includes(name)) {
-                    display.innerHTML = `<strong>EN:</strong> ${facts[name].en}<br><br><strong>KZ:</strong> ${facts[name].kz}`;
+            for (let key in database) {
+                if (q.includes(key)) {
+                    display.innerHTML = `<strong>EN:</strong> ${database[key].en}<br><br><strong>KZ:</strong> ${database[key].kz}`;
                     found = true; break;
                 }
             }
-            if (!found) display.innerHTML = "I am still gathering facts about this person. Try 'Ahmet' or 'Mukhtar'!";
-        }, 800);
+            if (!found) display.innerHTML = "I am still learning about this person. Try 'Saken' or 'Esenberlin'!";
+        }, 700);
     }
 </script>
 
