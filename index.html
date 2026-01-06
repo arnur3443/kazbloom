@@ -12,183 +12,123 @@
             --bg: #fdfdfd;
         }
 
-        body { font-family: 'Georgia', serif; background: var(--bg); margin: 0; color: #222; }
-        
-        header { 
-            background: var(--en-blue); 
-            color: white; 
-            padding: 80px 20px; 
-            text-align: center; 
-            border-bottom: 8px solid var(--kz-gold);
-        }
-        .established { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--kz-gold); font-weight: bold; }
-        .authors { font-size: 1.3rem; margin-top: 20px; font-weight: bold; }
-        .authors span { color: var(--kz-gold); }
+        body { font-family: 'Georgia', serif; background: var(--bg); margin: 0; color: #222; scroll-behavior: smooth; }
+        header { background: var(--en-blue); color: white; padding: 60px 20px; text-align: center; border-bottom: 8px solid var(--kz-gold); }
+        .authors { font-size: 1.2rem; margin-top: 15px; }
+        .authors span { color: var(--kz-gold); font-weight: bold; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
 
-        .welcome-box { 
-            text-align: center; 
-            margin-bottom: 60px; 
-            padding: 40px; 
-            border: 2px solid var(--kz-blue); 
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        /* Биографиялық блок */
-        .person-card { 
-            background: white; 
-            margin-bottom: 60px; 
-            padding: 40px; 
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--kz-gold);
-        }
-        .person-header { display: flex; gap: 40px; align-items: center; margin-bottom: 30px; }
-        
-        /* СУРЕТТЕРГЕ АРНАЛҒАН СТИЛЬ */
-        .person-header img { 
-            width: 240px; 
-            height: 320px; 
-            object-fit: cover; 
-            border-radius: 12px; 
-            border: 3px solid var(--kz-blue);
-            background: #f0f0f0;
-        }
-        
-        .person-title h2 { font-size: 2.3rem; color: var(--en-blue); margin: 0; }
-        .person-title p { font-style: italic; font-size: 1.1rem; color: #666; margin-top: 5px; }
-
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .lang-section h3 { 
-            color: var(--kz-blue); 
-            border-bottom: 2px solid var(--kz-gold); 
-            display: inline-block;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .lang-section p { text-align: justify; line-height: 1.8; font-size: 1.05rem; }
-
-        /* AI Интеллект бөлімі */
+        /* AI Search Section */
         .ai-engine { 
-            background: #111; 
-            color: white; 
-            padding: 60px; 
-            border-radius: 30px; 
-            margin-top: 80px;
-            border: 2px solid var(--kz-gold);
+            background: #111; color: white; padding: 40px; border-radius: 20px; 
+            margin-bottom: 60px; border: 2px solid var(--kz-gold); position: sticky; top: 20px; z-index: 100;
         }
-        #ai-display { min-height: 140px; border-left: 4px solid var(--kz-gold); padding-left: 25px; margin-bottom: 30px; font-size: 1.15rem; line-height: 1.7; }
-        .ai-form { display: flex; gap: 15px; }
-        input { flex: 1; padding: 18px; border-radius: 10px; border: none; font-size: 1.1rem; }
-        button { padding: 18px 45px; background: var(--kz-gold); border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1.1rem; color: var(--en-blue); }
+        #ai-display { min-height: 100px; border-left: 4px solid var(--kz-gold); padding-left: 20px; margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; }
+        .ai-form { display: flex; gap: 10px; }
+        input { flex: 1; padding: 15px; border-radius: 8px; border: none; font-size: 1rem; }
+        button { padding: 15px 30px; background: var(--kz-gold); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: var(--en-blue); }
 
-        @media (max-width: 768px) {
-            .person-header { flex-direction: column; text-align: center; }
-            .content-grid { grid-template-columns: 1fr; }
-        }
+        /* FAQ Section */
+        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .faq-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--kz-blue); }
+        .faq-card h3 { color: var(--en-blue); font-size: 1.1rem; margin-top: 0; }
+        .faq-card p { font-size: 0.95rem; color: #444; }
+
+        h2.section-title { text-align: center; color: var(--en-blue); margin: 50px 0 30px; text-transform: uppercase; letter-spacing: 2px; }
+
+        footer { text-align: center; padding: 40px; background: #eee; margin-top: 60px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="established">Established 2025</div>
+    <div style="font-size: 0.8rem; letter-spacing: 2px;">ESTABLISHED 2025</div>
     <h1>KAZBLOOM DIGITAL ARCHIVE</h1>
     <div class="authors">Created by: <span>Khasenov Arnur</span> & <span>Adibay Aruzhan</span></div>
 </header>
 
 <div class="container">
-    <div class="welcome-box">
-        <h2>Greetings, Explorer! / Қош келдіңіз!</h2>
-        <p>This digital platform is dedicated to the legends of Kazakhstan. Explore their full biographies below.</p>
-    </div>
-
-    <article class="person-card">
-        <div class="person-header">
-            <img src="https://avatars.mds.yandex.net/i?id=d14a209ceafe892d08b1f8e87df20552_l-5865724-images-thumbs&n=13" alt="Ahmet Baitursynuly">
-            <div class="person-title">
-                <h2>Ahmet Baitursynuly</h2>
-                <p>1872 — 1937 | National Educator</p>
-            </div>
-        </div>
-        <div class="content-grid">
-            <div class="lang-section">
-                <h3>English Biography</h3>
-                <p>Ahmet Baitursynuly was a spiritual leader of the Kazakh people, a brilliant linguist, and a poet. He created the first Kazakh alphabet and authored the first textbooks for Kazakh children. As a key member of Alash Orda, he fought for national independence and enlightenment. He was a pioneer in Kazakh linguistics and literary criticism, leaving a legacy as the "Teacher of the Nation" before his tragic execution in 1937.</p>
-            </div>
-            <div class="lang-section">
-                <h3>Қазақша толық биография</h3>
-                <p>Ахмет Байтұрсынұлы — ұлт ұстазы, түрколог-ғалым, Алаш қозғалысының рухани көсемі. Ол қазақ тілінің дыбыстық жүйесін зерттеп, тұңғыш әліпби мен оқулықтарды жазды. «Қазақ» газеті арқылы ұлттың санасын оятуға зор үлес қосты. Ол қазақ әдебиеттану ғылымының негізін салушы. 1937 жылы саяси қуғын-сүргінге ұшырап, атылғанға дейін халқының бостандығы мен білімі жолында аянбай еңбек етті.</p>
-            </div>
-        </div>
-    </article>
-
-    <article class="person-card">
-        <div class="person-header">
-            <img src="https://e-history.kz/media/upload/4624/2016/05/26/1888b93d357e939a7a7155beeb5aaf8d.jpg" alt="Alikhan Bokeikhanov">
-            <div class="person-title">
-                <h2>Alikhan Bokeikhanov</h2>
-                <p>1866 — 1937 | Alash Orda Chairman</p>
-            </div>
-        </div>
-        <div class="content-grid">
-            <div class="lang-section">
-                <h3>English Biography</h3>
-                <p>Alikhan Bokeikhanov was the founder and leader of the Alash movement, and the first Prime Minister of the Alash Autonomy. A direct descendant of Genghis Khan, he was a polymath — a scientist, journalist, and economist. He dedicated his life to restoring Kazakh statehood and democratic values. His famous words, "I will not stop serving the people as long as I live," remain a guiding principle for Kazakh society.</p>
-            </div>
-            <div class="lang-section">
-                <h3>Қазақша толық биография</h3>
-                <p>Әлихан Бөкейханов — Алаш партиясының негізін салушы, Алаш Орда үкіметінің тұңғыш төрағасы. Шыңғыс ханның ұрпағы, энциклопедист-ғалым және публицист. Ол қазақ жерінің тұтастығы мен саяси бостандығы үшін күресті. Мәскеуде атылғанға дейін «Тірі болсам, халыққа қызмет қылмай қоймаймын» деген сертіне адал болып, ұлттық мемлекеттілік идеясын қалыптастырды.</p>
-            </div>
-        </div>
-    </article>
-
     <section class="ai-engine">
-        <h2 style="color: var(--kz-gold)">KazBloom Encyclopedia AI</h2>
-        <div id="ai-display">Type a name to get full information (e.g. Mukhtar, Mirzhakyp, Mustafa, Magzhan)...</div>
+        <h2 style="color: var(--kz-gold); margin-top: 0;">KazBloom Encyclopedia AI</h2>
+        <div id="ai-display">Search for any figure (Abai, Ablai Khan, Alikhan, Makhambet, etc.)...</div>
         <div class="ai-form">
-            <input type="text" id="ai-input" placeholder="Search name / Есімді жазыңыз...">
+            <input type="text" id="ai-input" placeholder="Enter name (e.g. Abai, Shakarim, Mustafa)...">
             <button onclick="askAI()">Search / Іздеу</button>
         </div>
     </section>
+
+    <h2 class="section-title">Cultural FAQ / Жиі қойылатын сұрақтар</h2>
+    <div class="faq-grid" id="faq-container">
+        </div>
 </div>
+
+<footer>
+    © 2025 KazBloom Archive | Arnur & Aruzhan
+</footer>
 
 <script>
     const archive = {
-        "mirzhakyp": {
-            en: "Mirzhakyp Dulatuly (1885–1935) was a poet and leader of Alash. His book 'Oyan, Qazaq!' (Wake up, Kazakh!) became the anthem of national awakening. He was a professional journalist and the author of the first Kazakh novel 'Baqytsyz Jamal'.",
-            kz: "Міржақып Дулатұлы (1885–1935) — ақын, Алаш көсемдерінің бірі. Оның «Оян, қазақ!» кітабы ұлттық оянудың ұранына айналды. Алғашқы қазақ романы «Бақытсыз Жамалдың» авторы."
+        "abai": {
+            kz: "Абай Құнанбайұлы (1845–1904) — қазақтың ұлы ақыны, ойшылы, ағартушысы. «Қара сөздері» — философиялық терең еңбек. Қазақ жазба әдебиетінің негізін салушы.",
+            en: "Abai Qunanbaiuly (1845–1904) — The greatest Kazakh poet, philosopher, and educator. Founder of modern Kazakh literature. Known for 'Words of Edification'."
         },
-        "mustafa": {
-            en: "Mustafa Shoqay (1890–1941) was a prominent political figure and ideologue of Turkic unity. He was the head of the Turkestan Autonomy and spent his life in Europe fighting for the independence of all Central Asian peoples from Soviet rule.",
-            kz: "Мұстафа Шоқай (1890–1941) — мемлекет қайраткері, түркі бірлігі идеясының авторы. Түркістан автономиясының басшысы болды. Еуропада жүріп Орталық Азия елдерінің азаттығы үшін күресті."
+        "shakarim": {
+            kz: "Шәкәрім Құдайбердіұлы (1858–1931) — ақын, философ, тарихшы. Абайдың шәкірті. «Үш анық» еңбегінде адам өмірінің мәнін түсіндірді.",
+            en: "Shakarim Qudayberdiuly (1858–1931) — Poet, philosopher, and historian. Disciple of Abai. Explored the meaning of life in his work 'Three Truths'."
         },
-        "mukhtar": {
-            en: "Mukhtar Auezov (1897–1961) was a legendary writer and scientist. His masterpiece 'The Path of Abai' is a four-volume epic that describes the social life of nomads in the 19th century. It is a world classic translated into 116 languages.",
-            kz: "Мұхтар Әуезов (1897–1961) — ұлы жазушы, драматург және ғалым. Оның «Абай жолы» роман-эпопеясы — қазақ өмірінің энциклопедиясы. Бұл шығарма әлемдік классикаға еніп, 116 тілге аударылған."
+        "akhmet": {
+            kz: "Ахмет Байтұрсынұлы (1872–1937) — ұлт ұстазы, лингвист, Алаш көсемі. Қазақ әліпбиін реформалап, тіл білімінің негізін қалады.",
+            en: "Akhmet Baitursynuly (1872–1937) — National teacher, linguist, and leader of Alash. Reformed the Kazakh alphabet and established Kazakh linguistics."
+        },
+        "alikhan": {
+            kz: "Әлихан Бөкейханов (1866–1937) — Алаш партиясының көсемі, Алаш Орда үкіметінің төрағасы. Қазақ автономиясы үшін күрескен мемлекет қайраткері.",
+            en: "Alikhan Bokeikhanov (1866–1937) — Leader of the Alash movement and first Prime Minister of Alash Autonomy. Statesman and scholar."
+        },
+        "ablai": {
+            kz: "Абылай хан (1711–1781) — ұлы қолбасшы, қазақ жерін біріктіруші. Ресей мен Қытай арасында көреген дипломатия жүргізді.",
+            en: "Ablai Khan (1711–1781) — Great military leader who united Kazakh lands. A visionary diplomat between Russia and China."
+        },
+        "kenesary": {
+            kz: "Кенесары Қасымұлы (1802–1847) — қазақтың соңғы ханы, ұлт-азаттық қозғалыстың жетекшісі. Мемлекеттілікті қалпына келтіруге ұмтылды.",
+            en: "Kenesary Kasymuly (1802–1847) — The last Khan of the Kazakhs. Leader of the national liberation movement against colonial rule."
         }
+        // ... Басқа тұлғаларды осы форматта қосуға болады
     };
+
+    const faqs = [
+        { q: "Қазақ мәдениеті дегеніміз не?", a: "Қазақ халқының ғасырлар бойы қалыптасқан тұрмыс-тіршілігі, салт-дәстүрі, тілі мен өнерінің жиынтығы." },
+        { q: "Домбыраның маңызы қандай?", a: "Домбыра — ұлттық аспап, рухани символ. Күй — сөзсіз айтылған тарих деп есептеледі." },
+        { q: "Неге қазақтар қонақжай?", a: "Көшпелі өмірде қонақ — Құдайдың қонағы саналған. Бұл өзара көмек пен сыйластықтың белгісі." }
+    ];
+
+    // FAQ-ты жүктеу
+    const faqContainer = document.getElementById('faq-container');
+    faqs.forEach(item => {
+        faqContainer.innerHTML += `
+            <div class="faq-card">
+                <h3>${item.q}</h3>
+                <p>${item.a}</p>
+            </div>
+        `;
+    });
 
     function askAI() {
         const query = document.getElementById('ai-input').value.toLowerCase();
         const display = document.getElementById('ai-display');
-        display.innerHTML = "Opening Archives / Мұрағат ашылуда...";
-        
-        setTimeout(() => {
-            let found = false;
-            for (let key in archive) {
-                if (query.includes(key)) {
-                    display.innerHTML = `<strong>English:</strong> ${archive[key].en}<br><br><strong>Қазақша:</strong> ${archive[key].kz}`;
-                    found = true; break;
-                }
+        let found = false;
+
+        for (let key in archive) {
+            if (query.includes(key)) {
+                display.innerHTML = `<strong>Қазақша:</strong> ${archive[key].kz}<br><br><strong>English:</strong> ${archive[key].en}`;
+                found = true; break;
             }
-            if (!found) display.innerHTML = "Data not found. We are updating the archive 2025! / Мәлімет табылмады. Біз 2025 мұрағатын жаңартып жатырмыз.";
-        }, 700);
+        }
+        if (!found) display.innerHTML = "Data not found. Try names like: Abai, Ablai, Alikhan, Akhmet...";
     }
 </script>
 
 </body>
 </html>
+
 
