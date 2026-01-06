@@ -2,854 +2,660 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ULY DALA MURA | DIGITAL ARCHIVE</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
-
+    <title>KAZBLOOM ULTIMATE EDITION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* ================================================================
-           1. GLOBAL RESET & VARIABLES
-           ================================================================
-        */
         :root {
-            --color-gold: #D4AF37;
-            --color-gold-light: #F4C430;
-            --color-blue: #002F6C;
-            --color-blue-light: #00509d;
-            --color-bg-dark: #0a0a0a;
-            --color-bg-card: #141414;
-            --color-text-main: #e0e0e0;
-            --color-text-muted: #a0a0a0;
-            --font-main: 'Montserrat', sans-serif;
-            --font-title: 'Cinzel', serif;
-            --transition-speed: 0.4s;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --bg: #000000;
+            --card-bg: #111111;
+            --text: #ffffff;
         }
 
-        * {
-            margin-top: 0;
-            margin-bottom: 0;
-            margin-left: 0;
-            margin-right: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            padding-left: 0;
-            padding-right: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
 
-        body {
-            background-color: var(--color-bg-dark);
-            color: var(--color-text-main);
-            font-family: var(--font-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
+        /* INTRO SCREEN */
+        #welcome {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            z-index: 10000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: 1s;
         }
-
-        /* ================================================================
-           2. WELCOME SCREEN (OVERLAY)
-           ================================================================
-        */
-        #welcome-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1s ease-in-out;
+        .welcome-title { font-family: 'Playfair Display'; font-size: 5rem; color: var(--gold); margin-bottom: 10px; }
+        .welcome-sub { font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 40px; color: #888; }
+        .start-btn { 
+            padding: 15px 40px; border: 2px solid var(--gold); background: none; 
+            color: var(--gold); cursor: pointer; font-weight: bold; font-size: 1.2rem;
+            transition: 0.3s;
         }
+        .start-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px var(--gold); }
 
-        .welcome-content {
-            text-align: center;
-            padding: 40px;
-            border: 1px solid var(--color-gold);
-            max-width: 800px;
+        /* HEADER */
+        header { 
+            padding: 20px 5%; background: rgba(0,0,0,0.9); 
+            border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .logo { font-family: 'Playfair Display'; font-size: 2rem; color: var(--gold); }
 
-        .welcome-title {
-            font-family: var(--font-title);
-            font-size: 4rem;
-            color: var(--color-gold);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+        /* SEARCH SECTION */
+        .hero { padding: 60px 5%; text-align: center; }
+        .search-box {
+            width: 100%; max-width: 800px; padding: 20px; border-radius: 50px;
+            border: 1px solid #333; background: #0a0a0a; color: white; font-size: 1.2rem;
+            outline: none; transition: 0.3s;
         }
+        .search-box:focus { border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
 
-        .welcome-subtitle {
-            font-family: var(--font-main);
-            font-size: 1.2rem;
-            color: var(--color-text-muted);
-            margin-bottom: 40px;
-            letter-spacing: 2px;
+        /* GRID */
+        .container { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; padding: 40px 5%; 
         }
-
-        .btn-enter {
-            background-color: transparent;
-            border: 2px solid var(--color-gold);
-            color: var(--color-gold);
-            padding-top: 15px;
-            padding-bottom: 15px;
-            padding-left: 50px;
-            padding-right: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .btn-enter:hover {
-            background-color: var(--color-gold);
-            color: #000;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-        }
-
-        /* ================================================================
-           3. HEADER SECTION
-           ================================================================
-        */
-        header {
-            background-color: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid #333;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 5%;
-            padding-right: 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand-logo {
-            font-family: var(--font-title);
-            font-size: 2rem;
-            color: var(--color-gold);
-            font-weight: 900;
-        }
-
-        .lang-switch {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-lang {
-            background: none;
-            border: 1px solid #555;
-            color: #fff;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-family: var(--font-main);
-            font-weight: 600;
-        }
-
-        .btn-lang.active {
-            background-color: var(--color-gold);
-            color: #000;
-            border-color: var(--color-gold);
-        }
-
-        /* ================================================================
-           4. SEARCH & HERO
-           ================================================================
-        */
-        .hero-section {
-            padding-top: 80px;
-            padding-bottom: 40px;
-            text-align: center;
-        }
-
-        .search-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            padding-left: 30px;
-            padding-right: 30px;
-            font-size: 1.2rem;
-            background-color: #1a1a1a;
-            border: 2px solid #333;
-            color: #fff;
-            border-radius: 50px;
-            transition: border-color 0.3s ease;
-        }
-
-        .search-input:focus {
-            border-color: var(--color-gold);
-        }
-
-        /* ================================================================
-           5. MAIN GRID LAYOUT
-           ================================================================
-        */
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            padding-top: 50px;
-            padding-bottom: 100px;
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-
         .card {
-            background-color: var(--color-bg-card);
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 30px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            background: var(--card-bg); padding: 30px; border-radius: 15px;
+            border: 1px solid #222; transition: 0.4s; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .card h3 { font-family: 'Playfair Display'; font-size: 1.8rem; margin-bottom: 10px; color: var(--gold); }
+        .card p { color: #aaa; font-size: 0.9rem; line-height: 1.5; height: 60px; overflow: hidden; }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--color-gold);
+        /* MODAL WINDOW */
+        #modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); display: none; z-index: 20000;
+            overflow-y: auto; padding: 50px 10%;
         }
-
-        .card-category {
-            font-size: 0.8rem;
-            color: var(--color-gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .card-title {
-            font-family: var(--font-title);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .card-preview {
-            font-size: 0.95rem;
-            color: var(--color-text-muted);
-            line-height: 1.6;
-        }
-
-        /* ================================================================
-           6. MODAL (POPUP) STYLES
-           ================================================================
-        */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            display: none;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            max-width: 1000px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 40px;
-            background-color: #111;
-            border: 1px solid #333;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3rem;
-            color: var(--color-gold);
-            cursor: pointer;
-            line-height: 0.5;
-        }
-
-        .modal-header h2 {
-            font-family: var(--font-title);
-            font-size: 3rem;
-            color: var(--color-gold);
-            margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 20px;
-        }
-
-        .modal-body {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .work-section {
-            margin-top: 40px;
-            padding: 30px;
-            background-color: #0f0f0f;
-            border-left: 4px solid var(--color-gold);
-        }
-
-        .work-title {
-            font-family: var(--font-title);
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .work-text {
-            font-family: serif;
-            font-style: italic;
-            color: #ccc;
-            white-space: pre-wrap;
-        }
-
-        /* ================================================================
-           7. CHAT BOT STYLES
-           ================================================================
-        */
-        .bot-trigger {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
-            background-color: var(--color-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 5000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
-        }
-
-        .bot-trigger:hover {
-            transform: scale(1.1);
-        }
-
-        .bot-window {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            width: 380px;
-            height: 500px;
-            background-color: #1a1a1a;
-            border: 1px solid var(--color-gold);
-            border-radius: 15px;
-            display: none;
-            flex-direction: column;
-            z-index: 5000;
-            overflow: hidden;
-        }
-
-        .bot-header {
-            background-color: var(--color-gold);
-            padding: 15px;
-            color: #000;
-            font-weight: 800;
-            text-align: center;
-        }
-
-        .bot-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .msg {
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 80%;
-            font-size: 0.9rem;
-        }
-
-        .msg.bot {
-            background-color: #333;
-            color: #fff;
-            align-self: flex-start;
-        }
-
-        .msg.user {
-            background-color: var(--color-gold);
-            color: #000;
-            align-self: flex-end;
-            font-weight: 600;
-        }
-
-        .bot-input-area {
-            padding: 15px;
-            border-top: 1px solid #333;
-            display: flex;
-            gap: 10px;
-        }
-
-        .bot-input-area input {
-            flex: 1;
-            padding: 10px;
-            background-color: #000;
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 5px;
-        }
+        .close { position: fixed; top: 20px; right: 40px; font-size: 4rem; color: var(--gold); cursor: pointer; }
+        .content-full { max-width: 800px; margin: 0 auto; line-height: 2; font-size: 1.2rem; }
+        .content-full h1 { font-family: 'Playfair Display'; font-size: 3.5rem; color: var(--gold); margin-bottom: 30px; }
+        .full-text { white-space: pre-line; color: #ddd; }
     </style>
 </head>
 <body>
 
-    <div id="welcome-overlay">
-        <div class="welcome-content">
-            <h1 class="welcome-title">Uly Dala Mura</h1>
-            <p class="welcome-subtitle">ҚАЗАҚ ХАЛҚЫНЫҢ ҰЛЫ ТҰЛҒАЛАРЫНЫҢ ЦИФРЛЫҚ ЭНЦИКЛОПЕДИЯСЫ</p>
-            <button class="btn-enter" onclick="enterSite()">МҰРАҒАТҚА КІРУ</button>
-        </div>
+<div id="welcome">
+    <div class="welcome-title">KazBloom</div>
+    <div class="welcome-sub">АРНҰР МЕН АРУЖАН ЖОБАСЫ</div>
+    <button class="start-btn" onclick="start()">КІРУ / ENTER</button>
+</div>
+
+<header>
+    <div class="logo">KazBloom <span>v3.0</span></div>
+    <div id="stats" style="color: #444;">Тұлғалар саны: <span id="count" style="color: var(--gold);">0</span></div>
+</header>
+
+<section class="hero">
+    <input type="text" id="search" class="search-box" placeholder="Тарихты іздеңіз..." onkeyup="search()">
+</section>
+
+<div class="container" id="main-grid">
     </div>
 
-    <header>
-        <div class="brand-logo">KAZBLOOM</div>
-        <div class="lang-switch">
-            <button class="btn-lang active" onclick="setLanguage('kz')">KZ</button>
-            <button class="btn-lang" onclick="setLanguage('en')">EN</button>
-        </div>
-    </header>
+<div id="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modal-data" class="content-full"></div>
+</div>
 
-    <div class="hero-section">
-        <div class="search-container">
-            <input type="text" class="search-input" id="mainSearch" placeholder="Тұлғаны немесе шығарманы іздеу..." onkeyup="performSearch()">
-        </div>
-    </div>
+<script>
+    // БАЗА ДАННЫХ (Бұл жер 2-бөлімде толығады)
+    let database = [];
 
-    <main class="archive-grid" id="gridContainer">
-        </main>
+    function start() {
+        document.getElementById('welcome').style.opacity = '0';
+        setTimeout(() => document.getElementById('welcome').style.display = 'none', 1000);
+        render();
+    }
 
-    <div id="infoModal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">×</span>
-            <div id="modalData"></div>
-        </div>
-    </div>
-
-    <div class="bot-trigger" onclick="toggleBot()">💬</div>
-    <div class="bot-window" id="botWindow">
-        <div class="bot-header">KAZBLOOM AI KOMEKSHI</div>
-        <div class="bot-messages" id="botMessages">
-            <div class="msg bot">Сәлем! Мен тарихи тұлғалар туралы кез келген сұраққа жауап беремін. Кімді іздедіңіз?</div>
-        </div>
-        <div class="bot-input-area">
-            <input type="text" id="botInput" placeholder="Сұрақ...">
-            <button onclick="askBot()" style="padding: 10px; cursor: pointer;">OK</button>
-        </div>
-    </div>
-
-    <script>
-        /*
-           ================================================================
-           DATA ARCHIVE - БАРЛЫҚ ДЕРЕКТЕР ОСЫНДА
-           МҰНДА 100+ ТҰЛҒАНЫҢ ТІЗІМІ МЕН ШЫҒАРМАЛАРЫ БАР
-           ================================================================
-        */
-        const database = [
-            // --- АҚЫНДАР ---
-            {
-                id: 101,
-                category: "POET",
-                name_kz: "Абай Құнанбайұлы",
-                name_en: "Abai Kunanbayuly",
-                bio_kz: "Ұлы ақын, ағартушы, жазба қазақ әдебиетінің, қазақ әдеби тілінің негізін қалаушы, философ, композитор.",
-                bio_en: "Great poet, educator, founder of written Kazakh literature, philosopher, composer.",
-                work_title: "Қара сөздер (Үзінді)",
-                work_text: "Бұл жасқа келгенше жақсы өткіздік пе, жаман өткіздік пе, әйтеуір бірталай өмірді өткіздік: алыстық, жұлыстық, айтыстық, тартыстық - әурешілікті көре-көре келдік. Енді жер ортасы жасқа келдік: қажыдық, жалықтық; қылып жүрген ісіміздің баяны жоқ, байлауы жоқ бір түрлі қоршылық өмір екенін білдік. Ал, енді қалған өмірімізді қайтіп, не қылып өткіземіз? Соны таба алмай өзім де қайранмын..."
-            },
-            {
-                id: 102,
-                category: "POET",
-                name_kz: "Шәкәрім Құдайбердіұлы",
-                name_en: "Shakarim Kudaiberdiuly",
-                bio_kz: "Ақын, жазушы, философ, тарихшы, композитор. Абайдың немере інісі және шәкірті.",
-                bio_en: "Poet, writer, philosopher, historian, composer. Abai's nephew and disciple.",
-                work_title: "Адамдық борышың",
-                work_text: "Адамдық борышың –\nХалқыңа еңбек қыл.\nАқ жолдан айнымай,\nАр сақта, оны біл.\nТалаптан да білім мен өнер үйрен,\nБілімсіз, өнерсіз болады ақыл тұл."
-            },
-            {
-                id: 103,
-                category: "POET",
-                name_kz: "Мағжан Жұмабаев",
-                name_en: "Magzhan Zhumabayev",
-                bio_kz: "Алаш қозғалысының қайраткері, ақын, қазақ әдебиетінің жарық жұлдызы.",
-                bio_en: "Figure of the Alash movement, poet, bright star of Kazakh literature.",
-                work_title: "Мен жастарға сенемін",
-                work_text: "Арыстандай айбатты,\nЖолбарыстай қайратты –\nҚырандай күшті қанатты.\nМен жастарға сенемін!\nКөздерінде от ойнар,\nСөздерінде жалын бар,\nЖандарында жігер бар –\nМен жастарға сенемін!"
-            },
-            {
-                id: 104,
-                category: "POET",
-                name_kz: "Мұқағали Мақатаев",
-                name_en: "Mukagali Makatayev",
-                bio_kz: "Қазақтың лирик ақыны, мұзбалақ. Өз заманының шындығын жырлаған.",
-                bio_en: "Kazakh lyric poet. Sang the truth of his time.",
-                work_title: "Үш бақытым",
-                work_text: "Ең бірінші бақытым - Халқым менің,\nСоған берем ойымның алтын кенін.\nОл бар болса, мен бармын, қор болмаймын,\nҚымбатырақ алтыннан нарқым менің."
-            },
-            
-            // --- ХАНДАР ---
-            {
-                id: 201,
-                category: "KHAN",
-                name_kz: "Керей хан",
-                name_en: "Kerey Khan",
-                bio_kz: "Қазақ хандығының негізін қалаушы және алғашқы ханы. Болат сұлтанның ұлы.",
-                bio_en: "Founder and first Khan of the Kazakh Khanate. Son of Bolat Sultan.",
-                work_title: "Тарихи дерек",
-                work_text: "1465 жылы Жәнібек ханмен бірге Шу мен Талас өзендерінің арасында Қазақ хандығының туын тікті. Бұл оқиға Қазақ мемлекеттігінің бастауы болып саналады."
-            },
-            {
-                id: 202,
-                category: "KHAN",
-                name_kz: "Жәнібек хан",
-                name_en: "Zhanibek Khan",
-                bio_kz: "Қазақ хандығының негізін қалаушылардың бірі. Барақ ханның ұлы.",
-                bio_en: "One of the founders of the Kazakh Khanate. Son of Barak Khan.",
-                work_title: "Мұрасы",
-                work_text: "Жәнібек хан хандықтың ішкі құрылымын нығайтуға және көрші елдермен дипломатиялық қарым-қатынас орнатуға үлкен үлес қосты."
-            },
-            {
-                id: 203,
-                category: "KHAN",
-                name_kz: "Қасым хан",
-                name_en: "Kasym Khan",
-                bio_kz: "Қазақ хандығының жерін кеңейтіп, халқының санын миллионға жеткізген ұлы хан.",
-                bio_en: "Great Khan who expanded the territory and reached a population of one million.",
-                work_title: "Қасым ханның қасқа жолы",
-                work_text: "Бұл заңдар жинағы қазақ қоғамының құқықтық негізін қалады. Мүлік заңы, қылмыс заңы, әскери заң, елшілік жоралары және жұртшылық заңы енгізілді."
-            },
-            {
-                id: 204,
-                category: "KHAN",
-                name_kz: "Абылай хан",
-                name_en: "Ablai Khan",
-                bio_kz: "Қазақ Ордасының ханы, ұлы мемлекет қайраткері, қолбасшы.",
-                bio_en: "Khan of the Kazakh Horde, great statesman, commander.",
-                work_title: "Абылайдың түсі",
-                work_text: "Абылай хан үш жүздің басын біріктіріп, жоңғар басқыншылығына қарсы күресті ұйымдастырды. Ол Қытай мен Ресей империялары арасында тепе-теңдік саясатын ұстанды."
-            },
-            {
-                id: 205,
-                category: "KHAN",
-                name_kz: "Кенесары Қасымұлы",
-                name_en: "Kenesary Kasymuly",
-                bio_kz: "Қазақтың соңғы ханы, ұлт-азаттық көтерілістің көсемі.",
-                bio_en: "The last Khan of the Kazakhs, leader of the national liberation movement.",
-                work_title: "Күрес жолы",
-                work_text: "Кенесары хан 10 жыл бойы Ресей отаршылдығына қарсы соғыс жүргізді. Ол мемлекеттік басқару, салық және әскери іс салаларында реформалар енгізді."
-            },
-
-            // --- БАТЫРЛАР ---
-            {
-                id: 301,
-                category: "BATYR",
-                name_kz: "Қабанбай батыр",
-                name_en: "Kabanbay Batyr",
-                bio_kz: "Жоңғар шапқыншылығына қарсы күрестің бас қолбасшыларының бірі, дарабоз.",
-                bio_en: "One of the chief commanders against the Dzungar invasion, Daraboz.",
-                work_title: "Ерліктері",
-                work_text: "Қабанбай батыр өмірінде 103 рет жекпе-жекке шығып, бәрінде жеңіске жеткен. Абылай хан оны 'Дарабоз' (ең үздік) деп атаған."
-            },
-            {
-                id: 302,
-                category: "BATYR",
-                name_kz: "Бөгенбай батыр",
-                name_en: "Bogenbay Batyr",
-                bio_kz: "Қазақ халқының жоңғар басқыншылығына қарсы азаттық күресін ұйымдастырушы.",
-                bio_en: "Organizer of the liberation struggle against the Dzungar invasion.",
-                work_title: "Аңырақай шайқасы",
-                work_text: "Бөгенбай батыр Аңырақай шайқасында қазақ қолының негізгі күшін басқарды. Ол халық арасында 'Қанжығалы Бөгенбай' деген атпен танымал."
-            },
-            {
-                id: 303,
-                category: "BATYR",
-                name_kz: "Махамбет Өтемісұлы",
-                name_en: "Makhambet Otemisuly",
-                bio_kz: "Батыр, ақын, Исатай Тайманұлы бастаған көтерілістің көсемі.",
-                bio_en: "Batyr, poet, leader of the uprising led by Isatay Taimanuly.",
-                work_title: "Мұнар күн",
-                work_text: "Мұнар да мұнар, мұнар күн,\nБұлттан шыққан шұбар күн.\nБуыршын мұзға тайған күн,\nБура атанға шөккен күн..."
-            },
-            {
-                id: 304,
-                category: "BATYR",
-                name_kz: "Бауыржан Момышұлы",
-                name_en: "Bauyrzhan Momyshuly",
-                bio_kz: "Екінші дүниежүзілік соғыстың қаһарманы, жазушы, әскери қолбасшы.",
-                bio_en: "Hero of World War II, writer, military commander.",
-                work_title: "Нақыл сөздер",
-                work_text: "Тәртіпке бағынған құл болмайды.\nЕрлік - тәрбиеден туады.\nҚанмен жазылған кітап (Психология войны)."
-            },
-
-            // --- АЛАШ ЖӘНЕ ҚАЙРАТКЕРЛЕР ---
-            {
-                id: 401,
-                category: "ALASH",
-                name_kz: "Әлихан Бөкейханов",
-                name_en: "Alikhan Bokeikhanov",
-                bio_kz: "Алаш партиясының лидері, Алашорда үкіметінің төрағасы, ғалым, публицист.",
-                bio_en: "Leader of the Alash party, Chairman of the Alash Orda government, scientist.",
-                work_title: "Саяси өсиет",
-                work_text: "Жер тағдыры - ел тағдыры. Қазақ жері ешкімге сатылмау керек. Жердің астындағы және үстіндегі байлық қазаққа қызмет етуі тиіс."
-            },
-            {
-                id: 402,
-                category: "ALASH",
-                name_kz: "Ахмет Байтұрсынұлы",
-                name_en: "Akhmet Baitursynuly",
-                bio_kz: "Қазақ тіл білімі мен әдебиеттану ғылымдарының негізін салушы, Ұлт ұстазы.",
-                bio_en: "Founder of Kazakh linguistics and literary studies, Teacher of the Nation.",
-                work_title: "Маса",
-                work_text: "Ызыңдап ұшқан мынау біздің маса,\nСап-сары, аяқтары ұзын маса.\nӨзіне біткен түсі өзгерілмес,\nДегенмен, қаралайды аузын ашса."
-            },
-            {
-                id: 403,
-                category: "ALASH",
-                name_kz: "Міржақып Дұлатұлы",
-                name_en: "Mirzhakyp Dulatuly",
-                bio_kz: "Алаш қозғалысының қайраткері, ақын, жазушы, драматург.",
-                bio_en: "Figure of the Alash movement, poet, writer, playwright.",
-                work_title: "Оян, Қазақ!",
-                work_text: "Көзіңді аш, оян, қазақ, көтер басты,\nӨткізбей қараңғыда бекер жасты.\nЖер кетті, дін нашарлап, хал һарам боп,\nҚарағым, енді жату жарамас-ты."
-            },
-            
-            // --- ТАРИХИ ТҰЛҒАЛАР (БИЛЕР, ҒАЛЫМДАР) ---
-            {
-                id: 501,
-                category: "BI",
-                name_kz: "Төле би",
-                name_en: "Tole Bi",
-                bio_kz: "Ұлы жүздің бас биі, 'Жеті жарғы' заңдар жинағын жасаушылардың бірі.",
-                bio_en: "Chief Bi of the Senior Zhuz, one of the creators of 'Zheti Zhargy'.",
-                work_title: "Шешендік сөз",
-                work_text: "Бір үйдің баласы болма,\nКөп үйдің санасы бол.\nБір елдің атасы болма,\nБар елдің данасы бол."
-            },
-            {
-                id: 502,
-                category: "BI",
-                name_kz: "Қазыбек би",
-                name_en: "Kazybek Bi",
-                bio_kz: "Орта жүздің бас биі, қазақ-жоңғар қатынастарындағы ірі дипломат.",
-                bio_en: "Chief Bi of the Middle Zhuz, major diplomat in Kazakh-Dzungar relations.",
-                work_title: "Қаздауысты Қазыбек",
-                work_text: "Біз қазақ деген мал баққан елміз,\nЕшкімге соқтықпай жай жатқан елміз.\nЕлімізден құт-береке қашпасын деп,\nЖеріміздің шетін жау баспасын деп..."
-            },
-            {
-                id: 503,
-                category: "BI",
-                name_kz: "Әйтеке би",
-                name_en: "Ayteke Bi",
-                bio_kz: "Кіші жүздің бас биі, мемлекет қайраткері.",
-                bio_en: "Chief Bi of the Junior Zhuz, statesman.",
-                work_title: "Нақыл",
-                work_text: "Бай болсаң, халқыңа пайдаң тисін.\nБатыр болсаң, жауға найзаң тисін."
-            },
-            {
-                id: 504,
-                category: "SCIENTIST",
-                name_kz: "Шоқан Уәлиханов",
-                name_en: "Shokan Ualikhanov",
-                bio_kz: "Қазақтың ұлы ғалымы, шығыстанушы, тарихшы, этнограф, географ.",
-                bio_en: "Great Kazakh scientist, orientalist, historian, ethnographer, geographer.",
-                work_title: "Қашқария сапары",
-                work_text: "Шоқанның Қашқарға сапары әлемдік география ғылымына үлкен жаңалық алып келді. Ол 'Манас' жырын алғаш қағазға түсірген."
-            },
-            {
-                id: 505,
-                category: "SCIENTIST",
-                name_kz: "Қаныш Сәтбаев",
-                name_en: "Kanysh Satpayev",
-                bio_kz: "Геолог-ғалым, Қазақ КСР Ғылым академиясының тұңғыш президенті.",
-                bio_en: "Geologist, first President of the Academy of Sciences of the Kazakh SSR.",
-                work_title: "Жезқазған",
-                work_text: "Қаныш Сәтбаев Жезқазған өңіріндегі мыс қорының орасан зор екенін дәлелдеп, Қазақстанды индустриялық державаға айналдыруға үлес қосты."
-            }
-        ];
-
-        // ОСЫ ЖЕРДЕ ТІЗІМДІ ТОЛЫҚТЫРУ ҮШІН ЦИКЛМЕН ҚОСЫМША ЕСІМДЕРДІ ЕНГІЗЕМІЗ
-        // СЕБЕБІ БІР ХАБАРЛАМАҒА 5000 ЖОЛ СЫЙМАЙДЫ. БІРАҚ БАЗАДА 100+ АДАМ БОЛАДЫ.
-        const extraList = [
-            "Ілияс Жансүгіров", "Бейімбет Майлин", "Сәкен Сейфуллин", "Ғабит Мүсірепов", "Сәбит Мұқанов", 
-            "Ілияс Есенберлин", "Әбіш Кекілбаев", "Оралхан Бөкей", "Дулат Исабеков", "Шерхан Мұртаза", 
-            "Фариза Оңғарсынова", "Бердібек Соқпақбаев", "Қадыр Мырза Әли", "Төлеген Айбергенов", 
-            "Жұбан Молдағалиев", "Қасым Аманжолов", "Тұрар Рысқұлов", "Мұстафа Шоқай", "Жүсіпбек Аймауытов",
-            "Есім хан", "Хақназар хан", "Тәуке хан", "Тәуекел хан", "Шығай хан", "Бұрындық хан", 
-            "Салқам Жәңгір хан", "Уәли хан", "Бөкей хан", "Наурызбай батыр", "Райымбек батыр", "Қарасай батыр", 
-            "Ағынтай батыр", "Жанқожа батыр", "Есет батыр", "Сыпатай батыр", "Амангелді Иманов", 
-            "Ыбырай Алтынсарин", "Дінмұхамед Қонаев", "Әлкей Марғұлан", "Мәлік Ғабдуллин", "Талғат Бигелдинов", 
-            "Әлия Молдағұлова", "Мәншүк Мәметова", "Рахымжан Қошқарбаев", "Сағадат Нұрмағамбетов", 
-            "Асан Қайғы", "Қорқыт ата", "Әл-Фараби", "Ахмет Ясауи", "Махмұд Қашқари", "Жүсіп Баласағұни"
-        ];
-
-        extraList.forEach((name, index) => {
-            database.push({
-                id: 1000 + index,
-                category: "HISTORY",
-                name_kz: name,
-                name_en: name, // Ағылшынша атауын транслитерация жасау керек, әзірге осылай
-                bio_kz: `${name} — қазақ тарихындағы аса көрнекті тұлға. Ел үшін еткен еңбегі ұшан-теңіз.`,
-                bio_en: `${name} — a prominent figure in Kazakh history. Their contribution to the nation is immense.`,
-                work_title: "Тарихи мұра",
-                work_text: "Бұл тұлғаның өмірі мен шығармашылығы туралы деректер мұрағаттарда сақталған. Толық ақпаратты кітапханалардан табуға болады."
-            });
-        });
-
-        /*
-           ================================================================
-           LOGIC & FUNCTIONS
-           ================================================================
-        */
-        let currentLang = 'kz';
-
-        function enterSite() {
-            const overlay = document.getElementById('welcome-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 1000);
-            renderGrid(database);
-        }
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.btn-lang').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderGrid(database);
-        }
-
-        function renderGrid(data) {
-            const grid = document.getElementById('gridContainer');
-            grid.innerHTML = '';
-
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => openModal(item.id);
-
-                const name = currentLang === 'kz' ? item.name_kz : item.name_en;
-                const bio = currentLang === 'kz' ? item.bio_kz : item.bio_en;
-                const bioShort = bio.length > 100 ? bio.substring(0, 100) + '...' : bio;
-
-                card.innerHTML = `
-                    <div class="card-category">${item.category}</div>
-                    <h3 class="card-title">${name}</h3>
-                    <p class="card-preview">${bioShort}</p>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function openModal(id) {
-            const item = database.find(i => i.id === id);
-            const modal = document.getElementById('infoModal');
-            const container = document.getElementById('modalData');
-
-            const name = currentLang === 'kz' ? item.name_kz : item.name_en;
-            const bio = currentLang === 'kz' ? item.bio_kz : item.bio_en;
-
-            container.innerHTML = `
-                <div class="modal-header">
-                    <h2>${name}</h2>
-                </div>
-                <div class="modal-body">
-                    <p>${bio}</p>
-                    <div class="work-section">
-                        <h4 class="work-title">${item.work_title}</h4>
-                        <div class="work-text">${item.work_text}</div>
+    function render(data = database) {
+        const grid = document.getElementById('main-grid');
+        grid.innerHTML = '';
+        document.getElementById('count').innerText = data.length;
+        
+        data.forEach((item, index) => {
+            grid.innerHTML += `
+                <div class="card" onclick="openFull(${index})">
+                    <div>
+                        <h3>${item.name}</h3>
+                        <p>${item.bio.substring(0, 100)}...</p>
                     </div>
+                    <span style="color:var(--gold); font-weight:bold; margin-top:15px;">ОҚУ →</span>
                 </div>
             `;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
+        });
+    }
 
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+    function openFull(index) {
+        const item = database[index];
+        const m = document.getElementById('modal');
+        document.getElementById('modal-data').innerHTML = `
+            <h1>${item.name}</h1>
+            <div class="full-text">${item.full}</div>
+            <p style="margin-top:50px; color:#555; border-top:1px solid #222; padding-top:20px;">
+                KazBloom Project: Арнұр & Аружан
+            </p>
+        `;
+        m.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 
-        function performSearch() {
-            const query = document.getElementById('mainSearch').value.toLowerCase();
-            const filtered = database.filter(item => 
-                item.name_kz.toLowerCase().includes(query) || 
-                item.name_en.toLowerCase().includes(query)
-            );
-            renderGrid(filtered);
-        }
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 
-        // --- BOT LOGIC ---
-        function toggleBot() {
-            const win = document.getElementById('botWindow');
-            win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
-        }
+    function search() {
+        const val = document.getElementById('search').value.toLowerCase();
+        const filtered = database.filter(i => i.name.toLowerCase().includes(val));
+        render(filtered);
+    }
+</script>
 
-        function askBot() {
-            const input = document.getElementById('botInput');
-            const msgs = document.getElementById('botMessages');
-            const txt = input.value.trim().toLowerCase();
-            
-            if(!txt) return;
-
-            // User msg
-            const uDiv = document.createElement('div');
-            uDiv.className = 'msg user';
-            uDiv.innerText = input.value;
-            msgs.appendChild(uDiv);
-
-            // Bot logic
-            let reply = "Кешіріңіз, мұндай мәлімет базада табылмады.";
-            
-            // Simple keyword search in DB
-            const found = database.find(i => 
-                txt.includes(i.name_kz.toLowerCase()) || 
-                txt.includes(i.name_kz.split(' ')[0].toLowerCase())
-            );
-
-            if(found) {
-                reply = `${found.name_kz} — ${found.bio_kz}. Оның "${found.work_title}" деген еңбегі бар.`;
-            } else if (txt.includes("сәлем") || txt.includes("hello")) {
-                reply = "Сәлем! Қазақ тарихы туралы не білгіңіз келеді?";
-            }
-
-            setTimeout(() => {
-                const bDiv = document.createElement('div');
-                bDiv.className = 'msg bot';
-                bDiv.innerText = reply;
-                msgs.appendChild(bDiv);
-                msgs.scrollTop = msgs.scrollHeight;
-            }, 500);
-
-            input.value = '';
-        }
-
-        // Start
-        // document.addEventListener('DOMContentLoaded', enterSite); 
-        // Auto-load not needed as we have a button
-    </script>
 </body>
 </html>
+database = [
+    {
+        name: "Керей хан мен Әз-Жәнібек",
+        bio: "Қазақ хандығының негізін қалаушылар. 1465 жылы әлем картасында 'Қазақ' есімін таңбалаған ұлы тұлғалар.",
+        full: `Қазақ хандығының құрылуы — бұл жай ғана көш емес, бұл ұлттық бостандық үшін күрес.
+        
+        ТАРИХИ ШЕЖІРЕ:
+        1450-жылдардың соңында Әбілқайыр ханның озбырлығына төзбеген Керей мен Жәнібек сұлтандар өздеріне қарасты рулармен (шамамен 200 мың адам) Моғолстанға қарай бет алды. Есенбұға хан оларды құшақ жая қарсы алып, Шу мен Талас өзендерінің аралығындағы Қозыбасы өңірін берді. 
+        
+        1465 ЖЫЛ - ҰЛЫ ҚАДАМ:
+        Осы жерде қазақтың алғашқы туы тігілді. Керей — алғашқы хан, Жәнібек — оның ақылшысы әрі қолбасшысы болды. Бұл оқиға Шығыс пен Батыстың арасында жаңа, алып мемлекеттің туғанын білдірді.
+        
+        ХАНДАРДЫҢ МҰРАТЫ:
+        1. Елді "Өзбек ұлысынан" бөліп, дербес "Қазақ" атауын бекіту.
+        2. Шашырап жүрген қазақ руларын бір шаңырақ астына жинау.
+        3. Көршілес мемлекеттермен терезесі тең дипломатия құру.
+        
+        Бұл екі тұлғаның арқасында бүгін біз өз жерімізде, өз атымызбен өмір сүріп жатырмыз.`
+    },
+    {
+        name: "Қасым хан",
+        bio: "Қазақ жерінің шекарасын бекітіп, заң жүйесін қалыптастырған 'Қасқа жолдың' иесі.",
+        full: `Қасым ханның билігі (1511–1521) — Қазақ хандығының күшеюі мен гүлдену дәуірі. Оның тұсында халық саны 1 миллионға жетіп, әскері 300 мыңнан асты.
+        
+        "ҚАСЫМ ХАННЫҢ ҚАСҚА ЖОЛЫ" (ТОЛЫҚ ЗАҢДАР):
+        Бұл — қазақ даласындағы алғашқы конституция деуге болатын заңдар жинағы. Ол 5 бөлімнен тұрды:
+        1. Мүлік заңы: Жер, мал және мүлік дауларын реттеу.
+        2. Қылмыс заңы: Ұрлық, кісі өлтіру және сатқындық үшін қатаң жазалар (құн төлеу немесе өлім).
+        3. Әскери заң: Әрбір ер азаматтың жауынгерлік міндеті, қосын құру ережесі.
+        4. Елшілік жоралары: Халықаралық қарым-қатынас, шешендік өнер және этикет.
+        5. Жұртшылық заңы: Той, ас, өзара көмек (жылу жинау) және дәстүрлерді сақтау.
+        
+        ТАРИХИ МАҢЫЗЫ:
+        Қасым хан Ресеймен, Сафавилермен алғашқы дипломатиялық байланыстар орнатты. Ол — қазақ мемлекеттігін халықаралық деңгейге шығарған тұлға.`
+    },
+    {
+        name: "Есім хан",
+        bio: "Еңсегей бойлы ер Есім. 'Есім ханның ескі жолы' заңдарын бекіткен батыр хан.",
+        full: `Есім хан (1598–1628) — қазақ тарихындағы ең жауынгер хандардың бірі. Ол ішкі бүлікті басып, мемлекеттің тұтастығын сақтап қалды.
+        
+        "ЕСІМ ХАННЫҢ ЕСКІ ЖОЛЫ":
+        Қасым ханның заңдарын толықтыра отырып, ол әскери тәртіпті күшейтті. Бұл заңдар қазақ қоғамындағы билер институтының рөлін арттырды. 
+        
+        ТАРИХИ ЕРЛІГІ:
+        Тұрсын ханның бүлігін ("Қатаған қырғыны") басып, елді бөлшектенуден аман алып қалды. Ол Ташкентті қазақ иелігіне қайтарды. Есім ханның тұсында қазақ әскері Орта Азиядағы ең қуатты күшке айналды. 
+        
+        Халқы оны "Еңсегей бойлы ер Есім" деп құрметпен атап, оның ерлігін жырға қосты.`
+    },
+    {
+        name: "Әз-Тәуке хан",
+        bio: "Қазақтың 'Ликургі', 'Жеті жарғы' заңын бекітуші, үш жүздің басын қосқан ұлы стратег.",
+        full: `Тәуке хан (1680–1715) — қазақ елінің бірлігін ең жоғары деңгейге көтерген билеуші. Оның заманын "Қой үстіне бозторғай жұмыртқалаған заман" деп атайды.
+        
+        "ЖЕТІ ЖАРҒЫ" (ТОЛЫҚ НҰСҚАСЫ):
+        Тәуке хан Күлтөбенің басында Төле, Қазыбек, Әйтеке билермен бірге жеті тармақтан тұратын заң қабылдады:
+        1. Жер дауы: Жайылымдарды бөлу тәртібі.
+        2. Жесір дауы: Әмеңгерлік және отбасы құқығы.
+        3. Құн дауы: Кісі өлімі үшін төленетін айыппұлдар.
+        4. Күнә дауы: Дінге және ақсақалдарға тіл тигізгендерді жазалау.
+        5. Ұрлық-қарлық: Мал ұрлағандарды "тоғыз" айыбымен жазалау.
+        6. Руаралық даулар: Ел бірлігін сақтау ережелері.
+        7. Мемлекеттік міндет: Әрбір рудың әскерге адам қосу міндеті.
+        
+        Тәуке хан "Билер кеңесін" құрып, хан билігін халықтық демократиямен ұштастырды. Ол жоңғарларға қарсы тұру үшін барлық қазақ руларын біріктіре алды.`
+    },
+    {
+        name: "Абылай хан",
+        bio: "Үш жүздің басын қосқан ұлы стратег, дипломат. 'Абылайлап' ұран салған қазақтың рухы.",
+        full: `Абылай хан (1711–1781) — шын есімі Әбілмансұр. Сабалақ есімімен танылып, кейіннен күллі қазақтың ханы болды.
+        
+        ДИПЛОМАТИЯЛЫҚ ШЕБЕРЛІК:
+        Абылай хан Ресей империясы мен Цин (Қытай) империясының арасында "арыстан мен айдаһардың" ортасында тұрып, қазақ елінің тәуелсіздігін сақтап қалды. Ол "Бейбітшілік — соғыстан қымбат" деген ұстаныммен екі алып елді де мойындатты.
+        
+        БҰҚАР ЖЫРАУДЫҢ БАТАСЫ:
+        Абылайдың жанында әрқашан Бұқар жырау жүрді. Ол ханның ақылы, халықтың дауысы болды. Абылай хан жоңғарларды толық талқандап, қазақ жерінің шекарасын кеңейтті.
+        
+        Ол туралы Шоқан Уәлиханов: "Абылай — қазақтардың батырлық дәуірінің соңғы бейнесі" деп жазған.`
+    },
+    {
+        name: "Кенесары хан",
+        bio: "Қазақтың соңғы ханы. Ресей отаршылдығына қарсы 10 жылдық соғыс жүргізген ұлт-азаттық көсемі.",
+        full: `Кенесары Қасымұлы (1802–1847) — Абылай ханның немересі. Ол Қазақ хандығын қайта тірілту үшін өмірін қиған қаһарман.
+        
+        1837–1847 ЖЫЛДАРДАҒЫ КӨТЕРІЛІС:
+        Кенесары хан Ресей патшалығының қазақ даласын бекіністермен қоршауына қарсы шықты. Ол 20 мыңдық тұрақты әскер құрып, мемлекеттік басқару жүйесін, салық және сот істерін реформалады.
+        
+        ХАННЫҢ МАҚСАТЫ:
+        1. Қазақ жерінің тұтастығын қалпына келтіру.
+        2. Патша үкіметінің округтерін жою.
+        3. Қазақ елін дербес мемлекет ретінде сақтау.
+        
+        Кенесары ханның өлімі қазақ тарихындағы үлкен қасірет болды, бірақ оның ерлігі кейінгі Алаш зиялыларына рух берді.`
+    },
+    {
+        name: "Төле би Әлібекұлы",
+        bio: "Ұлы жүздің төбе биі, үйсін Төле би. 'Қарлығаш әулие'.",
+        full: `Төле би (1663–1756) — тек би ғана емес, мемлекет қайраткері. Ол Ташкентті 20 жыл бойы басқарған.
+        
+        ҚАРЛЫҒАШ ӘУЛИЕ АҢЫЗЫ:
+        Жоңғар шапқыншылығы кезінде бәрі үйлерін жығып қашқанда, Төле би қозғалмай отырып алған. Себебі оның шаңырағына қарлығаш ұя салған екен. Осы ерлігіне қарап жаудың қолбасшысы: "Бұл нағыз әулие адам" деп тиіспей кеткен.
+        
+        ДАНАЛЫҚ СӨЗДЕРІ:
+        "Атадан ұл туса игі, ата жолын қуса игі", "Бір үйдің баласы болма, көп үйдің санасы бол". 
+        Төле би қазақтың егіншілікке, отырықшылыққа бет бұруын қолдаған алғашқы реформаторлардың бірі.`
+    },
+    {
+        name: "Қаздауысты Қазыбек би",
+        bio: "Орта жүздің бас биі, шешен, дипломат. Қазақтың намысын жау алдында қорғаған тұлға.",
+        full: `Қазыбек Келдібекұлы (1667–1763) — өз заманының ең өткір тілді шешені. 
+        
+        ЖОҢҒАРМЕН ДИПЛОМАТИЯ:
+        Жоңғар қонтайшысының алдында тайсалмай сөйлеген сөзі тарихта қалды:
+        "Біз қазақ деген мал баққан елміз, ешкімге соқтықпай жай жатқан елміз. Елімізден құт-береке қашпасын деп, найзаға үкі таққан елміз... Досымызды сақтай білген елміз, дәмімізді ақтай білген елміз."
+        
+        Осы сөзден кейін жоңғар ханы қазақ елшілерін сыйлап жіберген. Қазыбек би Тәуке ханның ең сенімді кеңесшісі болды.`
+    },
+    {
+        name: "Әйтеке би Байбекұлы",
+        bio: "Кіші жүздің бас биі, әділдіктің символы. 'Би болмасаң да, би түсетін үй бол'.",
+        full: `Әйтеке би (1644–1700) — Жалаңтөс Баһадүрдің ұрпағы. Ол өзінің кесімді билігімен, әділдігімен танымал болды.
+        
+        ӘДІЛДІК ПРИНЦИПІ:
+        Әйтеке бидің "Ашу — араз, ақыл — дос", "Бай болсаң, халқыңа пайдаң тисін, батыр болсаң, жауға найзаң тисін" деген қанатты сөздері ел ішінде кең таралған.
+        
+        Ол үш жүздің басын қосып, Ресей мен Жоңғарияның арасындағы күрделі саяси жағдайда қазақ мүддесін қорғады. Оның шешімдері әрқашан елдің бірлігін сақтауға бағытталды.`
+    }
+];
+/* 3-БӨЛІМ: ҚАЗАҚТЫҢ ҚАҺАРМАН БАТЫРЛАРЫ (ТОЛЫҚ ТАРИХЫ) */
+database = [
+    ...database, // Алдыңғы хандар мен билерді сақтап қалу үшін
+    {
+        name: "Қаракерей Қабанбай батыр",
+        bio: "Қазақтың бас қолбасшысы, 'Дарабоз'. 103 рет жекпе-жекке шығып, бірде-бір рет жеңілмеген аңыз тұлға.",
+        full: `Қабанбай батыр (1692–1770) — шын есімі Ерасыл. Жоңғар шапқыншылығына қарсы азаттық соғысының басты символы.
+
+        НЕГЕ ҚАБАНБАЙ АТАЛДЫ?
+        Жас кезінде Зайсан көлінің жағасында жабайы қабандардың шабуылынан ауыл адамдарын құтқарып, жалғыз өзі қарсы шыққан. Содан "Қабанбай" есімі танылып кетті. Кейін Абылай хан оның асқан ерлігі үшін "Дарабоз" (ең үздік) деген атақ берді.
+
+        ЕРЛІКТЕРІ:
+        1. Аягөз, Аңырақай, Түркістанды азат ету шайқастарына қатысты.
+        2. Өмірінде 103 жекпе-жекке шығып, барлық жаудың батырларын жеңген.
+        3. Қазақ әскерінің бас қолбасшысы ретінде стратегиялық жоспарлар жасаған.
+
+        Қабанбай батыр — қазақ рухының болаттай беріктігінің үлгісі. Оның бейіті қазіргі Астана қаласының маңында орналасқан.`
+    },
+    {
+        name: "Қанжығалы Бөгенбай батыр",
+        bio: "Ұлт-азаттық соғыстың ұйымдастырушысы, дипломат батыр. Қазақ әскерінің ту ұстаушысы.",
+        full: `Бөгенбай Ақшаұлы (1680–1778) — Абылай ханның ең жақын серігі, қазақ әскерінің қолбасшысы.
+
+        ТАРИХИ РОЛІ:
+        1710 жылы Қарақұм құрылтайында Бөгенбай батыр бірінші болып сөз алып, жауға тізе бүкпей, қарсы соғысу керек екенін дәлелдеген. Ол бүкіл қазақ руларын бір тудың астына біріктіруде үлкен еңбек сіңірді.
+
+        МАҢЫЗДЫ ШАЙҚАСТАР:
+        - Аңырақай шайқасы: Жоңғарларды біржолата талқандауға үлес қосты.
+        - Шүршіт соғысы: Қытай әскерімен арадағы шекаралық қақтығыстарда ел мүддесін қорғады.
+
+        Бөгенбай батыр 80-нен асқанша ат үстінен түспеген. Ол қайтыс болғанда Абылай хан: "Ел тірегі құлады" деп қатты қайғырған. Бөгенбай батыр Түркістандағы Қожа Ахмет Ясауи кесенесінде жерленген.`
+    },
+    {
+        name: "Махамбет Өтемісұлы",
+        bio: "Батыр, ақын, Исатай Тайманұлы бастаған шаруалар көтерілісінің рухани көсемі.",
+        full: `Махамбет Өтемісұлы (1803–1846) — қазақ тарихындағы ең рухты тұлғалардың бірі. Ол — қылышымен де, қаламымен де жауды жеңген адам.
+
+        ЕРЕУІЛ АТҚА ЕР САЛМАЙ:
+        Махамбеттің жырлары — нағыз жауынгерлік ұрандар. Ол Жәңгір ханның озбырлығына және патша үкіметінің отарлау саясатына қарсы шықты. 
+
+        Исатай екеуінің мақсаты — халықтың жерін өзіне қайтару және әділетті қоғам орнату болды. Махамбеттің өлеңдері:
+        "Мұнар күн"
+        "Ереуіл атқа ер салмай"
+        "Баймағамбет сұлтанға айтқаны" 
+        Бұл жырлар бүгінгі күнге дейін қазақтың намысын қайрап келеді. Махамбеттің басы шабылса да, оның рухы ешқашан өлген жоқ.`
+    },
+    {
+        name: "Райымбек батыр",
+        bio: "Жетісу жерін жоңғарлардан азат еткен әулие батыр. Албан руының ұраны.",
+        full: `Райымбек Түкеұлы (1705–1785) — Жетісу өңірін қорғауда ерекше ерлік көрсеткен батыр. 
+
+        ЕРЛІГІ:
+        Ол 17 жасында-ақ "батыр" атанып, жоңғарлармен болған ірі шайқастарда көзге түсті. Райымбек батырдың арқасында Іле өзенінің бойы, Алматы маңы жаудан толық тазартылды.
+
+        АҢЫЗ БЕН КИЕЛІЛІК:
+        Халық оны "әулие" деп құрметтейді. Аңыз бойынша, ол қайтыс болар алдында: "Денемді түйеге артып жіберіңдер, түйе қай жерге шөксе, мені сонда жерлеңдер" деген. Түйе қазіргі Алматы қаласының орталығына (Райымбек даңғылы бойы) шөккен. Бүгінде ол жерде үлкен кесене орналасқан.`
+    },
+    {
+        name: "Наурызбай батыр",
+        bio: "Шапырашты Наурызбай. Абылай ханның сенімді серігі, жоңғарларға қарсы соғыстың қаһарманы.",
+        full: `Наурызбай Құттымбетұлы (1706–1781) — қазақтың үш ту ұстаушы батырының бірі. 
+
+        ЖЕКПЕ-ЖЕКТЕР:
+        Наурызбай батыр жоңғардың ең мықты батырлары Қаскелеңді, Шамалғанды жекпе-жекте жеңіп, жаудың мысын басқан. Оның атымен Алматы маңындағы бірнеше елді мекендер аталған (Қаскелең, Шамалған).
+
+        Ол Аңырақай шайқасында қазақ қолының алдыңғы шебінде соғысып, стратегиялық маңызды биіктерді иемденуге көмектескен. Наурызбайдың ерлігі ел есінде мәңгі сақталады.`
+    },
+    {
+        name: "Баян батыр",
+        bio: "Абылай ханның 'қанаты', ақылшысы және ержүрек қолбасшысы.",
+        full: `Баян Қасаболатұлы (1710–1757) — Орта жүз уақ руынан шыққан батыр.
+
+        ЕРЛІГІ:
+        Баян батыр өте сабырлы әрі терең стратег болған. Абылай хан оны "Баянсыз өткен соғыстың мәні жоқ" деп бағалаған. Ол барлау жұмыстарын ұйымдастыруда және тосыннан шабуыл жасауда алдына жан салмаған. 
+
+        Мағжан Жұмабаев өзінің "Баян батыр" поэмасында оның ерлігі мен трагедиялық тағдырын шебер суреттеген. Ол қазақ жерінің солтүстік және шығыс шекараларын қорғауда үлкен еңбек сіңірді.`
+    }
+];
+/* 4-БӨЛІМ: АЛАШ АРЫСТАРЫ (ТОЛЫҚ ТАРИХЫ ЖӘНЕ ЕҢБЕКТЕРІ) */
+database = [
+    ...database, 
+    {
+        name: "Әлихан Бөкейханов",
+        bio: "Алаш Орда үкіметінің төрағасы, мемлекет қайраткері, ғалым және публицист.",
+        full: `Әлихан Бөкейханов (1866–1937) — қазақ халқының ХХ ғасырдағы ең ірі саяси тұлғасы. Ол Шыңғыс ханның ұрпағы, төре тұқымынан шыққан.
+
+        САЯСИ ҰСТАНЫМЫ:
+        Әлиханның басты мақсаты — қазақ жерін отаршылдықтан азат етіп, дербес мемлекет құру болды. Ол: "Жер десе — жан шығады. Қазақтың жері ешкімге сатылмауы және жеке меншікке берілмеуі тиіс" деп қатаң ұстанымда болды.
+
+        АЛАШ ПАРТИЯСЫ:
+        1917 жылы ол "Алаш" партиясын және Алашорда автономиялы үкіметін құрып, оның төрағасы болды. Әлихан еуропалық үлгідегі демократиялық қазақ мемлекетін құруды жоспарлады.
+
+        ҒЫЛЫМИ МҰРАСЫ:
+        Ол тек саясаткер емес, сонымен қатар этнограф, экономист және әдебиеттанушы болды. Абайдың тұңғыш өмірбаянын жазып, оның жырларын жинақтап баспаға дайындаған да Әлихан еді. 1937 жылы Мәскеуде "халық жауы" деген жаламен атылды, бірақ оның есімі қазақ тәуелсіздігінің символы ретінде мәңгі қалады.`
+    },
+    {
+        name: "Ахмет Байтұрсынұлы",
+        bio: "Ұлт ұстазы, қазақ тіл білімі мен әдебиеттану ғылымының негізін салушы, ақын.",
+        full: `Ахмет Байтұрсынұлы (1872–1937) — қазақ мәдениеті мен білімінің реформаторы.
+
+        ТІЛ РЕФОРМАСЫ:
+        Ахмет қазақ тілінің табиғатына сәйкес келмейтін араб әліпбиін реформалап, "Төте жазуды" ойлап тапты. Бұл жазу қазақ халқының сауаттылығын тез көтеруге мүмкіндік берді. Ол тұңғыш "Әліппе" мен "Тіл — құрал" оқулықтарын жазды.
+
+        "МАСА" МЕН "ҚЫРҚ МЫСАЛ":
+        Ол өзінің ақындық еңбегімен халықты білімге, өнерге шақырды. "Маса" жинағында ол: "Ызыңдап ұшқан мынау біздің маса, ұйқысын аз да болса бөлмес пе екен?" деп, халықты оятуды мақсат етті.
+
+        ҚАЗАҚ ГАЗЕТІ:
+        1913–1918 жылдары Ә. Бөкейханов және М. Дулатұлымен бірге "Қазақ" газетін шығарды. Бұл газет қазақ зиялыларының еркін мінберіне айналды. Ахмет Байтұрсынұлының: "Сөзі жоғалған жұрттың өзі де жоғалады" деген сөзі қазақ рухының басты қағидасы.`
+    },
+    {
+        name: "Міржақып Дұлатұлы",
+        bio: "Ақын, жазушы, 'Оян, қазақ!' ұранымен танымал Алаш қайраткері.",
+        full: `Міржақып Дұлатұлы (1885–1935) — қазақ халқының ұлттық рухын оятушы.
+
+        ОЯН, ҚАЗАҚ:
+        1909 жылы жарық көрген "Оян, қазақ!" өлеңдер жинағы халық арасында зор дүрбелең туғызды. Патша үкіметі бұл кітапты тәркілеп, Міржақыпты тұтқынға алды. Бірақ кітаптағы:
+        "Көзіңді аш, оян, қазақ, көтер басты,
+        Өткізбей қараңғыда бекер жасты," — деген жолдар елдің жадында жатталып қалды.
+
+        ТҰҢҒЫШ РОМАН:
+        Міржақып — қазақ әдебиетіндегі тұңғыш роман "Байғұс Жамалдың" (1910) авторы. Бұл шығармада қазақ қызының тағдыры мен әлеуметтік теңсіздік мәселелері көтерілді.
+
+        АЛАШ ҚЫЗМЕТІ:
+        Алашорда үкіметінің мүшесі ретінде ол қазақ әскерін құруға, халықты ағартуға зор үлес қосты. 1935 жылы айдауда қайтыс болды. Кейін оның сүйегі туған жері Торғайға әкеліп қайта жерленді.`
+    },
+    {
+        name: "Мұстафа Шоқай",
+        bio: "Түркістан автономиясының жетекшісі, әлемдік деңгейдегі саяси қайраткер.",
+        full: `Мұстафа Шоқай (1890–1941) — күллі түркі әлемінің бірлігін армандаған тұлға.
+
+        ТҮРКІСТАН БІРЛІГІ:
+        Ол тек қазақтың ғана емес, бүкіл Орта Азия халықтарының (өзбек, қырғыз, түрікмен) басын қосып, Ресейден бөлек "Түркістан автономиясын" құруға тырысты.
+
+        ЭМИГРАЦИЯДАҒЫ КҮРЕС:
+        Кеңес үкіметі орнаған соң Мұстафа Еуропаға (Францияға) кетуге мәжбүр болды. Онда ол "Жас Түркістан" журналын шығарып, Батыс елдеріне коммунистік режимнің озбырлығын паш етті. 
+
+        Оның: "Ұлттық бостандықсыз жеке бастың бостандығы болуы мүмкін емес" деген сөзі оның өмірлік ұстанымы еді. Мұстафа Шоқай 1941 жылы Берлинде жұмбақ жағдайда қайтыс болды.`
+    },
+    {
+        name: "Жүсіпбек Аймауытов",
+        bio: "Жазушы, драматург, қазақ психология ғылымының негізін салушы.",
+        full: `Жүсіпбек Аймауытов (1889–1930) — қазақ прозасының шебері.
+
+        ШЫҒАРМАШЫЛЫҒЫ:
+        Оның "Ақбілек" романы қазақ әдебиетіндегі психологиялық талдаудың озық үлгісі. Сондай-ақ "Қартқожа", "Күнікейдің жазығы" сияқты туындылары қазақ қоғамының шындығын ашып көрсетті.
+
+        АШАРШЫЛЫҚҚА ҚАРСЫЛЫҚ:
+        1920-жылдары Торғай қазақтары аштыққа ұшырағанда, Жүсіпбек байлардан мал жинап, халықты аман алып қалуға тырысқан. Сол үшін Кеңес үкіметі оны "байларды тонады" деп айыптап, 1930 жылы ату жазасына кесті.`
+    },
+    {
+        name: "Мағжан Жұмабаев",
+        bio: "Алаштың сыршыл ақыны, түркі дүниесінің жыршысы, педагог.",
+        full: `Мағжан Жұмабаев (1893–1938) — қазақ поэзиясының Шолпаны.
+
+        РУХТЫ ЖЫРЛАР:
+        Оның "Мен жастарға сенемін!" деген өлеңі әлі күнге дейін қазақ жастарының ұраны. Мағжан түркі халықтарының ортақ тарихын жырлап, "Түркістан" атты әйгілі поэмасын жазды.
+
+        ПЕДАГОГИКА:
+        Ол қазақ тіліндегі тұңғыш "Педагогика" оқулығының авторы. Бала тәрбиесіне, ұлттық мектептің қалыптасуына үлкен еңбек сіңірді. Ол — қазақ тілін еуропалық классикалық үлгімен байытқан жаңашыл ақын. 1938 жылы репрессия құрбаны болды.`
+    }
+];
+/* 5-БӨЛІМ: ҒАЛЫМДАР МЕН СОҒЫС БАТЫРЛАРЫ (ТОЛЫҚ ТАРИХЫ) */
+database = [
+    ...database, 
+    {
+        name: "Әл-Фараби",
+        bio: "Әлемнің 'Екінші ұстазы' (Аристотельден кейін), математик, астроном, философ.",
+        full: `Әбу Насыр әл-Фараби (870–950) — Отырар (Фараб) қаласында туған ұлы ойшыл.
+
+        ҒЫЛЫМИ МҰРАСЫ:
+        Ол өз заманының барлық ғылымын меңгерген. 160-тан астам трактат жазған. Оның "Қайырымды қала тұрғындарының көзқарастары" еңбегі әлі күнге дейін саясаттану мен әлеуметтанудың негізі болып саналады.
+
+        МУЗЫКА ЖӘНЕ МАТЕМАТИКА:
+        Әл-Фараби "Музыканың ұлы кітабын" жазып, музыкалық дыбыстардың математикалық теориясын жасады. Ол логика, метафизика, физика және астрономия салаларында әлемдік ғылымға жол ашты. Еуропа Ренессансы оның еңбектерінен бастау алды десек артық айтқандық емес.`
+    },
+    {
+        name: "Қаныш Сәтбаев",
+        bio: "Қазақ КСР Ғылым академиясының тұңғыш президенті, геолог, академик.",
+        full: `Қаныш Имантайұлы Сәтбаев (1899–1964) — қазақ ғылымының атасы.
+
+        ЖЕЗҚАЗҒАН МЫСЫ:
+        Ол Жезқазған мыс кен орнын ашып, оның әлемдегі ең ірі қорлардың бірі екенін дәлелдеді. Соғыс кезінде оның ашқан марганец кені болмаса, кеңес танктерінің броны соғысқа шыдамас еді.
+
+        ТАРИХИ ЕҢБЕГІ:
+        Ол тек геолог емес, мәдениет жанашыры болды. "Ер Едіге" жырын зерттеп, Шоқан Уәлихановтың еңбектерін жинақтады. Қаныш — қазақтың білімі мен өнеркәсібін жаңа деңгейге көтерген тұлға.`
+    },
+    {
+        name: "Шоқан Уәлиханов",
+        bio: "Ғалым, этнограф, саяхатшы, Абылай ханның шөбересі.",
+        full: `Шоқан (Мұхаммед-Қанафия) Уәлиханов (1835–1865) — қазақтан шыққан тұңғыш кәсіби ғалым.
+
+        ҚАШҚАРИЯ САПАРЫ:
+        Шоқанның ең үлкен ерлігі — 1858-1859 жылдардағы Қашқарияға құпия сапары. Ол өмірін қатерге тігіп, Еуропаға белгісіз болып келген өңірдің географиясын, тарихын, тұрмысын зерттеп қайтты.
+
+        МАНАС ЖЫРЫ:
+        Шоқан қырғыздың ұлы "Манас" жырын тұңғыш рет қағазға түсіріп, оны "Дала Илиадасы" деп атады. Ол небары 30 жас өмір сүрсе де, әлемдік ғылымға өшпес мұра қалдырды.`
+    },
+    {
+        name: "Бауыржан Момышұлы",
+        bio: "Халық қаһарманы, жазушы, тактикалық стратегия шебері, Мәскеуді қорғаушы.",
+        full: `Бауыржан Момышұлы (1910–1982) — аты аңызға айналған қолбасшы.
+
+        МӘСКЕУ ТҮБІНДЕГІ ШАЙҚАС:
+        1941 жылы Панфилов дивизиясының құрамында Мәскеуді қорғауда теңдессіз ерлік көрсетті. Оның "Шегініс тактикасы" мен "Психология войны" еңбектері бүгінде Израиль, АҚШ, Куба әскери академияларында оқулық ретінде қолданылады.
+
+        БАТЫРДЫҢ СӨЗІ:
+        "Тәртіпке бағынған құл болмайды, тәртіпсіз ел болмайды". 
+        Ол соғыстан кейін жазушылыққа бет бұрып, "Ұшқан ұя", "Артымызда Мәскеу" сияқты рухты шығармалар жазды. Бауыржан — намыстың символы.`
+    },
+    {
+        name: "Талғат Бигелдинов",
+        bio: "Екі мәрте Кеңес Одағының Батыры, аңызға айналған ұшқыш-штурмовик.",
+        full: `Талғат Жақыпбекұлы Бигелдинов (1922–2014) — аспан қыраны.
+
+        ЕРЛІГІ:
+        Ол Ил-2 ұшағымен 305 рет жауынгерлік ұшу сапарын жасаған. Берлин шайқасына қатысқан. Оның ұшағын жау бірнеше рет атып түсірсе де, ол аман қалып, қайтадан аспанға көтерілген.
+
+        СОҒЫСТАН КЕЙІН:
+        Талғат Бигелдинов — бейбіт өмірде авиация мен құрылыс саласында еңбек етті. Ол туралы "Аспандағы асыр" атты кітап жазылған.`
+    },
+    {
+        name: "Әлия мен Мәншүк",
+        bio: "Шығыстың қос шынары, батыр қыздар, Кеңес Одағының Батырлары.",
+        full: `Әлия Молдағұлова мен Мәншүк Мәметова — қазақ қыздарының батырлық бейнесі.
+
+        МӘНШҮК:
+        Ол — тұңғыш Кеңес Одағының Батыры атағын алған қазақ қызы. Невель қаласын қорғауда пулеметімен жалғыз өзі жүздеген жауды жойып, ерлікпен қаза тапты.
+
+        ӘЛИЯ:
+        Мерген (снайпер) Әлия Молдағұлова соғыс жылдарында 90-нан астам жаудың көзін жойды. Ол 19 жасында Ленинград майданында "Отан үшін" деп жауға шауып, қаһармандықпен опат болды. 
+        Бұл екі қыз — қазақ халқының мақтанышы.`
+    },
+    {
+        name: "Рахымжан Қошқарбаев",
+        bio: "Рейхстагқа жеңіс туын тіккен тұңғыш батыр, Халық қаһарманы.",
+        full: `Рахымжан Қошқарбаев (1924–1988) — тарихи әділдіктің иесі.
+
+        ТУ ТІГУ:
+        1945 жылы 30 сәуірде Рахымжан Қошқарбаев пен Григорий Булатов оқ борап тұрғанда Рейхстагтың баспалдағына дейін жетіп, Жеңіс Туын тікті. Бұл ерлік ұзақ уақыт бойы ресми түрде мойындалмай келді.
+
+        СОҢҒЫ МОЙЫНДАУ:
+        Тек Тәуелсіздік алғаннан кейін ҚР Тұңғыш Президентінің жарлығымен оған "Халық қаһарманы" атағы берілді. Рахымжанның ерлігі — қазақ солдатының Жеңіске қосқан соңғы нүктесі.`
+    }
+];
+/* 6-БӨЛІМ: МӘДЕНИЕТ ПЕН ӨНЕР МАЙТАЛМАНДАРЫ (ТОЛЫҚ МҰРАСЫ) */
+database = [
+    ...database, 
+    {
+        name: "Абай Құнанбайұлы",
+        bio: "Ұлы ақын, философ, ағартушы, қазақ жазба әдебиетінің негізін салушы.",
+        full: `Абай (Ибраһим) Құнанбайұлы (1845–1904) — қазақ халқының рухани паспорты.
+
+        ШЫҒАРМАШЫЛЫҒЫ:
+        Абай өлеңдерінде адамгершілік, еңбекқорлық, білім мен ғылымды жырлады. Оның "Ғылым таппай мақтанба", "Интернатта оқып жүр" өлеңдері жастарды ағартуға бағытталған.
+
+        ҚАРА СӨЗДЕРІ:
+        Абайдың 45 қара сөзі — өмірлік философияның мектебі. Онда ол қазақ қоғамының мінін айтып, одан құтылу жолын көрсетеді. Мысалы, Отызыншы қара сөзінде: "Надандық — білім-ғылымның жоқтығы" деп кесіп айтады.
+
+        МУЗЫКАЛЫҚ МҰРАСЫ:
+        Абай тек ақын емес, композитор да болды. "Көзімнің қарасы", "Айттым салем, Қаламқас" әндері бүгінде халықтық әнге айналып кетті. Абай — қазақтың мәңгілік темірқазығы.`
+    },
+    {
+        name: "Құрманғазы Сағырбайұлы",
+        bio: "Күй атасы, композитор, қазақ аспаптық музыкасының классигі.",
+        full: `Құрманғазы Сағырбайұлы (1823–1896) — домбыра өнерін шыңға шығарған ұлы күйші.
+
+        АДАЙ МЕН САРЫАРҚА:
+        Оның "Адай" күйі — қазақтың екпіні мен қайсарлығының символы. "Сарыарқа" күйі — кең байтақ даланың еркіндік гимні. Оның әрбір күйінде қазақ халқының тарихы мен тағдыры жатыр.
+
+        ЕРКІНДІК СҮЙГІШТІГІ:
+        Құрманғазы патша үкіметінің әділетсіздігіне қарсы шыққаны үшін бірнеше рет түрмеге түскен. "Түрмеден қашқан", "Кісен ашқан" күйлері осы қиын кезеңдердің куәсі. Ол — бостандық пен рухтың жыршысы.`
+    },
+    {
+        name: "Дина Нұрпейісова",
+        bio: "Күйші-композитор, Құрманғазының шәкірті, 'Домбыраның падишасы'.",
+        full: `Дина Нұрпейісова (1861–1955) — қазақ күй өнерін ХХ ғасырға жеткізген ұлы тұлға.
+
+        ҰСТАЗ МҰРАСЫ:
+        Тоғыз жасында Құрманғазыдан бата алған Дина ұстазының дәстүрін жалғастырып қана қоймай, өз жанынан "Әсем қоңыр", "Наусқы", "Тойбастар" сияқты ғажап күйлер шығарды.
+
+        ӨМІРШЕҢДІК:
+        90-нан асқан шағында да Дина анамыз сахнада домбыра тартып, қазақ өнерінің қуатын көрсеткен. Ол қазақ әйелінің асқан талант иесі екенін әлемге дәлелдеді.`
+    },
+    {
+        name: "Шәкен Айманов",
+        bio: "Қазақ кино өнерінің негізін салушы, актер, режиссер.",
+        full: `Шәкен Кенжетайұлы Айманов (1914–1970) — қазақ мәдениетінің жарық жұлдызы.
+
+        КИНО ШЕДЕВРЛЕРІ:
+        Оның "Алдар Көсе", "Атамекен", "Тақиялы періште" фильмдері қазақ киносының алтын қорына енді. Әсіресе "Біздің сүйікті дәрігер" фильмі оның режиссерлік талантын асқақтатты.
+
+        ОЛ ТУРАЛЫ:
+        Шәкен Айманов театр мен киноны ұштастыра білді. Ол Отелло рөлін ойнағанда әлемдік деңгейдегі актер екенін мойындатқан. Қазіргі "Қазақфильм" студиясы Шәкен Айманов есімімен аталады.`
+    },
+    {
+        name: "Роза Бағланова",
+        bio: "Халық әртісі, 'Халық қаһарманы', майдан даласының бұлбұлы.",
+        full: `Роза Тәжібайқызы Бағланова (1922–2011) — қазақ ән өнерінің аңызы.
+
+        МАЙДАНДАҒЫ ӘН:
+        Екінші дүниежүзілік соғыс кезінде ол майданның алдыңғы шебінде ән айтып, жауынгерлердің рухын көтерді. Оның "Ах, Самара-городок" әні бүкіл Одаққа танымал болды.
+
+        ӘЛЕМДІК ТАНЫМАЛДЫҚ:
+        Роза Бағланова қазақтың "Кестелі орамал" және басқа да халық әндерін әлемнің түкпір-түкпірінде орындап, ұлттық мәдениетімізді насихаттады. Ол нағыз халықтық ерке қыз болды.`
+    },
+    {
+        name: "Әсет Бейсеуов",
+        bio: "Композитор, қазақ вальсінің шебері, жүздеген танымал әндердің авторы.",
+        full: `Әсет Бейсеуов (1938–1996) — қазақ музыкасының лиригі.
+
+        ӘНДЕРІ:
+        "Армандастар", "Гүлдер", "Шай орамал" сияқты әндері әрбір қазақтың үйінде шырқалады. Ол қазақ эстрадасының негізін салып, заманауи музыканы ұлттық нақышпен байытты.`
+    }
+];
+/* 7-БӨЛІМ: ТӘУЕЛСІЗДІК ПЕН ҚАЗІРГІ ЗАМАН ТҰЛҒАЛАРЫ */
+database = [
+    ...database, 
+    {
+        name: "Қайрат Рысқұлбеков",
+        bio: "Желтоқсан көтерілісінің қаһарманы, Халық қаһарманы.",
+        full: `Қайрат Ноғайбайұлы Рысқұлбеков (1966–1988) — қазақ рухының болаттай беріктігін көрсеткен тұлға.
+
+        1986 ЖЫЛҒЫ ЖЕЛТОҚСАН:
+        Алматыдағы Желтоқсан көтерілісі кезінде студент Қайрат алаңға шығып, қазақ халқының намысын қорғады. Ол патшалық режимге қарсылық білдіргені үшін жалған айыппен тұтқындалып, өлім жазасына кесілді.
+
+        ТҮРМЕДЕГІ ӨЛЕҢ:
+        Ол түрмеде отырып: "Күнәсізбін, алдыңда ақпын, Алла, Аққа құдай жақ, болмаспын хаққа таңба" деп рухты өлеңдер жазған. Оның ерлігі Тәуелсіздіктің алғашқы баспалдағы болды.`
+    },
+    {
+        name: "Тоқтар Әубәкіров",
+        bio: "Тұңғыш қазақ ғарышкері, Кеңес Одағының Батыры, Халық қаһарманы.",
+        full: `Тоқтар Оңғарбайұлы Әубәкіров (1946 жылы туған) — қазақтан шыққан тұңғыш ғарышкер.
+
+        ҒАРЫШҚА САПАР:
+        1991 жылы 2 қазанда ол "Союз ТМ-13" кемесімен ғарышқа ұшып, қазақ халқының ғасырлар бойғы арманын орындады. Ол ғарышта 7 күн болып, ғылыми зерттеулер жүргізді.
+
+        СЫНАҚШЫ ҰШҚЫШ:
+        Ғарышқа дейін ол реактивті ұшақтарды сынақтан өткізетін әлемдегі ең үздік ұшқыштардың бірі болды. Ол — қазақ елінің аспан әлеміндегі ерлігінің символы.`
+    },
+    {
+        name: "Талғат Мұсабаев",
+        bio: "Қазақтың екінші ғарышкері, Ресей мен Қазақстанның Батыры.",
+        full: `Талғат Амангелдіұлы Мұсабаев (1951 жылы туған) — ашық ғарышқа бірнеше рет шыққан рекордшы ғарышкер.
+
+        ЭКСПЕДИЦИЯЛАР:
+        Ол ғарышқа үш рет (1994, 1998, 2001 жж.) ұшып, жалпы алғанда 341 күн ғарыш станциясында болған. Ол ғарышта қазақ тілінде сөйлеп, домбыра тартып, ұлттық мәдениетті әлемдік биіктен көрсетті.`
+    },
+    {
+        name: "Димаш Құдайберген",
+        bio: "Әлемдік деңгейдегі әнші, композитор, қазақ мәдениетінің елшісі.",
+        full: `Димаш Құдайберген (1994 жылы туған) — ХХІ ғасырдағы қазақ мәдениетінің феномені.
+
+        ӘЛЕМДІК ТАНЫМАЛДЫҚ:
+        Қытайдағы "Singer" байқауынан кейін оның талантын бүкіл әлем мойындады. Димаш 6 октавалық дауыс иесі ретінде Гиннестің рекордтар кітабына енуге лайық бірегей дауыс иесі.
+
+        МИССИЯСЫ:
+        Ол Нью-Йорк, Лондон, Бейжің сияқты ірі қалаларда жеке концерттерін беріп, домбыра тартып, қазақ тілінде ән айтып, миллиондаған шетелдіктерді қазақ тілін үйренуге мәжбүр етті.`
+    },
+    {
+        name: "Геннадий Головкин (GGG)",
+        bio: "Кәсіпқой боксшы, әлем чемпионы, Қазақстанның атын спортта асқақтатқан тұлға.",
+        full: `Геннадий Геннадьевич Головкин (1982 жылы туған) — орта салмақтағы әлемнің ең үздік боксшыларының бірі.
+
+        ЖЕТІСТІКТЕРІ:
+        Ол әлемдік рингте қазақтың шапанын киіп шығып, "GGG" брендін қалыптастырды. Көптеген нокауттарымен әлемді таңғалдырды. Ол өзінің қарапайымдылығымен және жеңіске деген құштарлығымен жастарға үлгі болып келеді.`
+    },
+    {
+        name: "Денис Тен",
+        bio: "Мәнерлеп сырғанаушы, Сочи Олимпиадасының қола жүлдегері.",
+        full: `Денис Юрьевич Тен (1993–2018) — қазақ мәнерлеп сырғанау өнерін әлемдік деңгейге көтерген спортшы.
+
+        ШЫҒАРМАШЫЛЫҒЫ:
+        Ол тек спортшы емес, өнерлі жан болды. Музыка жазып, фильм түсіруді армандаған. Оның ерте қаза болуы бүкіл қазақ елінің қабырғасын қайыстырды. Денис — қазақ елінің адал перзенті болып қала береді.`
+    }
+];
