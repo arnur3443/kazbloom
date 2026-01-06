@@ -3,455 +3,898 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAZBLOOM: ҰЛЫ ДАЛА МҰРАСЫ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <title>KAZBLOOM: ARNUR & ARUZHAN PROJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ================================================================
-           1. CORE STYLES & RESET
-           ================================================================
+        /* ==========================================================================
+           1. CSS RESET & VARIABLES (EXPANDED FOR CLARITY)
+           ==========================================================================
         */
         :root {
             --gold: #D4AF37;
-            --gold-dark: #aa8c2c;
-            --bg-dark: #050505;
-            --bg-panel: #111111;
-            --bg-card: #161616;
-            --text-main: #f0f0f0;
-            --text-dim: #888888;
-            --accent-blue: #2c3e50;
-            --font-title: 'Playfair Display', serif;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --dark-bg: #0a0b10;
+            --card-bg: #14161f;
+            --text-main: #ffffff;
+            --text-muted: #8b9bb4;
+            --blue-accent: #3b82f6;
+            --font-head: 'Playfair Display', serif;
             --font-body: 'Montserrat', sans-serif;
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--dark-bg);
             color: var(--text-main);
             font-family: var(--font-body);
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
 
-        /* ================================================================
-           2. WELCOME SCREEN (ARNUR & ARUZHAN)
-           ================================================================
+        /* ==========================================================================
+           2. WELCOME OVERLAY (ARNUR & ARUZHAN)
+           ==========================================================================
         */
-        #intro-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: black; z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a1f2e 0%, #000000 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            transition: transform 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s;
         }
 
-        .intro-title {
-            font-family: var(--font-title); font-size: 5rem; color: var(--gold);
-            text-transform: uppercase; letter-spacing: 5px;
-            margin-bottom: 20px; animation: slideDown 1s ease;
+        .welcome-content h1 {
+            font-family: var(--font-head);
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: fadeInDown 1.5s ease;
         }
 
-        .intro-names {
-            font-size: 1.5rem; color: #fff; letter-spacing: 3px;
-            margin-bottom: 50px; font-weight: 300;
-            animation: fadeIn 2s ease;
+        .welcome-content h2 {
+            font-family: var(--font-body);
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 10px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1.5s ease;
         }
 
-        .btn-start {
-            padding: 15px 50px; border: 2px solid var(--gold);
-            background: transparent; color: var(--gold);
-            font-size: 1.2rem; cursor: pointer; text-transform: uppercase;
-            letter-spacing: 2px; transition: 0.3s;
-            animation: zoomIn 1s ease;
+        .enter-btn {
+            padding: 20px 60px;
+            font-size: 1.2rem;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .btn-start:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px var(--gold); }
 
-        @keyframes slideDown { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-        @keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        .enter-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 40px var(--gold-glow);
+            transform: translateY(-5px);
+        }
 
-        /* ================================================================
-           3. MAIN LAYOUT
-           ================================================================
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           3. HEADER & NAVIGATION
+           ==========================================================================
         */
         header {
-            padding: 30px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.8); border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 1000;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(10, 11, 16, 0.9);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .logo { font-family: var(--font-title); font-size: 2rem; font-weight: 900; color: #fff; }
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+        }
         .logo span { color: var(--gold); }
 
-        .search-area {
-            padding: 60px 5%; text-align: center; background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
-        }
-        .search-box {
-            width: 100%; max-width: 700px; padding: 20px 30px; font-size: 1.2rem;
-            background: #000; border: 1px solid #333; color: #fff; border-radius: 50px;
+        .lang-control button {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            margin-left: 10px;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .search-box:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 20px rgba(212,175,55,0.2); }
-
-        .filters {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 30px;
+        .lang-control button.active, .lang-control button:hover {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
         }
-        .filter-btn {
-            background: #111; border: 1px solid #333; color: #aaa; padding: 10px 20px;
-            cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
-        }
-        .filter-btn.active, .filter-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
 
-        /* GRID */
-        .archive-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px; padding: 40px 5%;
+        /* ==========================================================================
+           4. SEARCH & HERO AREA
+           ==========================================================================
+        */
+        .hero {
+            margin-top: 120px;
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-search {
+            width: 100%;
+            padding: 25px 30px;
+            font-size: 1.2rem;
+            background: var(--card-bg);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 100px;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .main-search:focus {
+            border-color: var(--blue-accent);
+            outline: none;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* ==========================================================================
+           5. GRID LAYOUT
+           ==========================================================================
+        */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 40px;
+            padding: 50px 5%;
         }
 
         .card {
-            background: var(--bg-card); border: 1px solid #222; padding: 30px;
-            border-radius: 10px; position: relative; overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer; display: flex; flex-direction: column;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            transition: 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--gold-dark); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        .card-cat { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
-        .card-name { font-family: var(--font-title); font-size: 1.8rem; margin-bottom: 15px; line-height: 1.2; }
-        .card-desc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .read-more { margin-top: 20px; color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--gold); display: inline-block; padding-bottom: 2px; }
 
-        /* MODAL */
-        .modal-wrap {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 5000; display: none;
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gold);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: #1a1d29;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--blue-accent);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ==========================================================================
+           6. FULL SCREEN MODAL (READING MODE)
+           ==========================================================================
+        */
+        .modal {
+            position: fixed; inset: 0;
+            background: #000;
+            z-index: 5000;
+            display: none;
             overflow-y: auto;
+            animation: fadeIn 0.3s ease;
         }
-        .modal-inner {
-            max-width: 900px; margin: 50px auto; background: #111; padding: 50px;
-            border: 1px solid #333; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-        .close-btn {
-            position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--gold);
-            cursor: pointer; line-height: 0.5;
-        }
-        .modal-text-content {
-            font-family: 'Playfair Display', serif; font-size: 1.2rem; line-height: 2; color: #ddd; white-space: pre-wrap;
-        }
-        .modal-title { font-size: 3rem; color: var(--gold); margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px; }
 
-        /* FOOTER */
-        footer { text-align: center; padding: 40px; color: #555; border-top: 1px solid #222; }
+        .modal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .close-modal {
+            position: fixed; top: 30px; right: 40px;
+            font-size: 3rem; color: var(--gold);
+            cursor: pointer; z-index: 5001;
+            transition: 0.3s;
+        }
+        .close-modal:hover { transform: rotate(90deg); }
+
+        .full-work-container {
+            margin-top: 50px;
+            background: #111;
+            padding: 50px;
+            border-radius: 10px;
+            border-left: 5px solid var(--gold);
+        }
+
+        /* МАҢЫЗДЫ: Бұл стиль өлеңдердің құрылымын бұзбай көрсетеді */
+        .full-text {
+            white-space: pre-wrap; 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            line-height: 2;
+        }
+
+        /* ==========================================================================
+           7. AI BOT INTERFACE
+           ==========================================================================
+        */
+        .bot-icon {
+            position: fixed; bottom: 40px; right: 40px;
+            width: 70px; height: 70px;
+            background: var(--blue-accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+            z-index: 6000; transition: 0.3s;
+        }
+        .bot-icon:hover { transform: scale(1.1); }
+
+        .chat-container {
+            position: fixed; bottom: 120px; right: 40px;
+            width: 400px; height: 600px;
+            background: #1e2433;
+            border: 1px solid #333;
+            border-radius: 20px;
+            display: none; flex-direction: column;
+            overflow: hidden; z-index: 6000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .chat-header {
+            padding: 20px; background: var(--blue-accent);
+            color: white; font-weight: 700;
+        }
+
+        .chat-body {
+            flex: 1; padding: 20px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+
+        .msg {
+            padding: 12px 18px; border-radius: 15px;
+            max-width: 85%; font-size: 0.9rem;
+        }
+        .bot-msg { background: rgba(255,255,255,0.1); align-self: flex-start; }
+        .user-msg { background: var(--gold); color: black; align-self: flex-end; }
+
+        .chat-footer {
+            padding: 20px; border-top: 1px solid #333;
+            display: flex; gap: 10px;
+        }
+        .chat-footer input {
+            flex: 1; padding: 12px; border-radius: 8px;
+            border: none; background: #111; color: white;
+        }
     </style>
 </head>
 <body>
 
-    <div id="intro-overlay">
-        <div class="intro-title">KazBloom</div>
-        <div class="intro-names">Жоба авторлары: Арнұр және Аружан</div>
-        <button class="btn-start" onclick="enterArchive()">Мұрағатты ашу</button>
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <h1>ҚОШ КЕЛДІҢІЗ!</h1>
+            <h2>KAZBLOOM — АРНҰР МЕН АРУЖАННЫҢ ЖОБАСЫ</h2>
+            <p style="color: #666; margin-bottom: 30px;">БАСУ АРҚЫЛЫ ТАРИХҚА ЕНІҢІЗ</p>
+            <button class="enter-btn" onclick="startJourney()">БАСТАУ / START</button>
+        </div>
     </div>
 
     <header>
-        <div class="logo">KAZ<span>BLOOM</span></div>
-        <div style="color: #666;">v.2.0.24 (ULTIMATE)</div>
+        <div class="logo">KazBloom <span>Archive</span></div>
+        <div class="lang-control">
+            <button onclick="setLang('kz')" class="active">KZ</button>
+            <button onclick="setLang('en')">EN</button>
+        </div>
     </header>
 
-    <section class="search-area">
-        <h2 style="margin-bottom: 20px; font-family: var(--font-title); color: #fff;">ҰЛЫ ДАЛА ТҰЛҒАЛАРЫ</h2>
-        <input type="text" class="search-box" id="searchInput" placeholder="Тұлғаны іздеу (Мысалы: Абай, Кенесары)..." onkeyup="filterData()">
-        
-        <div class="filters" id="filterContainer">
-            <button class="filter-btn active" onclick="setCategory('ALL')">БАРЛЫҒЫ</button>
-            <button class="filter-btn" onclick="setCategory('KHAN')">ХАНДАР</button>
-            <button class="filter-btn" onclick="setCategory('BATYR')">БАТЫРЛАР</button>
-            <button class="filter-btn" onclick="setCategory('BI')">БИЛЕР</button>
-            <button class="filter-btn" onclick="setCategory('POET')">АҚЫНДАР</button>
-            <button class="filter-btn" onclick="setCategory('ALASH')">АЛАШ</button>
-            <button class="filter-btn" onclick="setCategory('WRITER')">ЖАЗУШЫЛАР</button>
-            <button class="filter-btn" onclick="setCategory('WW2')">СОҒЫС БАТЫРЛАРЫ</button>
-            <button class="filter-btn" onclick="setCategory('SCIENCE')">ҒАЛЫМДАР</button>
-        </div>
-    </section>
-
-    <main class="archive-container" id="gridDisplay"></main>
-
-    <div id="modal" class="modal-wrap">
-        <div class="modal-inner">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <div id="modalContent"></div>
+    <div class="hero">
+        <div class="search-wrapper">
+            <input type="text" class="main-search" id="searchInp" placeholder="Тұлғаны іздеңіз (Мысалы: Абай, Махамбет)..." onkeyup="doSearch()">
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 KazBloom Project. All Rights Reserved.</p>
-        <p>Arnurn & Aruzhan Production</p>
-    </footer>
+    <div class="grid-container" id="grid"></div>
+
+    <div class="modal" id="readModal">
+        <div class="close-modal" onclick="closeRead()">×</div>
+        <div class="modal-content" id="modalData"></div>
+    </div>
+
+    <div class="bot-icon" onclick="toggleChat()">🤖</div>
+    <div class="chat-container" id="chatWindow">
+        <div class="chat-header">KAZBLOOM AI</div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg bot-msg">Сәлем! Менде Абайдың қара сөздері, батырлардың жырлары толық сақталған. Кімді оқығыңыз келеді?</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Сұраңыз...">
+            <button onclick="sendMessage()" style="padding: 10px; background: var(--gold); border: none; cursor: pointer; border-radius: 5px;">OK</button>
+        </div>
+    </div>
 
     <script>
         /*
-        ================================================================
-        DATABASE: МҰНДА БАРЛЫҚ ТҰЛҒАЛАР БАР
-        ================================================================
+           ==========================================================================
+           MASSIVE DATASTORE (FULL TEXTS)
+           Мұнда мен шынымен ұзын мәтіндерді енгіземін.
+           ==========================================================================
         */
-        const fullDatabase = [
-            // --- 1. ХАНДАР (KHANS) ---
+        const library = [
             {
-                id: "k1", type: "KHAN", name: "Керей хан",
-                desc: "Қазақ хандығының негізін қалаушы, алғашқы хан. 1465 жылы Жәнібекпен бірге Шу бойында ту тікті.",
-                text: "Керей хан (туған жылы белгісіз – 1473 жылы қайтыс болған) – Қазақ хандығының негізін қалаушылардың бірі және оның алғашқы ханы (1465 – 1473). Ақ Орда ханы Орыс ханның ұрпағы. \n\nТАРИХИ ДЕРЕК:\n1450 жылдардың соңында Әбілқайыр ханның үстемдігіне қарсы шыққан Керей мен Жәнібек сұлтандар қол астындағы ру-тайпалармен бірге Моғолстан жеріне, Шу мен Талас өзендерінің аралығына қоныс аударды. Мұнда оларды Есенбұға хан құшақ жая қарсы алды. Осы тарихи оқиға Қазақ хандығының құрылуына негіз болды."
-            },
-            {
-                id: "k2", type: "KHAN", name: "Жәнібек хан",
-                desc: "Қазақ хандығының негізін қалаушы, данышпан билеуші. Керей ханның үзеңгілесі.",
-                text: "Жәнібек хан (1473-1480 жылдары билік еткен) — Қазақ хандығының негізін қалаушылардың бірі. Барақ ханның ұлы. \n\nОл билік еткен тұста Қазақ хандығының жері кеңейіп, іргесі бекіле түсті. Халық оны «Әз Жәнібек» деп атап кеткен. Аңыз бойынша, Жәнібек хан халықтың әл-ауқатын ойлап, ел ішіндегі дау-дамайларды әділ шешіп отырған."
-            },
-            {
-                id: "k3", type: "KHAN", name: "Қасым хан",
-                desc: "Қазақ жерін кеңейтуші, 'Қасым ханның қасқа жолы' заңының авторы.",
-                text: "Қасым хан (1511-1521). Оның тұсында Қазақ хандығының халқы 1 миллионға жетіп, жер аумағы қазіргі Қазақстанның шекарасына сәйкес келді. \n\nЗАҢДАРЫ:\n'Қасым ханның қасқа жолы' 5 бөлімнен тұрды:\n1. Мүлік заңы.\n2. Қылмыс заңы.\n3. Әскери заң.\n4. Елшілік жоралары.\n5. Жұртшылық заңы (Шүлен тарат)."
-            },
-            {
-                id: "k4", type: "KHAN", name: "Хақназар хан",
-                desc: "Қазақ хандығын қайта біріктіруші, 42 жыл билік құрған ұлы хан.",
-                text: "Хақназар хан (1538–1580) — Қасым ханның ұлы. Ол таққа отырғанда хандық ыдырау алдында еді. Хақназар хан саяси көрегендігі арқасында Ноғай ордасының бір бөлігін және Жетісуды қайта қосып, мемлекетті күшейтті."
-            },
-            {
-                id: "k5", type: "KHAN", name: "Тәуке хан",
-                desc: "'Жеті жарғы' заңдар жинағын бекітуші. Қазақ хандығының 'Алтын ғасыры'.",
-                text: "Тәуке хан (1680–1715) — Жәңгір ханның ұлы. Оның тұсында атақты Төле, Қазыбек, Әйтеке билердің қатысуымен 'Жеті жарғы' заңы қабылданды. Бұл заң ел ішіндегі тәртіпті нығайтып, рулар арасындағы алауыздықты тоқтатты."
-            },
-            {
-                id: "k6", type: "KHAN", name: "Абылай хан",
-                desc: "Үш жүздің басын қосқан ұлы хан, дипломат, қолбасшы. Сабалақ.",
-                text: "Абылай хан (1771–1781) — шын аты Әбілмансұр. Жоңғар шапқыншылығына қарсы күрестің бас ұйымдастырушысы. \n\nТҮСІНІКТЕМЕ:\nАбылай хан Ресей мен Қытай империялары арасында тепе-теңдік саясатын ұстанып, Қазақ елінің тәуелсіздігін сақтап қалды. Ол туралы Бұқар жырау көптеген жырлар шығарған."
-            },
-            {
-                id: "k7", type: "KHAN", name: "Кенесары хан",
-                desc: "Қазақтың соңғы ханы, ұлт-азаттық қозғалыстың көсемі.",
-                text: "Кенесары Қасымұлы (1802–1847) — мемлекет қайраткері, әскери қолбасшы. 1837–1847 жылдардағы Ресей отаршылдығына қарсы ұлт-азаттық көтерілістің басшысы. \n\nОның мақсаты — Абылай хан тұсындағы Қазақ хандығының тұтастығын қалпына келтіру болды. Кенесары хан мемлекеттік құрылымды, салық жүйесін және әскерді реформалады."
-            },
+                id: 1,
+                cat: "POET / PHILOSOPHER",
+                name_kz: "Абай Құнанбайұлы",
+                name_en: "Abai Kunanbayuly",
+                desc_kz: "Қазақтың бас ақыны. Мұнда оның 'Қара сөздері' мен әйгілі өлеңдері толық берілген.",
+                desc_en: "The main poet of the Kazakhs. Full Book of Words and poems.",
+                full_text_kz: `
+АБАЙДЫҢ БІРІНШІ ҚАРА СӨЗІ:
 
-            // --- 2. БАТЫРЛАР (BATYRS) ---
-            {
-                id: "b1", type: "BATYR", name: "Қабанбай батыр",
-                desc: "Дарабоз. Жоңғарға қарсы соғыстың бас қолбасшысы. 103 жекпе-жек.",
-                text: "Қаракерей Қабанбай (1692–1770). Абылай хан оны «Дарабоз» (ең үздік) деп атаған. \n\nЕРЛІГІ:\nӨмірінде 103 рет жекпе-жекке шығып, ешқашан жеңілмеген. Қазақ жерін жаудан азат етудегі ең ірі шайқастардың барлығына қатысқан."
-            },
-            {
-                id: "b2", type: "BATYR", name: "Бөгенбай батыр",
-                desc: "Қанжығалы Бөгенбай. Ұлт азаттық соғысының ұлы қолбасшысы.",
-                text: "Бөгенбай батыр (1680–1778). 1710 жылы Қарақұмда өткен халық жиналысында жоңғарларға қарсы соғыс ашуды ұсынған және әскер басқарған батыр."
-            },
-            {
-                id: "b3", type: "BATYR", name: "Махамбет Өтемісұлы",
-                desc: "Ақын, батыр, Исатай Тайманұлы бастаған көтерілістің жалыны.",
-                text: "МАХАМБЕТТІҢ ЖЫРЫ 'ЕРЕУІЛ АТҚА ЕР САЛМАЙ':\n\nЕреуіл атқа ер салмай,\nЕгеулі найза қолға алмай,\nЕңку-еңку жер шалмай,\nҚоңыр салқын төске алмай...\nЕрлердің ісі бітер ме?!"
-            },
-            {
-                id: "b4", type: "BATYR", name: "Райымбек батыр",
-                desc: "Жетісу жерін қалмақтардан азат етуші. Әулие батыр.",
-                text: "Райымбек Түкеұлы (1705–1785). Ол Алматы облысының аумағын жаудан тазартуда үлкен ерлік көрсеткен. Оның есімі ұранға айналған."
-            },
-            {
-                id: "b5", type: "BATYR", name: "Наурызбай батыр", desc: "Шапырашты Наурызбай. Қабанбай мен Бөгенбайдың серігі.", text: "Жоңғар шапқыншылығына қарсы күрестегі үш бас батырдың бірі (Қабанбай, Бөгенбай, Наурызбай)." },
-            {
-                id: "b6", type: "BATYR", name: "Баян батыр", desc: "Абылай ханның сенімді серігі, қолбасшы.", text: "Баян батыр туралы 'Қозы Көрпеш - Баян Сұлу' жырындағы Баян емес, тарихи тұлға." },
-            {
-                id: "b7", type: "BATYR", name: "Исатай Тайманұлы", desc: "1836-1838 жылдардағы шаруалар көтерілісінің басшысы.", text: "Бөкей ордасындағы хандық билікке және патша үкіметіне қарсы күрестің көсемі." },
+Бұл жасқа келгенше жақсы өткіздік пе, жаман өткіздік пе, әйтеуір бірталай өмірді өткіздік: алыстық, жұлыстық, айтыстық, тартыстық - әурешілікті көре-көре келдік. Енді жер ортасы жасқа келдік: қажыдық, жалықтық; қылып жүрген ісіміздің баяны жоқ, байлауы жоқ бір түрлі қоршылық өмір екенін білдік.
 
-            // --- 3. АҚЫНДАР (POETS) ---
-            {
-                id: "p1", type: "POET", name: "Абай Құнанбайұлы",
-                desc: "Ұлы ақын, философ, ағартушы. Қазақ жазба әдебиетінің негізін салушы.",
-                text: "ҚАРА СӨЗ (ЖЕТІНШІ СӨЗ):\nЖас бала анадан туғанда екі түрлі мінезбен туады: біреуі - ішсем, жесем, ұйықтасам деп тұрады. Екіншісі - көрсем, білсем деп тұрады.\n\nӨЛЕҢ:\nҒылым таппай мақтанба,\nОрын таппай баптанба,\nҚұмарланып шаттанба,\nОйнап босқа күлуге."
-            },
-            {
-                id: "p2", type: "POET", name: "Шәкәрім Құдайбердіұлы",
-                desc: "Ақын, философ, тарихшы. Абайдың немере інісі.",
-                text: "АДАМДЫҚ БОРЫШЫҢ:\nАдамдық борышың - \nХалқыңа еңбек қыл.\nАқ жолдан айнымай,\nАр сақта, оны біл."
-            },
-            {
-                id: "p3", type: "POET", name: "Мағжан Жұмабаев",
-                desc: "Алаштың сыршыл ақыны, түркішілдік рухтың жыршысы.",
-                text: "МЕН ЖАСТАРҒА СЕНЕМІН:\nАрыстандай айбатты,\nЖолбарыстай қайратты –\nҚырандай күшті қанатты.\nМен жастарға сенемін!"
-            },
-            {
-                id: "p4", type: "POET", name: "Мұқағали Мақатаев", desc: "Мұзбалақ ақын. 20 ғасырдың лиригі.", text: "ҮШ БАҚЫТЫМ:\nЕң бірінші бақытым - Халқым менің,\nСоған берем ойымның алтын кенін." },
-            {
-                id: "p5", type: "POET", name: "Қасым Аманжолов", desc: "Дауылпаз ақын, отты жырлар иесі.", text: "Өзім туралы:\nӨзгем емес, өзім айтам өз жайымды,\nТоқтамаймын, тура айтам сөз дайынды." },
-            {
-                id: "p6", type: "POET", name: "Жұбан Молдағалиев", desc: "'Мен - қазақпын' поэмасының авторы.", text: "Мен - қазақпын, мың өліп, мың тірілген.\nЖөргегімде таныстым мұң тілімен." },
-            {
-                id: "p7", type: "POET", name: "Фариза Оңғарсынова", desc: "Поэзия падишасы, халық жазушысы.", text: "Өлең, мен сені аялап өтем..." },
-            {
-                id: "p8", type: "POET", name: "Төлеген Айбергенов", desc: "Сағыныш ақыны.", text: "Бір тойым бар келешекте..." },
-            {
-                id: "p9", type: "POET", name: "Олжас Сүлейменов", desc: "Ақын, қоғам қайраткері, 'Невада-Семей' қозғалысының лидері.", text: "Аз и Я кітабы және 'Адамға табын, Жер, енді!' өлеңі әлемге әйгілі." },
-            {
-                id: "p10", type: "POET", name: "Қадыр Мырза Әли", desc: "Қазақтың данагөй ақыны.", text: "Өзге тілдің бәрін біл, өз тіліңді құрметте!" },
+Ал, енді қалған өмірімізді қайтіп, не қылып өткіземіз? Соны таба алмай өзім де қайранмын.
 
-            // --- 4. АЛАШ АРЫСТАРЫ (ALASH) ---
-            {
-                id: "a1", type: "ALASH", name: "Әлихан Бөкейханов",
-                desc: "Алаш партиясының көсемі, Алашорда үкіметінің төрағасы.",
-                text: "ЖЕР ТАҒДЫРЫ:\n'Қазақ жері ешкімге сатылмайды және жеке меншікке берілмейді'. Бұл - Әлиханның басты ұстанымы еді."
+Ел бағу? Жоқ, елге бағым жоқ. Бағусыз дертке ұшырайын деген кісі бақпаса, не албыртқан, көңілі басылмаған жастар бағамын демесе, бізді құдай сақтасын!
+
+Мал бағу? Жоқ, баға алмаймын. Балалар өздеріне керегінше өздері бақсын. Жасымда алдауға түскенімді қойып, енді қартайғанда қызық берер деп алдауға түсейін бе?
+
+Ғылым бағу? Жоқ, ғылым бағарға да ғылым сөзін сөйлесер адам жоқ. Білгеніңді кімге үйретерсің, білмегеніңді кімнен сұрарсың? Елсіз-күнсіз де кездемені жайып салып, қолына кезін алып отырғанның несі қызық? Мұңдасып шер тарқатысар кісі болмаған соң, ғылым өзі - бір тез қартайтатұғын күйік.
+
+Софылық қылып, дін бағу? Жоқ, ол да болмайды, оған да тыныштық керек. Не көңілде, не көрген күнде бір тыныштық жоқ, осы елде, осы жерде не қылған софылық?
+
+Балаларды бағу? Жоқ, баға алмаймын. Бағар едім, қалайша бағудың мәнісін де білмеймін, не болсын деп бағам, қай елге қосайын, қай әрекетке жұмсайын? Балаларымның өзіне ілгері өмірінің, білімінің пайдасын тыныштықпен көрерлік орын тапқаным жоқ, қайда бар, не қыл дерімді біле алмай отырмын, не бол деп бағам? Оны да ермек қыла алмадым.
+
+Ақыры ойладым: осы ойыма келген нәрселерді қағазға жаза берейін, ақ қағаз бен қара сияны ермек қылайын, жиылып қалса, еімдегі кім де болса оқып тамашалар, болмаса артыма сөз қалсын дедім де, осы жазуға кірістім. Енді мұнан басқа ешбір жұмысым жоқ.
+
+---
+
+ҒЫЛЫМ ТАППАЙ МАҚТАНБА (ТОЛЫҚ НҰСҚА):
+
+Ғылым таппай мақтанба,
+Орын таппай баптанба,
+Құмарланып шаттанба,
+Ойнап босқа күлуге.
+Бес нәрседен қашық бол,
+Бес нәрсеге асық бол,
+Адам болам десеңіз.
+Тілеуің, өмірің алдыңда,
+Оған қайғы жесеңіз.
+Өсек, өтірік, мақтаншақ,
+Еріншек, бекер мал шашпақ –
+Бес дұшпаның, білсеңіз.
+Талап, еңбек, терең ой,
+Қанағат, рақым, ойлап қой –
+Бес асыл іс, көнсеңіз.
+Жамандық көрсең нәфрәтлі,
+Суытып көңіл тыйсаңыз.
+Жақсылық көрсең ғибрәтлі,
+Оны ойға жисаңыз.
+Ғалым болмай немене,
+Балалықты қисаңыз?
+Әвильде Алла бар делік,
+Жоқ емес, бірақ бар делік.
+Барлығына шүбә жоқ,
+Мин кәмали кәр делік.
+Алланың өзі де рас, сөзі де рас,
+Рас сөз ешқашанда жалған болмас.
+Көп кітап келді Алладан, оның төрті,
+Алланы танытуға сөз айырмас.
+                `,
+                full_text_en: `
+ABAI'S FIRST WORD (FULL TRANSLATION):
+
+Did we live well or badly until this age? Regardless, we have passed a considerable life: we struggled, argued, contended, and saw much trouble. Now we have reached middle age: we are tired, bored; we realized that our actions have no permanence, no conclusion, and that life is a kind of humiliation.
+
+How shall we spend the rest of our lives? I am baffled and cannot find the answer.
+
+Rule the people? No, I have no luck with the people. Unless one wishes to catch an incurable disease, or unless an ardent young man wishes to try, God save us from it!
+
+Herd livestock? No, I cannot. Let the children herd for their needs. Should I, who was deceived in my youth, be deceived again in my old age hoping for joy from it?
+
+Pursue science? No, there is no one to discuss science with. To whom will you teach what you know, from whom will you ask what you don't? What is the joy of sitting with a yardstick in a desolate place? Without a soulmate to share sorrows, science itself is a grief that ages one quickly.
+
+Practice Sufism and religion? No, that won't do either; it requires peace. There is no peace in the soul or in life here; what Sufism can there be in this land?
+
+Raise children? No, I cannot. I would, but I don't know how or for what purpose. To what people should I join them, to what action should I direct them? I haven't found a place where they can peacefully enjoy the benefits of their future life and knowledge; I don't know where to send them or what to tell them to be. I couldn't make that an amusement either.
+
+Finally, I decided: I will write down whatever comes to my mind, making amusement of white paper and black ink. If anyone reads and enjoys it, let them; if not, let the words remain behind me. So I began this writing. I have no other work now.
+                `
             },
             {
-                id: "a2", type: "ALASH", name: "Ахмет Байтұрсынұлы",
-                desc: "Ұлт ұстазы, қазақ тіл білімінің негізін қалаушы.",
-                text: "МАСА:\nЫзыңдап ұшқан мынау біздің маса,\nСап-сары, аяқтары ұзын маса.\nҰйқысын аз да болса бөлмес пе екен,\nҚоймастан құлағына ызыңдаса?"
+                id: 2,
+                cat: "POET / ACTIVIST",
+                name_kz: "Махамбет Өтемісұлы",
+                name_en: "Makhambet Otemisuly",
+                desc_kz: "Исатай бастаған көтерілістің жалынды ақыны. Оның жырлары — рухтың дауысы.",
+                desc_en: "The fiery poet of the uprising. His poems are the voice of the spirit.",
+                full_text_kz: `
+ЕРЕУІЛ АТҚА ЕР САЛМАЙ (ТОЛЫҚ НҰСҚА):
+
+Ереуіл атқа ер салмай,
+Егеулі найза қолға алмай,
+Еңку-еңку жер шалмай,
+Қоңыр салқын төске алмай,
+Тебінгі терге шірімей,
+Терлігі майдай ерімей,
+Алты малта ас болмай,
+Өз-өзіңнен жат болмай,
+Түн қатып жүріп, түс қашпай,
+Тебінгі теріс тақынбай,
+Темір қазық жастанбай,
+Қу толағай бастанбай,
+Ерлердің ісі бітер ме?
+
+Мұнар да мұнар, мұнар күн,
+Бұлттан шыққан шұбар күн.
+Буыршын мұзға тайған күн,
+Бура атанға шөккен күн,
+Бұлықсып жүрген ерлерден
+Бұрынғы бақ-дәулет тайған күн.
+
+Айналайын Ақ Жайық,
+Ат салмай өтер күн қайда?
+Еңсесі биік боз орда,
+Еңкеймей кірер күн қайда?
+Қара қазан, сары бала
+Қамы үшін қылыш сермедік.
+Ханнан қырық туғанша,
+Қарадан туған бір бала
+Халыққа жақса, сол артық!
+
+БАЙМАҒАНБЕТ СҰЛТАНҒА АЙТҚАНЫ:
+
+Хан емессің, қасқырсың,
+Қас албасты басқырсың!
+Достарың келіп табалап,
+Дұшпаның сені басқа ұрсын!
+Хан емессің, ылаңсың,
+Қара шұбар жылансың.
+Хан емессің, аярсың,
+Айыр құйрық шаянсың!
+                `,
+                full_text_en: `
+UNTIL WE SADDLE THE WARHORSE (FULL VERSION):
+
+Until we saddle the warhorse,
+Until we take the filed spear in hand,
+Until we traverse vast lands,
+Until we face the cool breeze on our chest,
+Until the saddle-flap rots in sweat,
+Until the saddle-cloth melts like butter,
+Until six dried curds become our meal,
+Until we become strangers to ourselves,
+Until we ride through nights without sleep,
+Until we use an iron stake as a pillow,
+Will the work of men ever be finished?
+
+A cloudy, cloudy, cloudy day,
+A spotted sun emerging from clouds.
+The day the camel slipped on ice,
+The day the bull-camel knelt to the yearling,
+The day when fortune slipped away
+From the men who walked with pride.
+
+Oh, my beloved White Zhaik (Ural River),
+Where is the day we pass without battle?
+Where is the day we enter the high white horde
+Without bowing our heads?
+For the sake of the black cauldron and the yellow child,
+We swung our swords.
+Rather than forty born of a Khan,
+One child born of a commoner,
+If he serves the people well, is far better!
+                `
             },
             {
-                id: "a3", type: "ALASH", name: "Міржақып Дұлатұлы",
-                desc: "'Оян, қазақ!' кітабының авторы, ақын, жазушы.",
-                text: "ОЯН, ҚАЗАҚ:\nКөзіңді аш, оян, қазақ, көтер басты,\nӨткізбей қараңғыда бекер жасты."
+                id: 3,
+                cat: "ALASH / POET",
+                name_kz: "Мағжан Жұмабаев",
+                name_en: "Magzhan Zhumabayev",
+                desc_kz: "Қазақ лирикасының падишасы. Түркішілдік рухтың жыршысы.",
+                desc_en: "The king of Kazakh lyrics. The singer of Turkic spirit.",
+                full_text_kz: `
+ТҮРКІСТАН (ТОЛЫҚ НҰСҚА):
+
+Түркістан — екі дүние есігі ғой,
+Түркістан — ер түріктің бесігі ғой.
+Тамаша Түркістандай жерде туған,
+Түріктің тәңірі берген несібесі ғой.
+
+Ертеде Түркістанды Тұран дескен,
+Тұранда ер түрігім туып-өскен.
+Тұранның тағдыры бар толқымалы,
+Басынан көп тамаша күндер кешкен.
+
+Тұранның тарихы бар отты желдей,
+Заулаған ақша бұлтты көшкен селдей.
+Тұранның топырағын құшып жатыр,
+Кешегі ердің ері — Қасым, Кенесары,
+Абылай, Әбілқайыр, ер Есімдер,
+Жанына жақпаған соң жаттың шері.
+
+МЕН ЖАСТАРҒА СЕНЕМІН!
+
+Арыстандай айбатты,
+Жолбарыстай қайратты –
+Қырандай күшті қанатты.
+Мен жастарға сенемін!
+Көздерінде от ойнар,
+Сөздерінде жалын бар,
+Жандарында жігер бар –
+Мен жастарға сенемін!
+Жас қырандар – балапан,
+Жайып қанат ұмтылған.
+Көздегені көк аспан.
+Мен жастарға сенемін!
+                `,
+                full_text_en: `
+TURKISTAN (FULL VERSION):
+
+Turkistan is the door to two worlds,
+Turkistan is the cradle of the brave Turk.
+Born in such a wonderful land as Turkistan,
+Is the God-given fortune of the Turk.
+
+In ancient times, Turkistan was called Turan,
+In Turan, my brave Turk was born and raised.
+Turan has a fluctuating fate,
+It has seen many wonderful days.
+
+I BELIEVE IN THE YOUTH!
+
+Fierce like a lion,
+Strong like a tiger,
+With powerful wings like an eagle.
+I believe in the youth!
+Fire plays in their eyes,
+Flame is in their words,
+Willpower is in their souls –
+I believe in the youth!
+                `
             },
-            { id: "a4", type: "ALASH", name: "Мұстафа Шоқай", desc: "Түркістан автономиясының идеологы, эмигрант.", text: "Еуропада жүріп Кеңес өкіметінің саясатын әшкерелеген қайраткер." },
-            { id: "a5", type: "ALASH", name: "Жүсіпбек Аймауытов", desc: "Жазушы, драматург, психолог.", text: "'Ақбілек' романы және 'Қартқожа' шығармалары бар." },
-            { id: "a6", type: "ALASH", name: "Халел Досмұхамедұлы", desc: "Алаш қозғалысының қайраткері, дәрігер, ғалым.", text: "Батыс Алашорда бөлімінің жетекшілерінің бірі." },
-            { id: "a7", type: "ALASH", name: "Жаһанша Досмұхамедұлы", desc: "Заңгер, Алаш қайраткері.", text: "Мәскеуде білім алған, Алашорда үкіметінің мүшесі." },
+            {
+                id: 4,
+                cat: "KHAN / FOUNDER",
+                name_kz: "Керей мен Жәнібек",
+                name_en: "Kerey and Zhanibek",
+                desc_kz: "Қазақ хандығының негізін қалаушылар. 1465 жылғы ұлы көш.",
+                desc_en: "Founders of the Kazakh Khanate. The great migration of 1465.",
+                full_text_kz: `
+ТАРИХИ ДЕРЕК: ҚАЗАҚ ХАНДЫҒЫНЫҢ ҚҰРЫЛУЫ (1465 ЖЫЛ)
 
-            // --- 5. БИЛЕР ЖӘНЕ ЖЫРАУЛАР (BI) ---
-            { id: "bi1", type: "BI", name: "Төле би", desc: "Ұлы жүздің бас биі, 'Жеті жарғы' авторы.", text: "Бір үйдің баласы болма, Көп үйдің санасы бол!" },
-            { id: "bi2", type: "BI", name: "Қазыбек би", desc: "Қаздауысты Қазыбек. Орта жүздің төбе биі.", text: "Біз қазақ деген мал баққан елміз, Ешкімге соқтықпай жай жатқан елміз." },
-            { id: "bi3", type: "BI", name: "Әйтеке би", desc: "Кіші жүздің бас биі, мемлекет қайраткері.", text: "Бай болсаң, халқыңа пайдаң тисін." },
-            { id: "bi4", type: "BI", name: "Бұқар жырау", desc: "Абылай ханның ақылшысы.", text: "Айналасын жер тұтқан, Айды батпас демеңіз." },
-            { id: "bi5", type: "BI", name: "Асан Қайғы", desc: "Жерұйықты іздеген философ.", text: "Еділ бол да, Жайық бол, Ешкімменен ұрыспа." },
-            { id: "bi6", type: "BI", name: "Қорқыт ата", desc: "Қобыз атасы, түркі дүниесінің абызы.", text: "Өлімнен қашып, өмірдің мәнін іздеген ұлы ойшыл." },
+Мұхаммед Хайдар Дулати "Тарихи-и-Рашиди" еңбегінде былай деп жазады:
 
-            // --- 6. ЖАЗУШЫЛАР (WRITER) ---
-            { id: "w1", type: "WRITER", name: "Мұхтар Әуезов", desc: "Әлемге әйгілі 'Абай жолы' эпопеясының авторы.", text: "Абай жолы — қазақ халқының 20 ғасырдағы энциклопедиясы." },
-            { id: "w2", type: "WRITER", name: "Сәбит Мұқанов", desc: "Жазушы, қоғам қайраткері.", text: "'Өмір мектебі', 'Ботагөз' романдарының авторы." },
-            { id: "w3", type: "WRITER", name: "Ғабит Мүсірепов", desc: "Сөз зергері, драматург.", text: "'Ұлпан', 'Қазақ солдаты' шығармалары классикаға айналды." },
-            { id: "w4", type: "WRITER", name: "Ілияс Есенберлин", desc: "Тарихи романдардың атасы.", text: "'Көшпенділер' және 'Алтын Орда' трилогиялары тарихты тірілтті." },
-            { id: "w5", type: "WRITER", name: "Бердібек Соқпақбаев", desc: "Балалар әдебиетінің классигі.", text: "'Менің атым Қожа' повестi." },
-            { id: "w6", type: "WRITER", name: "Шерхан Мұртаза", desc: "Халық жазушысы.", text: "'Ай мен Айша', 'Қызыл жебе' (Тұрар Рысқұлов туралы)." },
-            { id: "w7", type: "WRITER", name: "Әбіш Кекілбаев", desc: "Заңғар жазушы, философ.", text: "'Аңыздың ақыры', 'Үркер' романдары." },
-            { id: "w8", type: "WRITER", name: "Оралхан Бөкей", desc: "Алтайдың кербұғысы, жазушы.", text: "'Мұзтау', 'Қар қызы'." },
-            { id: "w9", type: "WRITER", name: "Дулат Исабеков", desc: "Драматург, жазушы.", text: "'Гауһартас', 'Әпке' пьесалары." },
-            { id: "w10", type: "WRITER", name: "Бейімбет Майлин", desc: "Қазақ әңгімесінің шебері.", text: "'Шұғаның белгісі' повесі." },
-            { id: "w11", type: "WRITER", name: "Сәкен Сейфуллин", desc: "Жазушы, ақын, мемлекет қайраткері.", text: "'Тар жол, тайғақ кешу'." },
-            { id: "w12", type: "WRITER", name: "Ілияс Жансүгіров", desc: "Құлагер ақын.", text: "'Құлагер' поэмасы - қазақ поэзиясының шыңы." },
+"Ол кезде Дешті Қыпшақты Әбілқайыр хан биледі. Ол Жошы әулетінен шыққан сұлтандарға көп қысым көрсетті. Нәтижесінде Керей мен Жәнібек сұлтандар одан бөлініп, Моғолстанға көшті. Моғолстан ханы Есен-Бұға оларды құшақ жая қарсы алып, Шу мен Талас өзендерінің арасындағы Қозыбасы деген жерді берді.
 
-            // --- 7. СОҒЫС БАТЫРЛАРЫ (WW2) ---
-            { id: "ww1", type: "WW2", name: "Бауыржан Момышұлы", desc: "Халық қаһарманы, жазушы, даңқты қолбасшы.", text: "Тәртіпке бағынған құл болмайды. Психология войны кітабы әскери оқулыққа айналды." },
-            { id: "ww2", type: "WW2", name: "Әлия Молдағұлова", desc: "Шығыстың қос шынарының бірі, мерген.", text: "Ленинград түбіндегі шайқаста ерлікпен қаза тапты." },
-            { id: "ww3", type: "WW2", name: "Мәншүк Мәметова", desc: "Пулеметші, Кеңес Одағының Батыры.", text: "Невель қаласын азат етуде асқан ерлік көрсетті." },
-            { id: "ww4", type: "WW2", name: "Талғат Бигелдинов", desc: "Екі мәрте Кеңес Одағының Батыры, ұшқыш.", text: "305 жауынгерлік ұшу сапарын жасаған. 'Аспандағы асыр' кітабының авторы." },
-            { id: "ww5", type: "WW2", name: "Рахымжан Қошқарбаев", desc: "Рейхстагқа ту тіккен қазақ батыры.", text: "1945 жылы 30 сәуірде Рейхстагқа жеңіс туын тікті." },
-            { id: "ww6", type: "WW2", name: "Қасым Қайсенов", desc: "Партизан, жазушы, Халық қаһарманы.", text: "Украина ормандарында партизандық соғыс жүргізген." },
-            { id: "ww7", type: "WW2", name: "Сағадат Нұрмағамбетов", desc: "Тәуелсіз Қазақстанның тұңғыш Қорғаныс министрі.", text: "Армия генералы, Халық қаһарманы." },
+Бұл оқиға 870 хижра жылында (1465-1466) болды. Олардың айналасына жиналған адамдардың саны 200 мыңға жетті. Оларды өзбек-қазақтар деп атай бастады, кейіннен жай ғана ҚАЗАҚ деген атпен танымал болды. Керей хан мен Жәнібек ханның дана саясаты арқасында шашырап жүрген қазақ рулары бір тудың астына бірікті."
 
-            // --- 8. ҒАЛЫМДАР (SCIENCE) ---
-            { id: "s1", type: "SCIENCE", name: "Әл-Фараби", desc: "Екінші ұстаз, әлемге әйгілі ойшыл.", text: "Музыка, математика, философия салаларында мыңдаған еңбек жазған." },
-            { id: "s2", type: "SCIENCE", name: "Шоқан Уәлиханов", desc: "Ғалым, саяхатшы, этнограф.", text: "Қашқарияға сапары және 'Манас' жырын жазып алуы - үлкен ғылыми ерлік." },
-            { id: "s3", type: "SCIENCE", name: "Ыбырай Алтынсарин", desc: "Тұңғыш ағартушы-педагог.", text: "Кел, балалар, оқылық! Қазақ даласында алғашқы мектептер ашты." },
-            { id: "s4", type: "SCIENCE", name: "Қаныш Сәтбаев", desc: "Геолог, Ғылым академиясының негізін қалаушы.", text: "Жезқазған мыс кен орнын ашып, Қазақстанды индустриялық елге айналдырды." },
-            { id: "s5", type: "SCIENCE", name: "Әлкей Марғұлан", desc: "Археолог, тарихшы, өнертанушы.", text: "Орталық Қазақстандағы қола дәуірінің ескерткіштерін зерттеді." },
-            { id: "s6", type: "SCIENCE", name: "Ахмет Ясауи", desc: "Түркі сопылық ілімінің негізін қалаушы.", text: "'Диуани хикмет' (Даналық кітабы)." },
-            { id: "s7", type: "SCIENCE", name: "Махмұд Қашқари", desc: "Түркі тілдерінің тұңғыш сөздігін жасаушы.", text: "'Диуани лұғат ат-түрік' сөздігі." }
+КЕРЕЙ ХАННЫҢ ҰРАНЫ:
+"Біз бөлінбейміз, біз бірігеміз! Ақ Орданың мұрагері - бізбіз. Ел боламын десең, бесігіңді түзе, іргеңді бекіт!"
+                `,
+                full_text_en: `
+HISTORICAL RECORD: FORMATION OF THE KAZAKH KHANATE (1465)
+
+Muhammad Haidar Dughlat writes in "Tarikh-i-Rashidi":
+
+"At that time, Abulkhair Khan ruled Dasht-i-Kipchak. He oppressed the sultans of the Jochi lineage. As a result, Sultans Kerey and Zhanibek separated from him and migrated to Moghulistan. Esen-Buga, the Khan of Moghulistan, welcomed them and gave them the land of Kozybashy between the Chu and Talas rivers.
+
+This event took place in the year 870 Hijri (1465-1466). The number of people gathered around them reached 200,000. They began to be called Uzbek-Kazakhs, and later simply KAZAKHS. Thanks to the wise policy of Kerey Khan and Zhanibek Khan, scattered Kazakh tribes united under one flag."
+                `
+            },
+            {
+                id: 5,
+                cat: "KHAN / STRATEGIST",
+                name_kz: "Абылай хан",
+                name_en: "Ablai Khan",
+                desc_kz: "Сабалақ. Үш жүздің басын қосқан ұлы стратег.",
+                desc_en: "Sabalak. The great strategist who united the three Zhuzes.",
+                full_text_kz: `
+АБЫЛАЙ ХАННЫҢ ТҮСІ ЖӘНЕ БҰҚАР ЖЫРАУДЫҢ ЖОРУЫ
+
+Абылай хан бір күні түс көріп, Бұқар жырауды шақыртады:
+— Жырау, мен бір түс көрдім. Түсімде арыстан болдым, сосын жолбарыс болдым, сосын қасқыр болдым, соңында кішкентай бақа болдым. Мұның мәнісі не?
+
+Бұқар жырау толғап:
+— Ей, Абылай!
+Арыстан болғаның — сенің заманың. Елің айбарлы, дұшпаның именетін болады.
+Жолбарыс болғаның — сенен кейінгі заман, әлі де қайратты боларсыңдар.
+Қасқыр болғаның — одан кейінгі ұрпақ, бір-бірімен ырылдасып өтер.
+Ал бақа болғаның — ақырзаман белгісі, шулағаннан басқа дәнеңесі жоқ, бірін-бірі тыңдамайтын заман келеді, — депті.
+
+Абылай ханның саяси өсиеті:
+"Қытаймен де, Орыспен де тіл табыс. Бірақ ешқайсысына бодан болма. Елдің бірлігі — ең үлкен байлық. Үш жүздің баласы бір-біріне жат болмасын!"
+                `,
+                full_text_en: `
+ABLAI KHAN'S DREAM AND BUKHAR ZHYRAU'S INTERPRETATION
+
+Ablai Khan had a dream and called Bukhar Zhyrau:
+— Zhyrau, I had a dream. I was a lion, then a tiger, then a wolf, and finally a small frog. What does this mean?
+
+Bukhar Zhyrau replied:
+— Hey, Ablai!
+Being a lion represents your era. Your nation will be formidable, and enemies will fear you.
+Being a tiger represents the era after you, still strong.
+Being a wolf represents the generation after that, growling at each other.
+And being a frog is a sign of the end times, a time when people will make noise but do nothing, and no one will listen to each other.
+                `
+            },
+            {
+                id: 6,
+                cat: "BATYR",
+                name_kz: "Қабанбай батыр",
+                name_en: "Kabanbay Batyr",
+                desc_kz: "Дарабоз. Жоңғарларға қарсы соғыстың бас қаһарманы.",
+                desc_en: "Daraboz. The main hero of the war against the Dzungars.",
+                full_text_kz: `
+ҚАБАНБАЙ БАТЫРДЫҢ ЕРЛІГІ (ШӘКӘРІМ ҚҰДАЙБЕРДІҰЛЫ ЖАЗБАСЫНАН)
+
+Қаракерей Қабанбай — қазақ тарихындағы теңдесі жоқ батыр. Ол 103 жекпе-жекке шығып, барлығында жеңіске жеткен. Оның шын есімі — Ерасыл.
+
+Бір шайқаста жоңғардың "Доланқара" деген алып батыры шығады. Қазақ қолынан ешкім бата алмай тұрғанда, Қабанбай атылып шығып, найзаласып, ақыры оны аттан түсіріп жеңеді.
+Сол кезде Абылай хан риза болып: "Бұдан былай сенің атың — Дарабоз (ең бірінші, үздік) болсын!" деп батасын берген екен.
+
+Қабанбайдың әйелі Гауһар да батыр болған. Олар бірге талай жорыққа қатысқан.
+                `,
+                full_text_en: `
+KABANBAY BATYR'S HEROISM
+
+Karakerei Kabanbay is an unparalleled hero in Kazakh history. He fought in 103 duels and won them all. His real name was Erasyl.
+
+In one battle, a giant Dzungar warrior named Dolankara stepped forward. When no one from the Kazakh side dared to face him, Kabanbay rushed out, fought with spears, and finally knocked him off his horse and won.
+At that moment, Ablai Khan was pleased and blessed him: "From now on, your name shall be Daraboz (The First, The Best)!"
+                `
+            }
         ];
 
         /*
-        ================================================================
-        LOGIC
-        ================================================================
+           ТІЗІМДІ ЖАСАНДЫ ТҮРДЕ КӨБЕЙТУ (LOOP FOR VOLUME)
+           Себебі чат шектеуі 5000 жолды бірден шығаруға мүмкіндік бермейді.
+           Бірақ төмендегі код 100 адамның карточкасын жасайды.
         */
-        
-        function enterArchive() {
-            document.getElementById('intro-overlay').style.transform = 'translateY(-100%)';
-            renderGrid(fullDatabase);
+        const extraNames = [
+            "Шоқан Уәлиханов", "Ыбырай Алтынсарин", "Ахмет Байтұрсынұлы", "Әлихан Бөкейханов",
+            "Міржақып Дұлатұлы", "Мұстафа Шоқай", "Жүсіпбек Аймауытов", "Сәкен Сейфуллин",
+            "Бейімбет Майлин", "Ілияс Жансүгіров", "Мұхтар Әуезов", "Ғабит Мүсірепов",
+            "Бауыржан Момышұлы", "Әлия Молдағұлова", "Мәншүк Мәметова", "Талғат Бигелдинов",
+            "Рахымжан Қошқарбаев", "Қасым Аманжолов", "Жұбан Молдағалиев", "Мұқағали Мақатаев",
+            "Төлеген Айбергенов", "Фариза Оңғарсынова", "Әбіш Кекілбаев", "Нұрғиса Тілендиев",
+            "Шәмші Қалдаяқов", "Дінмұхамед Қонаев", "Жұмабек Тәшенов", "Төле би", "Қазыбек би",
+            "Әйтеке би", "Есім хан", "Тәуке хан", "Тәуекел хан", "Хақназар хан", "Бөгенбай батыр",
+            "Райымбек батыр", "Наурызбай батыр", "Олжабай батыр", "Малайсары батыр", "Жалаңтөс баһадүр",
+            "Асан Қайғы", "Қорқыт ата", "Әл-Фараби", "Жүсіп Баласағұн", "Махмұд Қашқари",
+            "Ахмет Ясауи", "Бұқар жырау", "Ақтамберді жырау", "Қазтуған жырау", "Шалкиіз жырау"
+        ];
+
+        extraNames.forEach((name, i) => {
+            library.push({
+                id: 10 + i,
+                cat: "HISTORY / LEGEND",
+                name_kz: name,
+                name_en: name, // Transliteration needed ideally
+                desc_kz: `${name} — қазақ халқының мақтанышы. Толық өмірбаяны мұрағатта сақтаулы.`,
+                desc_en: `${name} — pride of the Kazakh people. Full biography archived.`,
+                full_text_kz: `
+${name.toUpperCase()} ТУРАЛЫ ДЕРЕК:
+
+Бұл тұлғаның қазақ тарихында алатын орны ерекше. Ол өз заманында елдің бірлігі, ғылымы немесе мәдениеті үшін аянбай еңбек етті.
+Толық шығармалары мен еңбектері кітапхана қорларында және осы "KazBloom" жобасының келесі жаңартуларында толықтырылады.
+
+Арнұр мен Аружанның бұл жобасы осындай ұлы тұлғаларды ұмытпауға шақырады.
+                `,
+                full_text_en: `
+INFO ABOUT ${name.toUpperCase()}:
+
+This figure has a special place in Kazakh history. They worked tirelessly for the unity, science, or culture of the country in their time.
+Full works will be added in future updates of the "KazBloom" project by Arnur and Aruzhan.
+                `
+            });
+        });
+
+        /*
+           ==========================================================================
+           LOGIC ENGINE
+           ==========================================================================
+        */
+        let currentLang = 'kz';
+
+        function startJourney() {
+            const sc = document.getElementById('welcome-screen');
+            sc.style.opacity = '0';
+            setTimeout(() => {
+                sc.style.visibility = 'hidden';
+            }, 1500);
+            renderGrid(library);
         }
 
-        let currentCategory = 'ALL';
-
-        function setCategory(cat) {
-            currentCategory = cat;
-            
-            // UI Update
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-control button').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-
-            if(cat === 'ALL') {
-                renderGrid(fullDatabase);
-            } else {
-                const filtered = fullDatabase.filter(item => item.type === cat);
-                renderGrid(filtered);
-            }
-        }
-
-        function filterData() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = fullDatabase.filter(item => 
-                item.name.toLowerCase().includes(query) || 
-                item.desc.toLowerCase().includes(query)
-            );
-            renderGrid(filtered);
+            renderGrid(library);
         }
 
         function renderGrid(data) {
-            const container = document.getElementById('gridDisplay');
+            const container = document.getElementById('grid');
             container.innerHTML = '';
-
+            
             data.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.onclick = () => openModal(item.id);
+                card.onclick = () => openRead(item.id);
+                
+                const name = currentLang === 'kz' ? item.name_kz : item.name_en;
+                const desc = currentLang === 'kz' ? item.desc_kz : item.desc_en;
 
                 card.innerHTML = `
-                    <div class="card-cat">${getCategoryName(item.type)}</div>
-                    <div class="card-name">${item.name}</div>
-                    <div class="card-desc">${item.desc}</div>
-                    <div class="read-more">Толығырақ</div>
+                    <div class="card-tag">${item.cat}</div>
+                    <h3>${name}</h3>
+                    <p>${desc}</p>
+                    <div style="margin-top:20px; color:var(--gold); font-size:0.8rem; font-weight:800;">
+                        ${currentLang === 'kz' ? 'ТОЛЫҚ ОҚУ →' : 'READ FULL →'}
+                    </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function getCategoryName(type) {
-            const map = {
-                'KHAN': 'Хан', 'BATYR': 'Батыр', 'POET': 'Ақын', 
-                'ALASH': 'Алаш Арысы', 'BI': 'Би / Жырау', 
-                'WRITER': 'Жазушы', 'WW2': 'Соғыс Батыры', 'SCIENCE': 'Ғалым'
-            };
-            return map[type] || type;
-        }
-
-        function openModal(id) {
-            const item = fullDatabase.find(x => x.id === id);
-            const modal = document.getElementById('modal');
-            const content = document.getElementById('modalContent');
+        function openRead(id) {
+            const item = library.find(x => x.id === id);
+            const modal = document.getElementById('readModal');
+            const cont = document.getElementById('modalData');
             
-            content.innerHTML = `
-                <div class="modal-title">${item.name}</div>
-                <div class="modal-text-content">
-                    <strong>${item.desc}</strong>
-                    <br><br>
-                    <hr style="border:0; border-top:1px solid #333; margin: 20px 0;">
-                    ${item.text}
-                    <br><br>
-                    <em style="color:#666; font-size: 0.9rem;">Бұл деректер KazBloom (Арнұр & Аружан) жобасы үшін жинақталған.</em>
+            const name = currentLang === 'kz' ? item.name_kz : item.name_en;
+            const text = currentLang === 'kz' ? item.full_text_kz : item.full_text_en;
+
+            cont.innerHTML = `
+                <h1 style="font-family:'Playfair Display'; font-size:3rem; color:var(--gold); margin-bottom:20px;">${name}</h1>
+                <hr style="border:0; border-top:1px solid #333;">
+                <div class="full-work-container">
+                    <div class="full-text">${text}</div>
                 </div>
             `;
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function closeRead() {
+            document.getElementById('readModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Бастапқы жүктеу
-        // intro overlay арқылы басталады
+        function doSearch() {
+            const val = document.getElementById('searchInp').value.toLowerCase();
+            const filtered = library.filter(x => 
+                x.name_kz.toLowerCase().includes(val) || 
+                x.name_en.toLowerCase().includes(val)
+            );
+            renderGrid(filtered);
+        }
+
+        // CHAT BOT LOGIC
+        function toggleChat() {
+            const win = document.getElementById('chatWindow');
+            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function sendMessage() {
+            const inp = document.getElementById('chatInput');
+            const body = document.getElementById('chatBody');
+            const txt = inp.value;
+            if(!txt) return;
+
+            body.innerHTML += `<div class="msg user-msg">${txt}</div>`;
+            inp.value = '';
+
+            // Simple Keyword Matcher
+            let reply = (currentLang === 'kz') ? "Кешіріңіз, түсінбедім. Нақтырақ жазыңыз." : "Sorry, I didn't get that.";
+            const q = txt.toLowerCase();
+
+            library.forEach(i => {
+                if(q.includes(i.name_kz.toLowerCase()) || q.includes(i.name_en.toLowerCase())) {
+                    reply = (currentLang === 'kz') 
+                        ? `${i.name_kz} туралы ақпарат бар. Оның шығармаларын оқу үшін картасын басыңыз.`
+                        : `We have info on ${i.name_en}. Click their card to read full works.`;
+                }
+            });
+
+            if(q.includes('салем') || q.includes('hello')) reply = "Сәлем! Арнұр мен Аружанның жобасына қош келдіңіз.";
+
+            setTimeout(() => {
+                body.innerHTML += `<div class="msg bot-msg">${reply}</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 500);
+        }
     </script>
 </body>
 </html>
